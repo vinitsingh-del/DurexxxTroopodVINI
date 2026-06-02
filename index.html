@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Durex Play Wild Wand | Parallax Product Page</title>
+  <style>
+    :root {
+      --durex-blue: #005baa;
+      --deep-blue: #031c5d;
+      --ink: #08111f;
+      --cream: #fff7dd;
+      --acid: #d7ff3f;
+      --coral: #ff5d6c;
+      --mint: #4dffd2;
+      --violet: #633cff;
+      --sky: #6bd8ff;
+      --scroll: 0;
+      --hero-tilt-x: 0deg;
+      --hero-tilt-y: 0deg;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: #f8fbff;
+      background: #050713;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    .page {
+      position: relative;
+      isolation: isolate;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 9% 16%, rgba(255, 93, 108, 0.38), transparent 22rem),
+        radial-gradient(circle at 86% 8%, rgba(77, 255, 210, 0.26), transparent 24rem),
+        linear-gradient(145deg, #030718 0%, #052675 42%, #080b19 100%);
+    }
+
+    .grid-noise {
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      opacity: 0.24;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      transform: translateY(calc(var(--scroll) * -0.04px));
+      mask-image: linear-gradient(to bottom, black 0%, transparent 76%);
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 28rem;
+      aspect-ratio: 1;
+      left: var(--x, 50%);
+      top: var(--y, 30%);
+      z-index: -3;
+      translate: -50% -50%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(215, 255, 63, 0.22), transparent 62%);
+      filter: blur(4px);
+      pointer-events: none;
+    }
+
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem clamp(1rem, 3vw, 3rem);
+      background: linear-gradient(180deg, rgba(2, 8, 32, 0.92), rgba(2, 8, 32, 0.18));
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 5rem;
+      height: auto;
+    }
+
+    .brand span {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.77rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.25rem;
+      padding: 0.45rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .chip.buy {
+      color: #071022;
+      background: var(--acid);
+      border-color: transparent;
+      box-shadow: 0 0 28px rgba(215, 255, 63, 0.34);
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.86fr);
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: center;
+      min-height: 96vh;
+      padding: 7.5rem clamp(1rem, 5vw, 5rem) 4rem;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 72vw;
+      height: 72vw;
+      left: -20vw;
+      top: -24vw;
+      border-radius: 46% 54% 57% 43%;
+      background: conic-gradient(from 140deg, rgba(255, 93, 108, 0.55), rgba(107, 216, 255, 0.34), rgba(215, 255, 63, 0.42), rgba(99, 60, 255, 0.48), rgba(255, 93, 108, 0.55));
+      filter: blur(28px);
+      transform: rotate(calc(var(--scroll) * 0.025deg));
+      opacity: 0.66;
+    }
+
+    .hero::after {
+      inset: auto -8rem -16rem auto;
+      width: min(52rem, 76vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        repeating-radial-gradient(circle, rgba(255, 255, 255, 0.16) 0 2px, transparent 2px 20px),
+        radial-gradient(circle, rgba(77, 255, 210, 0.34), transparent 58%);
+      transform: translateY(calc(var(--scroll) * -0.1px));
+      opacity: 0.7;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 46rem;
+      transform: translateY(calc(var(--scroll) * -0.045px));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin: 0 0 1.1rem;
+      color: var(--acid);
+      font-size: 0.82rem;
+      font-weight: 950;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 0.74rem;
+      height: 0.74rem;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 0.45rem rgba(255, 93, 108, 0.14), 0 0 32px rgba(255, 93, 108, 0.8);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(4.2rem, 13vw, 12.8rem);
+      line-height: 0.79;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .wild {
+      display: block;
+      color: var(--acid);
+      text-shadow: 0.05em 0.05em 0 var(--coral), -0.035em -0.035em 0 rgba(107, 216, 255, 0.72);
+    }
+
+    .wand {
+      display: block;
+      color: #fff;
+      text-shadow: 0 0 42px rgba(255, 255, 255, 0.45);
+    }
+
+    .hero-text {
+      max-width: 39rem;
+      margin: 1.35rem 0 0;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: clamp(1rem, 1.9vw, 1.35rem);
+      line-height: 1.55;
+    }
+
+    .hero-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.85rem;
+      margin-top: 1.7rem;
+    }
+
+    .price-pill {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.76rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+
+    .price-pill strong {
+      color: #fff;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .price-pill s {
+      color: rgba(255, 255, 255, 0.58);
+      font-weight: 700;
+    }
+
+    .primary-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3.4rem;
+      padding: 0.85rem 1.25rem;
+      border: 0;
+      border-radius: 999px;
+      color: #051226;
+      background: linear-gradient(135deg, var(--acid), #fff166);
+      box-shadow: 0 1.1rem 3.5rem rgba(215, 255, 63, 0.28);
+      text-decoration: none;
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .ghost-cta {
+      min-height: 3.4rem;
+      padding: 0.85rem 1.05rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      text-decoration: none;
+      font-weight: 850;
+    }
+
+    .hero-stage {
+      position: relative;
+      min-height: min(42rem, 78vh);
+      perspective: 1000px;
+      transform: translateY(calc(var(--scroll) * 0.045px));
+    }
+
+    .product-orbit {
+      position: absolute;
+      inset: 5% 0 auto 0;
+      display: grid;
+      place-items: center;
+      min-height: 88%;
+      transform: rotateX(var(--hero-tilt-x)) rotateY(var(--hero-tilt-y));
+      transform-style: preserve-3d;
+      transition: transform 160ms ease-out;
+    }
+
+    .halo {
+      position: absolute;
+      width: min(35rem, 78vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 32%),
+        conic-gradient(from calc(var(--scroll) * 0.18deg), var(--mint), var(--violet), var(--coral), var(--acid), var(--mint));
+      filter: saturate(1.35);
+      box-shadow: 0 0 7rem rgba(77, 255, 210, 0.28);
+      animation: breathe 4.8s ease-in-out infinite;
+    }
+
+    .halo::after {
+      content: "";
+      position: absolute;
+      inset: 7%;
+      border-radius: inherit;
+      background: #071342;
+    }
+
+    .product-shot {
+      position: relative;
+      z-index: 2;
+      width: min(35rem, 82vw);
+      border-radius: 2rem;
+      filter: drop-shadow(0 3rem 3rem rgba(0, 0, 0, 0.38));
+      transform: translateZ(5rem) rotate(calc(var(--scroll) * -0.012deg));
+    }
+
+    .float-tag {
+      position: absolute;
+      z-index: 4;
+      display: grid;
+      place-items: center;
+      width: 7.7rem;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      color: #07101d;
+      background: var(--mint);
+      box-shadow: 0 0 0 0.55rem rgba(77, 255, 210, 0.16), 0 1rem 2.4rem rgba(0, 0, 0, 0.28);
+      font-weight: 1000;
+      text-align: center;
+      text-transform: uppercase;
+      line-height: 1.02;
+      animation: bob 3.2s ease-in-out infinite;
+    }
+
+    .float-tag.one {
+      left: -0.8rem;
+      top: 15%;
+      background: var(--acid);
+    }
+
+    .float-tag.two {
+      right: -1rem;
+      bottom: 14%;
+      color: #fff;
+      background: var(--coral);
+      animation-delay: -1.1s;
+    }
+
+    .wave-band {
+      position: relative;
+      min-height: 56vh;
+      display: grid;
+      place-items: center;
+      padding: clamp(3rem, 8vw, 7rem) 1rem;
+      overflow: hidden;
+      background: #fff;
+      color: var(--deep-blue);
+    }
+
+    .wave-band::before {
+      content: "buzz buzz buzz buzz buzz buzz buzz buzz buzz buzz";
+      position: absolute;
+      left: -6vw;
+      top: 4vh;
+      color: rgba(0, 91, 170, 0.08);
+      font-size: clamp(4rem, 12vw, 12rem);
+      font-weight: 1000;
+      line-height: 0.85;
+      white-space: nowrap;
+      text-transform: uppercase;
+      transform: translateX(calc(var(--scroll) * -0.18px));
+    }
+
+    .wave-inner {
+      position: relative;
+      z-index: 1;
+      width: min(72rem, 100%);
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: clamp(1.5rem, 4vw, 4rem);
+      align-items: center;
+    }
+
+    .banner-window {
+      position: relative;
+      overflow: hidden;
+      min-height: 28rem;
+      border-radius: 0;
+      background: var(--durex-blue);
+      box-shadow: 1rem 1rem 0 var(--acid), -1rem -1rem 0 var(--coral);
+    }
+
+    .banner-window img {
+      width: 100%;
+      height: 100%;
+      min-height: 28rem;
+      object-fit: cover;
+      transform: scale(1.08) translateY(calc(var(--scroll) * -0.035px));
+    }
+
+    .wave-copy h2,
+    .section-title {
+      margin: 0;
+      font-size: clamp(2.2rem, 6vw, 5.7rem);
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .wave-copy p {
+      margin: 1.25rem 0 0;
+      color: rgba(3, 28, 93, 0.78);
+      font-size: clamp(1rem, 1.7vw, 1.2rem);
+      line-height: 1.7;
+    }
+
+    .features {
+      padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 5vw, 5rem);
+      background:
+        linear-gradient(180deg, #071342 0%, #060712 100%),
+        radial-gradient(circle at 20% 30%, rgba(255, 93, 108, 0.28), transparent 20rem);
+    }
+
+    .feature-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      align-items: end;
+      max-width: 78rem;
+      margin: 0 auto 2rem;
+    }
+
+    .feature-head p {
+      max-width: 23rem;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.55;
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      max-width: 78rem;
+      margin: 0 auto;
+    }
+
+    .mode-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 20rem;
+      padding: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 0.5rem;
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(calc((var(--scroll) - 1100) * -0.012px));
+    }
+
+    .mode-card:nth-child(2) {
+      transform: translateY(calc((var(--scroll) - 1100) * 0.012px));
+    }
+
+    .mode-card:nth-child(3) {
+      transform: translateY(calc((var(--scroll) - 1100) * -0.018px));
+    }
+
+    .mode-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -20% -22% auto;
+      width: 14rem;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--tone, var(--mint));
+      filter: blur(3rem);
+      opacity: 0.55;
+    }
+
+    .mode-card img {
+      position: absolute;
+      inset: auto -5% 0 auto;
+      width: min(20rem, 84%);
+      opacity: 0.92;
+      filter: drop-shadow(0 1.4rem 1rem rgba(0, 0, 0, 0.32));
+    }
+
+    .mode-card strong {
+      position: relative;
+      z-index: 1;
+      display: block;
+      max-width: 12rem;
+      color: var(--tone, var(--mint));
+      font-size: 4.7rem;
+      line-height: 0.8;
+      text-transform: uppercase;
+    }
+
+    .mode-card span {
+      position: relative;
+      z-index: 1;
+      display: block;
+      max-width: 12rem;
+      margin-top: 0.8rem;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.45;
+      font-weight: 750;
+    }
+
+    .showcase {
+      position: relative;
+      padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 5vw, 5rem);
+      color: var(--ink);
+      background: var(--cream);
+      overflow: hidden;
+    }
+
+    .showcase::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, transparent 0 42%, rgba(0, 91, 170, 0.12) 42% 44%, transparent 44% 100%),
+        repeating-linear-gradient(90deg, rgba(8, 17, 31, 0.05) 0 1px, transparent 1px 7rem);
+      transform: translateX(calc(var(--scroll) * 0.07px));
+    }
+
+    .showcase-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1rem, 4vw, 4rem);
+      align-items: center;
+      max-width: 80rem;
+      margin: 0 auto;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 5rem minmax(0, 1fr);
+      gap: 0.9rem;
+      align-items: stretch;
+    }
+
+    .thumbs {
+      display: grid;
+      gap: 0.7rem;
+      align-content: start;
+    }
+
+    .thumb {
+      aspect-ratio: 1;
+      padding: 0;
+      overflow: hidden;
+      border: 2px solid transparent;
+      border-radius: 0.5rem;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .thumb.active {
+      border-color: var(--durex-blue);
+      box-shadow: 0 0 0 0.25rem rgba(0, 91, 170, 0.14);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .main-frame {
+      position: relative;
+      min-height: 32rem;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 0.35rem solid var(--ink);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(215, 255, 63, 0.7), transparent 14rem),
+        linear-gradient(135deg, #ffffff, #dff7ff);
+    }
+
+    .main-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transform: scale(1.02);
+    }
+
+    .buy-panel {
+      align-self: stretch;
+      display: grid;
+      align-content: center;
+      gap: 1.2rem;
+      padding: clamp(1.2rem, 3vw, 2rem);
+      color: #fff;
+      background: var(--deep-blue);
+      border-radius: 0.5rem;
+      box-shadow: 1rem 1rem 0 var(--coral);
+    }
+
+    .buy-panel h2 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(2rem, 4.6vw, 4.3rem);
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .buy-panel p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.76);
+      line-height: 1.65;
+    }
+
+    .specs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+    }
+
+    .spec {
+      padding: 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 0.5rem;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .spec b {
+      display: block;
+      color: var(--acid);
+      font-size: 1.65rem;
+      line-height: 1;
+    }
+
+    .spec span {
+      display: block;
+      margin-top: 0.3rem;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding: 0.65rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .quantity button {
+      width: 2.4rem;
+      height: 2.4rem;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--deep-blue);
+      font-weight: 1000;
+      cursor: pointer;
+    }
+
+    .quantity span {
+      min-width: 3ch;
+      text-align: center;
+      font-weight: 950;
+    }
+
+    .immersive {
+      position: relative;
+      min-height: 90vh;
+      display: grid;
+      place-items: center;
+      padding: clamp(3rem, 8vw, 8rem) 1rem;
+      background: #050713;
+      overflow: hidden;
+    }
+
+    .immersive img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 120%;
+      object-fit: cover;
+      opacity: 0.58;
+      transform: translateY(calc((var(--scroll) - 2700) * -0.08px));
+    }
+
+    .immersive::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5, 7, 19, 0.12), #050713 92%);
+    }
+
+    .immersive-copy {
+      position: relative;
+      z-index: 1;
+      max-width: 58rem;
+      text-align: center;
+    }
+
+    .immersive-copy h2 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(3rem, 10vw, 9rem);
+      line-height: 0.82;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      text-shadow: 0 0 3rem rgba(0, 0, 0, 0.75);
+    }
+
+    .immersive-copy p {
+      max-width: 38rem;
+      margin: 1.4rem auto 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    .faq {
+      padding: clamp(4rem, 9vw, 7rem) clamp(1rem, 5vw, 5rem);
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .faq-inner {
+      max-width: 72rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: clamp(1rem, 4vw, 4rem);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    details {
+      border: 1px solid rgba(8, 17, 31, 0.14);
+      border-radius: 0.5rem;
+      background: #f5f8ff;
+      overflow: hidden;
+    }
+
+    summary {
+      padding: 1rem 1.1rem;
+      color: var(--deep-blue);
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    details p {
+      margin: 0;
+      padding: 0 1.1rem 1.1rem;
+      color: rgba(8, 17, 31, 0.74);
+      line-height: 1.62;
+    }
+
+    .footer-buy {
+      position: sticky;
+      bottom: 0;
+      z-index: 18;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 4vw, 3rem);
+      background: rgba(3, 16, 52, 0.92);
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(20px);
+    }
+
+    .footer-buy strong {
+      display: block;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .footer-buy span {
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.86rem;
+      font-weight: 750;
+    }
+
+    .pulse-line {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 30;
+      height: 0.28rem;
+      background: linear-gradient(90deg, var(--coral), var(--acid), var(--mint), var(--sky));
+      transform-origin: left;
+      transform: scaleX(calc(var(--scroll-progress, 0) * 1));
+    }
+
+    @keyframes breathe {
+      0%, 100% {
+        transform: scale(0.96) rotate(0deg);
+      }
+      50% {
+        transform: scale(1.04) rotate(8deg);
+      }
+    }
+
+    @keyframes bob {
+      0%, 100% {
+        transform: translateY(0) rotate(-8deg);
+      }
+      50% {
+        transform: translateY(-1rem) rotate(8deg);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .wave-inner,
+      .showcase-inner,
+      .faq-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 6.6rem;
+        gap: 1.2rem;
+      }
+
+      .hero-stage {
+        min-height: 30rem;
+      }
+
+      .product-orbit {
+        inset: 0;
+      }
+
+      .wave-band {
+        min-height: auto;
+        padding-block: clamp(2.75rem, 8vw, 4.5rem);
+      }
+
+      .features,
+      .showcase,
+      .faq {
+        padding-block: clamp(3rem, 8vw, 5rem);
+      }
+
+      .feature-head {
+        display: block;
+      }
+
+      .feature-head p {
+        margin-top: 1rem;
+      }
+
+      .mode-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mode-card {
+        min-height: 17rem;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .thumbs {
+        display: flex;
+        overflow-x: auto;
+      }
+
+      .thumb {
+        min-width: 4.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        padding: 0.75rem;
+      }
+
+      .brand span,
+      .nav-actions .chip:not(.buy) {
+        display: none;
+      }
+
+      h1 {
+        font-size: clamp(3.7rem, 19vw, 7rem);
+      }
+
+      .hero-stage {
+        min-height: 23rem;
+      }
+
+      .product-shot {
+        width: min(24rem, 86vw);
+      }
+
+      .halo {
+        width: min(25rem, 82vw);
+      }
+
+      .float-tag {
+        width: 6rem;
+        font-size: 0.82rem;
+      }
+
+      .banner-window,
+      .banner-window img,
+      .main-frame {
+        min-height: 18rem;
+      }
+
+      .specs {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-buy {
+        align-items: stretch;
+      }
+
+      .footer-buy .primary-cta {
+        min-height: 3rem;
+        padding-inline: 0.95rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="pulse-line" aria-hidden="true"></div>
+    <div class="grid-noise" aria-hidden="true"></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
+
+    <nav class="nav" aria-label="Product navigation">
+      <a class="brand" href="https://www.durexindia.com/products/durex-play-wild-wand">
+        <img src="assets/Durex-logo-white.avif" alt="Durex">
+        <span>Play Wild Wand</span>
+      </a>
+      <div class="nav-actions">
+        <a class="chip" href="#features">Modes</a>
+        <a class="chip" href="#faq">Details</a>
+        <a class="chip buy" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy Now</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">Durex Play Collection</p>
+          <h1><span class="wild">Wild</span><span class="wand">Wand</span></h1>
+          <p class="hero-text">What if toe-curling pleasure was a wand away? Discover 3 sensational tapping modes, 7 powerful vibration settings, waterproof confidence, and up to 45 minutes of play.</p>
+          <div class="hero-controls">
+            <div class="price-pill" aria-label="Sale price">
+              <strong>Rs. 2,699</strong>
+              <s>Rs. 4,686</s>
+            </div>
+            <a class="primary-cta" href="#shop">Enter The Pulse</a>
+            <a class="ghost-cta" href="#showcase">See The Wand</a>
+          </div>
+        </div>
+
+        <div class="hero-stage" aria-label="Durex Play Wild Wand product visual">
+          <div class="product-orbit">
+            <div class="halo" aria-hidden="true"></div>
+            <img class="product-shot" src="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" alt="Durex Play Wild Wand product pack">
+            <div class="float-tag one">7<br>vibes</div>
+            <div class="float-tag two">100%<br>wet ready</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wave-band">
+        <div class="wave-inner">
+          <div class="banner-window">
+            <img src="assets/banner_2_95ea13c8-59bf-4a20-98ea-c12b70c8b12e.webp" alt="Wild Wand lifestyle banner">
+          </div>
+          <div class="wave-copy">
+            <h2>Small wand. Big main-character energy.</h2>
+            <p>Made for external stimulation, the Wild Wand brings a full control panel of playful sensations without making the experience feel complicated. Tap into soft, strong, teasing, or all-out electric.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <div class="feature-head">
+          <h2 class="section-title">Pleasure, remixed.</h2>
+          <p>Three tapping patterns meet seven vibration settings, so the pace can shift from warm-up to grand finale in one compact device.</p>
+        </div>
+
+        <div class="mode-grid">
+          <article class="mode-card" style="--tone: var(--acid);">
+            <strong>3x</strong>
+            <span>Sensational tapping modes for rhythm, tease, and surprise.</span>
+            <img src="assets/1_37879527-ffdb-4e3b-bd5c-9c21a09042b6.webp" alt="Wild Wand mode detail">
+          </article>
+          <article class="mode-card" style="--tone: var(--mint);">
+            <strong>7x</strong>
+            <span>Vibration settings that move from subtle spark to full-volume buzz.</span>
+            <img src="assets/2_486df116-b482-496e-a352-62e66b54967e.webp" alt="Wild Wand vibration detail">
+          </article>
+          <article class="mode-card" style="--tone: var(--coral);">
+            <strong>45</strong>
+            <span>Minutes of play after charging, with waterproof confidence built in.</span>
+            <img src="assets/3_12_1d39a484-9c0d-4ebb-8f82-901945ae931a.webp" alt="Wild Wand waterproof detail">
+          </article>
+        </div>
+      </section>
+
+      <section class="showcase" id="showcase">
+        <div class="showcase-inner">
+          <div class="gallery" aria-label="Product gallery">
+            <div class="thumbs">
+              <button class="thumb active" type="button" data-image="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" aria-label="Show product box">
+                <img src="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" alt="">
+              </button>
+              <button class="thumb" type="button" data-image="assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" aria-label="Show feature banner one">
+                <img src="assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" alt="">
+              </button>
+              <button class="thumb" type="button" data-image="assets/banner_3_84e6b366-d08a-4041-b190-fd1dc6107551.webp" aria-label="Show feature banner two">
+                <img src="assets/banner_3_84e6b366-d08a-4041-b190-fd1dc6107551.webp" alt="">
+              </button>
+              <button class="thumb" type="button" data-image="assets/banner_4_36900ed9-2b90-4c12-b01d-cbcb3932ca7d.webp" aria-label="Show feature banner three">
+                <img src="assets/banner_4_36900ed9-2b90-4c12-b01d-cbcb3932ca7d.webp" alt="">
+              </button>
+            </div>
+            <div class="main-frame">
+              <img id="galleryImage" src="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" alt="Durex Play Wild Wand gallery image">
+            </div>
+          </div>
+
+          <aside class="buy-panel" id="shop">
+            <h2>Durex Play Wild Wand</h2>
+            <p>Body-safe, waterproof, rechargeable, and shipped discreetly. Built for external play only.</p>
+            <div class="specs">
+              <div class="spec"><b>4.6</b><span>average rating</span></div>
+              <div class="spec"><b>18+</b><span>adult product</span></div>
+              <div class="spec"><b>3</b><span>tapping modes</span></div>
+              <div class="spec"><b>7</b><span>vibration settings</span></div>
+            </div>
+            <div class="quantity" aria-label="Quantity selector">
+              <button type="button" id="minus" aria-label="Decrease quantity">-</button>
+              <span id="quantity">1</span>
+              <button type="button" id="plus" aria-label="Increase quantity">+</button>
+            </div>
+            <a class="primary-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy on Durex India</a>
+          </aside>
+        </div>
+      </section>
+
+      <section class="immersive">
+        <img src="assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" alt="Wild Wand color burst">
+        <div class="immersive-copy">
+          <h2>Waterproof. Pocket-sized. Unapologetic.</h2>
+          <p>A little charge, a lot of range, and a design that does not flinch when things get wet.</p>
+        </div>
+      </section>
+
+      <section class="faq" id="faq">
+        <div class="faq-inner">
+          <div>
+            <p class="eyebrow" style="color: var(--durex-blue);">Need-to-know details</p>
+            <h2 class="section-title">No mood killers.</h2>
+          </div>
+          <div class="faq-list">
+            <details open>
+              <summary>Is Wild Wand safe for my body?</summary>
+              <p>Yes. It is designed for external use and should not be inserted internally.</p>
+            </details>
+            <details>
+              <summary>Is it waterproof?</summary>
+              <p>Yes. The original product page describes Wild Wand as 100% waterproof.</p>
+            </details>
+            <details>
+              <summary>How do I clean it?</summary>
+              <p>Clean before and after use with mild soap and water, then let it dry completely before storing.</p>
+            </details>
+            <details>
+              <summary>How is it shipped?</summary>
+              <p>Durex India notes discreet packaging with no external branding or product name visible.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer-buy" aria-label="Sticky purchase bar">
+      <div>
+        <strong>Durex Play Wild Wand</strong>
+        <span>Rs. 2,699 today</span>
+      </div>
+      <a class="primary-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy Now</a>
+    </div>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const updateScroll = () => {
+      const y = window.scrollY || 0;
+      const max = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      root.style.setProperty("--scroll", y.toFixed(2));
+      root.style.setProperty("--scroll-progress", Math.min(1, y / max).toFixed(4));
+    };
+
+    const updatePointer = (event) => {
+      const x = event.clientX / window.innerWidth;
+      const y = event.clientY / window.innerHeight;
+      root.style.setProperty("--x", `${event.clientX}px`);
+      root.style.setProperty("--y", `${event.clientY}px`);
+      root.style.setProperty("--hero-tilt-y", `${(x - 0.5) * 11}deg`);
+      root.style.setProperty("--hero-tilt-x", `${(0.5 - y) * 9}deg`);
+    };
+
+    window.addEventListener("scroll", updateScroll, { passive: true });
+    window.addEventListener("pointermove", updatePointer, { passive: true });
+    updateScroll();
+
+    const galleryImage = document.querySelector("#galleryImage");
+    const thumbs = document.querySelectorAll(".thumb");
+    thumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        thumbs.forEach((item) => item.classList.remove("active"));
+        thumb.classList.add("active");
+        galleryImage.animate(
+          [{ opacity: 0.3, transform: "scale(0.97)" }, { opacity: 1, transform: "scale(1.02)" }],
+          { duration: 260, easing: "ease-out" }
+        );
+        galleryImage.src = thumb.dataset.image;
+      });
+    });
+
+    const quantity = document.querySelector("#quantity");
+    document.querySelector("#minus").addEventListener("click", () => {
+      quantity.textContent = Math.max(1, Number(quantity.textContent) - 1);
+    });
+    document.querySelector("#plus").addEventListener("click", () => {
+      quantity.textContent = Math.min(9, Number(quantity.textContent) + 1);
+    });
+  </script>
+</body>
+</html>
