@@ -394,6 +394,21 @@
       mix-blend-mode: screen;
     }
 
+    .hero-media-shell::after {
+      content: "";
+      position: absolute;
+      inset: -18%;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 73% 25%, rgba(255, 255, 255, 0.86), rgba(215, 255, 63, 0.32) 16%, transparent 36%),
+        radial-gradient(circle at 18% 72%, rgba(77, 255, 210, 0.36), transparent 30%);
+      mix-blend-mode: screen;
+      opacity: 0;
+      transform: scale(0.72);
+      animation: hero-light-on 5.2s ease-in-out infinite;
+    }
+
     .product-shot {
       width: 100%;
       height: 100%;
@@ -401,6 +416,10 @@
       object-position: 56% 50%;
       transform: scale(1.045) translate3d(calc(var(--hero-media-x) * -0.18), calc(var(--hero-media-y) * -0.18), 0);
       will-change: transform;
+    }
+
+    .hero-video {
+      background: linear-gradient(135deg, rgba(0, 198, 188, 0.95), rgba(82, 230, 188, 0.92));
     }
 
     .hero-image-caption {
@@ -1206,6 +1225,35 @@
       }
     }
 
+    @keyframes hero-light-on {
+      0%, 18%, 100% {
+        opacity: 0;
+        transform: scale(0.72);
+        filter: blur(0.3rem);
+      }
+      28% {
+        opacity: 0.92;
+        transform: scale(0.98);
+        filter: blur(0);
+      }
+      42% {
+        opacity: 0.32;
+        transform: scale(1.08);
+        filter: blur(0.2rem);
+      }
+      54% {
+        opacity: 0.62;
+        transform: scale(1);
+        filter: blur(0.05rem);
+      }
+      72% {
+        opacity: 0.18;
+        transform: scale(1.16);
+        filter: blur(0.35rem);
+      }
+    }
+
+
     @keyframes cta-vibrate {
       0%, 100% {
         transform: translate3d(0, 0, 0) rotate(0deg);
@@ -1518,7 +1566,8 @@
       .how-step b,
       .how-card-caption span:last-child,
       .vibration-rings,
-      .motion-frame {
+      .motion-frame,
+      .hero-media-shell::after {
         animation: none !important;
       }
 
@@ -1566,9 +1615,11 @@
           <div class="product-orbit">
             <div class="halo" aria-hidden="true"></div>
             <div class="hero-media-shell">
-              <img class="product-shot" src="assets/wild-wand-hero-ergonomic.jpg" alt="Durex Play Wild Wand ergonomic hand-held product image" fetchpriority="high" decoding="async">
+              <video class="product-shot hero-video" poster="assets/wild-wand-hero-ergonomic.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Durex Play Wild Wand light-on parallax product video">
+                <source src="assets/wild-wand-hero-light-on.mp4" type="video/mp4">
+              </video>
               <div class="hero-image-caption" aria-hidden="true">
-                <span>Ergonomic grip</span>
+                <span>Light-on grip</span>
                 <span>Sweet spot ready</span>
               </div>
             </div>
