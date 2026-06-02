@@ -735,12 +735,27 @@
         grid-template-columns: 1fr;
         min-height: auto;
         padding-top: clamp(5.5rem,12vw,7rem);
-        gap: 1.25rem;
+        padding-bottom: 2rem;
+        gap: 1.5rem;
+        /* Ensure copy always ABOVE stage */
+        align-items: start;
+      }
+      .hero-copy {
+        position: relative; z-index: 3;
+        transform: none !important;
       }
       .hero-stage {
+        /* Fixed height — never grows beyond this */
         height: clamp(20rem, 56vw, 34rem);
         border-radius: 1.35rem;
         transform: none;
+        /* Stage always BELOW copy, never overlaps */
+        position: relative;
+        z-index: 1;
+        order: 2;
+      }
+      .hero-controls {
+        position: relative; z-index: 4;
       }
       .wave-inner, .story-head, .story-preview,
       .use-panel, .showcase-inner, .faq-inner {
@@ -778,36 +793,55 @@
       .grid-noise, .cursor-glow { display: none; }
       .brand span, .nav-actions .chip:not(.buy) { display: none; }
 
-      h1 { font-size: clamp(3.6rem,18vw,6.5rem); }
+      h1 { font-size: clamp(3.4rem,16vw,6rem); }
 
-      .hero { padding-inline: 1rem; gap: .75rem; }
+      .hero {
+        padding-inline: 1rem;
+        gap: 1rem;
+        /* Stack: copy on top, video below — no overlap ever */
+        display: flex;
+        flex-direction: column;
+      }
+      .hero-copy {
+        order: 1;
+        position: relative; z-index: 3;
+        transform: none !important;
+      }
       .hero-stage {
-        height: clamp(16rem, 68vw, 26rem);
+        order: 2;
+        /* Hard-fixed height — video is fully contained */
+        height: clamp(14rem, 58vw, 24rem);
         border-radius: 1.1rem;
+        position: relative; z-index: 1;
+        /* never let it grow and bleed */
+        flex-shrink: 0;
+        overflow: hidden;
       }
       /* Tags tighter on mobile */
-      .float-tag { width: 5rem; font-size: .68rem; }
+      .float-tag { width: 4.8rem; font-size: .65rem; }
       .float-tag.one { left: .65rem; top: 8%; }
       .float-tag.two { right: .65rem; bottom: 8%; }
 
+      /* Controls: full grid below heading, above video */
       .hero-controls {
         display: grid; grid-template-columns: 1fr 1fr;
-        align-items: stretch; gap: .65rem; margin-top: 1.2rem;
+        align-items: stretch; gap: .65rem; margin-top: 1rem;
+        position: relative; z-index: 4;
       }
       .price-pill {
         grid-column: 1/-1; flex-wrap: wrap;
-        gap: .4rem .6rem; min-height: 4rem;
-        padding: .65rem .9rem; border-radius: 1.35rem;
+        gap: .4rem .6rem; min-height: 3.8rem;
+        padding: .6rem .9rem; border-radius: 1.35rem;
       }
-      .price-pill strong { font-size: clamp(1.35rem,8vw,1.9rem); }
-      .price-pill s { font-size: clamp(.9rem,4.8vw,1.2rem); }
+      .price-pill strong { font-size: clamp(1.3rem,7.5vw,1.8rem); }
+      .price-pill s { font-size: clamp(.88rem,4.5vw,1.15rem); }
       .primary-cta, .ghost-cta {
         width: 100%; justify-content: center;
-        min-height: 3.6rem; padding: .65rem .4rem; border-radius: 1.6rem;
-        font-size: clamp(.85rem,4vw,1.05rem); font-weight: 900; white-space: nowrap;
+        min-height: 3.4rem; padding: .6rem .4rem; border-radius: 1.5rem;
+        font-size: clamp(.84rem,3.8vw,1rem); font-weight: 900; white-space: nowrap;
       }
 
-      .scroll-pulse { bottom: .85rem; width: 2.4rem; }
+      .scroll-pulse { bottom: .75rem; width: 2.3rem; }
 
       .story-tabs {
         display: flex; gap: .75rem;
