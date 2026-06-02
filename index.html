@@ -20,37 +20,37 @@
       --hero-tilt-y: 0deg;
       --hero-media-x: 0px;
       --hero-media-y: 0px;
-      --hero-wand-rotate: 0deg;
-      --hero-wand-y: 0px;
     }
 
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
       scroll-behavior: smooth;
       scroll-padding-top: 5.5rem;
+      /* prevent any horizontal overflow at root */
+      overflow-x: hidden;
     }
 
     body {
-      margin: 0;
       color: #f8fbff;
       background: #050713;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       overflow-x: hidden;
     }
 
-    img { display: block; max-width: 100%; }
-
+    img { display: block; max-width: 100%; height: auto; }
     button, a { font: inherit; }
 
-    /* ── PAGE SHELL ── */
+    /* ═══════════════════════════════
+       PAGE SHELL
+    ═══════════════════════════════ */
     .page {
       position: relative;
       isolation: isolate;
       min-height: 100vh;
-      padding-bottom: 5.7rem;
+      padding-bottom: 7rem;           /* clear the sticky bar */
       background:
-        radial-gradient(circle at 9% 16%, rgba(255,93,108,.38), transparent 22rem),
+        radial-gradient(circle at 9% 16%,  rgba(255,93,108,.38), transparent 22rem),
         radial-gradient(circle at 86% 8%, rgba(77,255,210,.26), transparent 24rem),
         linear-gradient(145deg, #030718 0%, #052675 42%, #080b19 100%);
     }
@@ -74,7 +74,19 @@
       filter: blur(4px); pointer-events: none; will-change: left,top;
     }
 
-    /* ── NAV ── */
+    /* ═══════════════════════════════
+       PROGRESS LINE
+    ═══════════════════════════════ */
+    .pulse-line {
+      position: fixed; left: 0; right: 0; top: 0; z-index: 30; height: .28rem;
+      background: linear-gradient(90deg, var(--coral), var(--acid), var(--mint), var(--sky));
+      transform-origin: left;
+      transform: scaleX(calc(var(--scroll-progress,0) * 1));
+    }
+
+    /* ═══════════════════════════════
+       NAV
+    ═══════════════════════════════ */
     .nav {
       position: fixed; inset: 0 0 auto 0; z-index: 20;
       display: flex; align-items: center; justify-content: space-between;
@@ -101,20 +113,53 @@
       box-shadow: 0 0 28px rgba(215,255,63,.34);
     }
 
-    /* ── HERO ── */
+    /* ═══════════════════════════════
+       SHARED BUTTONS
+    ═══════════════════════════════ */
+    .primary-cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 3.4rem; padding: .85rem 1.6rem; border: 0; border-radius: 999px;
+      color: #051226; background: linear-gradient(135deg, var(--acid), #fff166);
+      box-shadow: 0 1.1rem 3.5rem rgba(215,255,63,.28);
+      text-decoration: none; font-weight: 950; cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+      white-space: nowrap;
+    }
+    .primary-cta:hover, .primary-cta:focus-visible {
+      transform: translateY(-2px); filter: saturate(1.08);
+      box-shadow: 0 1.25rem 3.8rem rgba(215,255,63,.36);
+    }
+    .ghost-cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 3.4rem; padding: .85rem 1.25rem;
+      border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
+      color: #fff; background: rgba(255,255,255,.08);
+      text-decoration: none; font-weight: 850;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+    .ghost-cta:hover, .ghost-cta:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.16);
+    }
+
+    /* ═══════════════════════════════
+       HERO
+    ═══════════════════════════════ */
     .hero {
       position: relative;
       display: grid;
-      grid-template-columns: minmax(0,1fr) minmax(0,.92fr);
-      gap: clamp(1.5rem,4vw,4rem);
+      grid-template-columns: minmax(0,1fr) minmax(0,.95fr);
+      gap: clamp(1.5rem,3vw,3.5rem);
       align-items: center;
-      min-height: 96vh;
-      padding: 7.5rem clamp(1rem,5vw,5rem) 4rem;
-      overflow: hidden;         /* clips pseudo-elements only */
+      min-height: 100svh;
+      padding: clamp(6rem,10vh,9rem) clamp(1.25rem,5vw,5rem) clamp(3rem,5vh,5rem);
+      /* Clip the decorative blobs — NOT the video */
+      overflow: clip;
     }
 
+    /* decorative blobs */
     .hero::before, .hero::after {
-      content: ""; position: absolute; z-index: -1; pointer-events: none;
+      content: ""; position: absolute; z-index: 0; pointer-events: none;
     }
     .hero::before {
       width: 72vw; height: 72vw; left: -20vw; top: -24vw;
@@ -126,33 +171,32 @@
       transform: rotate(calc(var(--scroll) * .025deg)); opacity: .66;
     }
     .hero::after {
-      inset: auto -8rem -16rem auto;
-      width: min(52rem,76vw); aspect-ratio: 1; border-radius: 50%;
+      inset: auto -4rem -10rem auto;
+      width: min(50rem,74vw); aspect-ratio: 1; border-radius: 50%;
       background:
-        repeating-radial-gradient(circle, rgba(255,255,255,.16) 0 2px, transparent 2px 20px),
-        radial-gradient(circle, rgba(77,255,210,.34), transparent 58%);
-      transform: translateY(calc(var(--scroll) * -.1px)); opacity: .7;
+        repeating-radial-gradient(circle, rgba(255,255,255,.14) 0 2px, transparent 2px 20px),
+        radial-gradient(circle, rgba(77,255,210,.28), transparent 58%);
+      transform: translateY(calc(var(--scroll) * -.1px)); opacity: .65;
     }
 
+    /* ─ LEFT COPY ─ */
     .hero-copy {
-      position: relative; z-index: 2; max-width: 46rem;
+      position: relative; z-index: 2;
       transform: translateY(calc(var(--scroll) * -.045px));
     }
-
     .eyebrow {
       display: inline-flex; align-items: center; gap: .55rem;
-      margin: 0 0 1.1rem; color: var(--acid);
+      margin-bottom: 1.1rem; color: var(--acid);
       font-size: .82rem; font-weight: 950; letter-spacing: .14em; text-transform: uppercase;
     }
     .eyebrow::before {
-      content: ""; width: .74rem; height: .74rem; border-radius: 50%;
+      content: ""; flex-shrink: 0; width: .74rem; height: .74rem; border-radius: 50%;
       background: var(--coral);
       box-shadow: 0 0 0 .45rem rgba(255,93,108,.14), 0 0 32px rgba(255,93,108,.8);
     }
-
     h1 {
-      margin: 0; font-size: clamp(4.2rem,13vw,12.8rem);
-      line-height: .79; letter-spacing: 0; text-transform: uppercase;
+      font-size: clamp(4rem,11vw,11rem);
+      line-height: .82; letter-spacing: -.01em; text-transform: uppercase;
     }
     .wild {
       display: block; color: var(--acid);
@@ -161,144 +205,109 @@
     .wand { display: block; color: #fff; text-shadow: 0 0 42px rgba(255,255,255,.45); }
 
     .hero-text {
-      max-width: 39rem; margin: 1.35rem 0 0;
-      color: rgba(255,255,255,.84); font-size: clamp(1rem,1.9vw,1.35rem); line-height: 1.55;
+      margin-top: 1.25rem;
+      color: rgba(255,255,255,.84); font-size: clamp(.95rem,1.6vw,1.2rem); line-height: 1.6;
     }
-
     .hero-controls {
       display: flex; flex-wrap: wrap; align-items: center;
       gap: .85rem; margin-top: 1.7rem;
     }
     .price-pill {
-      display: inline-flex; align-items: baseline; gap: .75rem;
-      padding: .76rem 1rem; border: 1px solid rgba(255,255,255,.22);
-      border-radius: 999px; background: rgba(255,255,255,.12);
+      display: inline-flex; align-items: baseline; gap: .65rem;
+      padding: .7rem 1rem;
+      border: 1px solid rgba(255,255,255,.22); border-radius: 999px;
+      background: rgba(255,255,255,.12);
       box-shadow: inset 0 1px 0 rgba(255,255,255,.22);
     }
-    .price-pill strong { color: #fff; font-size: 1.5rem; line-height: 1; }
-    .price-pill s { color: rgba(255,255,255,.58); font-weight: 700; }
+    .price-pill strong { color: #fff; font-size: 1.45rem; line-height: 1; }
+    .price-pill s { color: rgba(255,255,255,.55); font-weight: 700; }
 
-    .primary-cta {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 3.4rem; padding: .85rem 1.25rem; border: 0; border-radius: 999px;
-      color: #051226; background: linear-gradient(135deg, var(--acid), #fff166);
-      box-shadow: 0 1.1rem 3.5rem rgba(215,255,63,.28);
-      text-decoration: none; font-weight: 950; cursor: pointer;
-      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
-    }
-    .primary-cta:hover, .primary-cta:focus-visible {
-      transform: translateY(-2px); filter: saturate(1.08);
-      box-shadow: 0 1.25rem 3.8rem rgba(215,255,63,.36);
-    }
-    .ghost-cta {
-      min-height: 3.4rem; padding: .85rem 1.05rem;
-      border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
-      color: #fff; background: rgba(255,255,255,.08);
-      text-decoration: none; font-weight: 850;
-      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
-    }
-    .ghost-cta:hover, .ghost-cta:focus-visible {
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.16);
-    }
-
-    /* ── HERO STAGE (right column) — fixed containment ── */
+    /* ─ RIGHT STAGE ─ */
     .hero-stage {
-      position: relative;
-      /* Fixed height so it never bleeds */
-      height: clamp(26rem, 55vh, 48rem);
-      /* perspective for 3-D tilt */
+      position: relative; z-index: 2;
+      /* Fixed height prevents overflow into next section */
+      height: clamp(24rem, 52vh, 46rem);
+      border-radius: 1.75rem;
+      overflow: hidden;           /* hard clip */
       perspective: 1200px;
-      transform: translateY(calc(var(--scroll) * .045px));
+      transform: translateY(calc(var(--scroll) * .04px));
       will-change: transform;
-      /* Hard clip — nothing escapes */
-      overflow: hidden;
-      border-radius: 2rem;
     }
 
-    /* ── HERO VIDEO WRAPPER ── */
+    /* tilt wrapper */
     .hero-video-wrap {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute; inset: 0;
+      border-radius: inherit; overflow: hidden;
       transform: rotateX(var(--hero-tilt-x)) rotateY(var(--hero-tilt-y));
       transform-style: preserve-3d;
       transition: transform 160ms ease-out;
       will-change: transform;
-      border-radius: inherit;
-      overflow: hidden;
     }
 
+    /* the video itself */
     .hero-parallax-video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
       border-radius: inherit;
-      /* Subtle parallax scale; stays inside container */
-      transform: scale(1.06) translateY(calc(var(--hero-media-y) * .5));
+      transform: scale(1.06) translateY(calc(var(--hero-media-y) * .45));
       will-change: transform;
-      transition: opacity .4s ease;
     }
 
-    /* Vignette overlay so video blends into dark bg */
+    /* soft dark vignette so it integrates with the bg */
     .hero-video-vignette {
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
+      position: absolute; inset: 0; z-index: 1;
+      border-radius: inherit; pointer-events: none;
       background:
-        radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(5,7,19,.65) 100%),
-        linear-gradient(180deg, rgba(5,7,19,.18) 0%, transparent 18%, transparent 78%, rgba(5,7,19,.28) 100%);
-      z-index: 1;
+        radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(5,7,19,.6) 100%),
+        linear-gradient(180deg, rgba(5,7,19,.2) 0%, transparent 20%,
+          transparent 76%, rgba(5,7,19,.3) 100%);
     }
 
-    /* Float tags — stay inside the stage */
+    /* float tags — inside the stage, z above vignette */
     .float-tag {
-      position: absolute;
-      z-index: 3;
+      position: absolute; z-index: 4;
       display: grid; place-items: center;
-      width: 7rem; aspect-ratio: 1;
+      width: clamp(5.5rem,9vw,7.5rem); aspect-ratio: 1;
       border-radius: 50%;
-      color: #07101d; background: var(--mint);
-      box-shadow: 0 0 0 .55rem rgba(77,255,210,.16), 0 1rem 2.4rem rgba(0,0,0,.28);
-      font-weight: 1000; text-align: center; text-transform: uppercase; line-height: 1.02;
-      font-size: .85rem;
+      font-weight: 1000; text-align: center; text-transform: uppercase;
+      line-height: 1.05; font-size: clamp(.72rem,.9vw,.9rem);
+      color: #07101d; background: var(--acid);
+      box-shadow: 0 0 0 .5rem rgba(215,255,63,.18), 0 1rem 2rem rgba(0,0,0,.3);
       animation: bob 3.2s ease-in-out infinite;
     }
-    .float-tag.one { left: 1rem; top: 14%; background: var(--acid); }
+    .float-tag.one { left: 1rem; top: 12%; }
     .float-tag.two {
-      right: 1rem; bottom: 14%; color: #fff; background: var(--coral);
+      right: 1rem; bottom: 12%; color: #fff; background: var(--coral);
+      box-shadow: 0 0 0 .5rem rgba(255,93,108,.2), 0 1rem 2rem rgba(0,0,0,.3);
       animation-delay: -1.1s;
     }
 
-    /* Scroll cue arrow */
+    /* scroll cue inside stage */
     .scroll-pulse {
-      position: absolute; left: 50%; bottom: clamp(1.1rem,3vh,2rem);
-      z-index: 5; display: grid; place-items: center;
-      width: 3rem; aspect-ratio: 1;
-      border: 1px solid rgba(255,255,255,.28); border-radius: 50%;
-      color: var(--acid); background: rgba(255,255,255,.11);
-      box-shadow: 0 0 0 .55rem rgba(215,255,63,.08), 0 1rem 2rem rgba(0,0,0,.2);
+      position: absolute; bottom: 1.25rem; left: 50%; z-index: 5;
+      transform: translateX(-50%);
+      display: grid; place-items: center;
+      width: 2.8rem; aspect-ratio: 1;
+      border: 1px solid rgba(255,255,255,.3); border-radius: 50%;
+      color: var(--acid); background: rgba(255,255,255,.1);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      text-decoration: none; transform: translateX(-50%);
+      text-decoration: none;
       animation: scroll-vibrate .9s linear infinite;
     }
     .scroll-pulse::before, .scroll-pulse::after {
-      content: ""; width: .82rem; height: .82rem;
-      border-right: .16rem solid currentColor; border-bottom: .16rem solid currentColor;
+      content: ""; width: .7rem; height: .7rem;
+      border-right: .15rem solid currentColor; border-bottom: .15rem solid currentColor;
       transform: rotate(45deg);
     }
-    .scroll-pulse::after { margin-top: -.54rem; opacity: .62; }
+    .scroll-pulse::after { margin-top: -.48rem; opacity: .55; }
 
-    /* ── PRODUCT STORY ── */
+    /* ═══════════════════════════════
+       PRODUCT STORY
+    ═══════════════════════════════ */
     .product-story {
       position: relative; overflow: hidden;
-      padding: clamp(3.5rem,8vw,7rem) clamp(1rem,5vw,5rem);
+      padding: clamp(3.5rem,8vw,7rem) clamp(1.25rem,5vw,5rem);
       color: #f8fbff;
       background:
         radial-gradient(circle at 8% 18%, rgba(255,93,108,.26), transparent 20rem),
@@ -306,27 +315,26 @@
         linear-gradient(180deg, #071342 0%, #041d55 42%, #050713 100%);
     }
     .product-story::before {
-      content: ""; position: absolute; inset: 0;
+      content: ""; position: absolute; inset: 0; pointer-events: none;
       background:
-        repeating-radial-gradient(circle at 88% 7%, rgba(255,255,255,.14) 0 1px, transparent 1px 20px),
-        linear-gradient(120deg, transparent 0 42%, rgba(77,255,210,.08) 42% 44%, transparent 44% 100%);
-      opacity: .7; transform: translateY(calc(var(--scroll) * -.035px)); pointer-events: none;
+        repeating-radial-gradient(circle at 88% 7%, rgba(255,255,255,.12) 0 1px, transparent 1px 20px),
+        linear-gradient(120deg, transparent 0 42%, rgba(77,255,210,.06) 42% 44%, transparent 44% 100%);
+      opacity: .7; transform: translateY(calc(var(--scroll) * -.03px));
     }
     .story-shell { position: relative; z-index: 1; max-width: 82rem; margin: 0 auto; }
     .story-head {
       display: grid;
-      grid-template-columns: minmax(0,.75fr) minmax(18rem,1fr);
+      grid-template-columns: minmax(0,.75fr) minmax(0,1fr);
       gap: clamp(1rem,4vw,3rem); align-items: end;
       margin-bottom: clamp(1.4rem,4vw,2.4rem);
     }
     .story-head h2 {
-      margin: 0; color: #fff; font-size: clamp(2.45rem,6.4vw,5.7rem);
+      color: #fff; font-size: clamp(2.4rem,6vw,5.5rem);
       line-height: .9; letter-spacing: 0; text-transform: uppercase;
       text-shadow: 0 0 2.2rem rgba(255,255,255,.22);
     }
     .story-head p:not(.eyebrow) {
-      max-width: 39rem; margin: 0;
-      color: rgba(255,255,255,.76); font-size: clamp(1rem,1.6vw,1.15rem); line-height: 1.65;
+      color: rgba(255,255,255,.76); font-size: clamp(1rem,1.5vw,1.1rem); line-height: 1.65;
     }
     .product-story .eyebrow { color: var(--acid) !important; }
 
@@ -335,45 +343,43 @@
     .story-video-showcase {
       position: relative; z-index: 2; display: flex;
       justify-content: center; width: 100%;
-      margin: 0 0 clamp(1.2rem,3vw,2rem); pointer-events: none;
+      margin-bottom: clamp(1.2rem,3vw,2rem);
     }
     .story-video-frame {
-      position: relative; z-index: 2; width: min(47rem,100%);
-      overflow: hidden; border-radius: clamp(1.15rem,3vw,2.25rem);
-      background: transparent; pointer-events: auto; isolation: isolate;
+      width: min(47rem,100%); overflow: hidden;
+      border-radius: clamp(1rem,3vw,2rem); isolation: isolate;
     }
     .story-video-frame video {
       display: block; width: 100%; height: auto;
-      aspect-ratio: 1126/720; object-fit: contain; object-position: center;
+      aspect-ratio: 1126/720; object-fit: cover; object-position: center;
     }
 
     .story-tabs {
       display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1rem;
     }
     .story-card {
-      position: relative; min-width: 0; padding: 0; overflow: hidden;
-      border: 3px solid rgba(255,255,255,.9); border-radius: .75rem;
+      position: relative; overflow: hidden;
+      border: 3px solid rgba(255,255,255,.85); border-radius: .75rem;
       aspect-ratio: 1; background: linear-gradient(135deg,#00295b,#08c7b9);
-      box-shadow: 0 .7rem 1.4rem rgba(3,28,93,.12); cursor: pointer;
+      cursor: pointer;
       transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     }
     .story-card:hover, .story-card:focus-visible, .story-card.active {
       transform: translateY(-.18rem); border-color: var(--durex-blue);
-      box-shadow: 0 0 0 .24rem rgba(0,91,170,.14), 0 1rem 1.8rem rgba(3,28,93,.15);
-      outline: none;
+      box-shadow: 0 0 0 .24rem rgba(0,91,170,.2); outline: none;
     }
     .story-card img {
-      width: 100%; height: 100%; object-fit: contain; object-position: center;
-      padding: .35rem;
+      width: 100%; height: 100%; object-fit: contain; object-position: center; padding: .35rem;
       background:
         radial-gradient(circle at 82% 16%, rgba(215,255,63,.18), transparent 8rem),
         linear-gradient(135deg, rgba(0,198,188,.92), rgba(9,32,91,.96));
     }
     .story-card-label {
       position: absolute; left: .6rem; right: .6rem; bottom: .55rem;
-      display: flex; justify-content: space-between; gap: .45rem;
-      padding: .45rem .55rem; border: 1px solid rgba(255,255,255,.28);
-      border-radius: 999px; color: #fff; background: rgba(0,24,67,.54);
+      display: flex; justify-content: space-between; gap: .4rem;
+      padding: .4rem .55rem;
+      border: 1px solid rgba(255,255,255,.28); border-radius: 999px;
+      color: #fff; background: rgba(0,24,67,.54);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       font-size: .68rem; font-weight: 950; text-transform: uppercase;
     }
@@ -381,88 +387,82 @@
 
     .story-preview {
       position: relative; display: grid;
-      grid-template-columns: minmax(0,1.15fr) minmax(18rem,.85fr);
-      min-height: clamp(28rem,52vw,42rem); overflow: hidden;
+      grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr);
+      min-height: clamp(26rem,50vw,42rem); overflow: hidden;
       border: .65rem solid #061229;
       background:
-        radial-gradient(circle at 6% 16%, rgba(215,255,63,.32), transparent 16rem),
+        radial-gradient(circle at 6% 16%, rgba(215,255,63,.3), transparent 16rem),
         linear-gradient(135deg, #022758 0%, #022c68 46%, #07c8bb 100%);
       box-shadow: 1rem 1rem 0 var(--acid);
     }
     .story-preview::before {
-      content: ""; position: absolute; inset: 0;
+      content: ""; position: absolute; inset: 0; pointer-events: none;
       background:
-        radial-gradient(circle at 76% 18%, rgba(255,255,255,.2), transparent 16rem),
-        repeating-radial-gradient(circle at 90% 20%, rgba(255,255,255,.18) 0 1px, transparent 1px 22px);
-      opacity: .65; pointer-events: none;
+        radial-gradient(circle at 76% 18%, rgba(255,255,255,.18), transparent 16rem),
+        repeating-radial-gradient(circle at 90% 20%, rgba(255,255,255,.16) 0 1px, transparent 1px 22px);
+      opacity: .65;
     }
     .story-preview-visual {
       position: relative; z-index: 1; display: grid; place-items: center;
-      padding: clamp(.75rem,2vw,1.4rem); min-height: 100%;
+      padding: clamp(.75rem,2vw,1.4rem);
     }
     .story-preview-visual img {
-      width: 100%; height: 100%; max-height: 39rem; object-fit: contain;
+      width: 100%; max-height: 36rem; object-fit: contain;
       filter: drop-shadow(0 1.5rem 2rem rgba(0,0,0,.26));
       animation: story-float 4.8s ease-in-out infinite;
     }
     .story-info {
       position: relative; z-index: 1; display: grid; align-content: center;
       gap: 1rem; padding: clamp(1.2rem,4vw,3rem); color: #fff;
-      background: linear-gradient(90deg, rgba(3,18,55,.24), rgba(3,18,55,.72));
+      background: linear-gradient(90deg, rgba(3,18,55,.22), rgba(3,18,55,.7));
     }
     .story-info strong {
       color: var(--acid); font-size: clamp(.78rem,1.2vw,.9rem);
       letter-spacing: .14em; text-transform: uppercase;
     }
     .story-info h3 {
-      margin: 0; font-size: clamp(2rem,5vw,4.25rem);
-      line-height: .92; letter-spacing: 0; text-transform: uppercase;
-      text-shadow: 0 0 1.4rem rgba(255,255,255,.32);
+      font-size: clamp(1.9rem,4.5vw,4rem); line-height: .92; text-transform: uppercase;
+      text-shadow: 0 0 1.4rem rgba(255,255,255,.3);
     }
     .story-info p {
-      margin: 0; color: rgba(255,255,255,.78);
-      font-size: clamp(1rem,1.4vw,1.14rem); line-height: 1.6;
+      color: rgba(255,255,255,.78); font-size: clamp(1rem,1.4vw,1.1rem); line-height: 1.6;
     }
 
     .use-panel {
       display: grid;
-      grid-template-columns: minmax(0,.72fr) minmax(18rem,1.28fr);
-      gap: clamp(1rem,3vw,2rem); align-items: stretch; margin-top: 1rem; color: #fff;
+      grid-template-columns: minmax(0,.72fr) minmax(0,1.28fr);
+      gap: clamp(1rem,3vw,2rem); align-items: stretch; margin-top: 1rem;
     }
-    .use-visual {
-      min-height: 100%; overflow: hidden; border-radius: .65rem;
-      background: #071342; box-shadow: -.7rem .7rem 0 var(--coral);
-    }
-    .use-visual img {
-      width: 100%; height: 100%; min-height: 24rem;
-      object-fit: contain; background: linear-gradient(135deg,#08c7b9,#03265f);
-    }
+    .use-visual { overflow: hidden; border-radius: .65rem; background: #071342; box-shadow: -.7rem .7rem 0 var(--coral); }
+    .use-visual img { width: 100%; height: 100%; min-height: 22rem; object-fit: contain; background: linear-gradient(135deg,#08c7b9,#03265f); }
     .use-steps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .85rem; }
     .use-step {
-      min-width: 0; padding: 1rem;
+      padding: 1rem;
       border: 1px solid rgba(255,255,255,.18); border-radius: .65rem;
       background: linear-gradient(135deg, rgba(3,28,93,.96), rgba(0,91,170,.86));
       box-shadow: inset 0 1px 0 rgba(255,255,255,.18);
     }
     .use-step b {
-      display: grid; place-items: center;
-      width: 2.35rem; aspect-ratio: 1; margin-bottom: .75rem;
-      border-radius: 50%; color: #061329; background: var(--acid);
+      display: grid; place-items: center; width: 2.2rem; aspect-ratio: 1;
+      margin-bottom: .7rem; border-radius: 50%; color: #061329; background: var(--acid);
+      font-size: .9rem;
       animation: step-vibrate 1.15s linear infinite;
     }
-    .use-step h3 { margin: 0; color: #fff; font-size: 1.08rem; line-height: 1.15; }
-    .use-step p { margin: .45rem 0 0; color: rgba(255,255,255,.76); line-height: 1.5; }
+    .use-step h3 { color: #fff; font-size: 1.05rem; line-height: 1.15; margin-bottom: .4rem; }
+    .use-step p { color: rgba(255,255,255,.76); line-height: 1.5; font-size: .92rem; }
 
-    /* ── WAVE BAND ── */
+    /* ═══════════════════════════════
+       WAVE BAND
+    ═══════════════════════════════ */
     .wave-band {
-      position: relative; min-height: 56vh; display: grid; place-items: center;
-      padding: clamp(3rem,8vw,7rem) 1rem; overflow: hidden;
+      position: relative; min-height: 52vh; display: grid; place-items: center;
+      padding: clamp(3rem,8vw,7rem) clamp(1.25rem,5vw,5rem); overflow: hidden;
       background: #fff; color: var(--deep-blue);
     }
     .wave-band::before {
       content: "buzz buzz buzz buzz buzz buzz buzz buzz buzz buzz";
       position: absolute; left: -6vw; top: 4vh;
-      color: rgba(0,91,170,.08); font-size: clamp(4rem,12vw,12rem);
+      color: rgba(0,91,170,.07); font-size: clamp(4rem,12vw,12rem);
       font-weight: 1000; line-height: .85; white-space: nowrap; text-transform: uppercase;
       transform: translateX(calc(var(--scroll) * -.18px));
     }
@@ -472,35 +472,34 @@
       gap: clamp(1.5rem,4vw,4rem); align-items: center;
     }
     .banner-window {
-      position: relative; overflow: hidden; min-height: 28rem;
+      position: relative; overflow: hidden; min-height: 26rem;
       background: var(--durex-blue);
       box-shadow: 1rem 1rem 0 var(--acid), -1rem -1rem 0 var(--coral);
     }
     .banner-window img {
-      width: 100%; height: 100%; min-height: 28rem; object-fit: cover;
-      transform: scale(1.08) translateY(calc(var(--scroll) * -.035px));
+      width: 100%; height: 100%; min-height: 26rem; object-fit: cover;
+      transform: scale(1.08) translateY(calc(var(--scroll) * -.03px));
     }
     .wave-copy h2, .section-title {
-      margin: 0; font-size: clamp(2.2rem,6vw,5.7rem);
-      line-height: .9; letter-spacing: 0; text-transform: uppercase;
+      font-size: clamp(2.2rem,5.5vw,5.5rem); line-height: .9; text-transform: uppercase;
     }
     .wave-copy p {
-      margin: 1.25rem 0 0; color: rgba(3,28,93,.78);
-      font-size: clamp(1rem,1.7vw,1.2rem); line-height: 1.7;
+      margin-top: 1.25rem; color: rgba(3,28,93,.78);
+      font-size: clamp(1rem,1.6vw,1.15rem); line-height: 1.7;
     }
 
-    /* ── FEATURES ── */
+    /* ═══════════════════════════════
+       FEATURES
+    ═══════════════════════════════ */
     .features {
-      padding: clamp(4rem,9vw,8rem) clamp(1rem,5vw,5rem);
-      background:
-        linear-gradient(180deg, #071342 0%, #060712 100%),
-        radial-gradient(circle at 20% 30%, rgba(255,93,108,.28), transparent 20rem);
+      padding: clamp(4rem,9vw,8rem) clamp(1.25rem,5vw,5rem);
+      background: linear-gradient(180deg, #071342 0%, #060712 100%);
     }
     .feature-head {
       display: flex; justify-content: space-between; gap: 2rem;
       align-items: end; max-width: 78rem; margin: 0 auto 2rem;
     }
-    .feature-head p { max-width: 23rem; margin: 0; color: rgba(255,255,255,.72); line-height: 1.55; }
+    .feature-head p { max-width: 23rem; color: rgba(255,255,255,.72); line-height: 1.55; }
     .mode-grid {
       display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
       gap: 1rem; max-width: 78rem; margin: 0 auto;
@@ -537,16 +536,19 @@
       margin-top: .8rem; color: rgba(255,255,255,.78); line-height: 1.45; font-weight: 750;
     }
 
-    /* ── SHOWCASE ── */
+    /* ═══════════════════════════════
+       SHOWCASE
+    ═══════════════════════════════ */
     .showcase {
-      position: relative; padding: clamp(4rem,9vw,8rem) clamp(1rem,5vw,5rem);
-      color: var(--ink); background: var(--cream); overflow: hidden;
+      position: relative; overflow: hidden;
+      padding: clamp(4rem,9vw,8rem) clamp(1.25rem,5vw,5rem);
+      color: var(--ink); background: var(--cream);
     }
     .showcase::before {
-      content: ""; position: absolute; inset: 0;
+      content: ""; position: absolute; inset: 0; pointer-events: none;
       background:
-        linear-gradient(120deg, transparent 0 42%, rgba(0,91,170,.12) 42% 44%, transparent 44% 100%),
-        repeating-linear-gradient(90deg, rgba(8,17,31,.05) 0 1px, transparent 1px 7rem);
+        linear-gradient(120deg, transparent 0 42%, rgba(0,91,170,.1) 42% 44%, transparent 44% 100%),
+        repeating-linear-gradient(90deg, rgba(8,17,31,.04) 0 1px, transparent 1px 7rem);
       transform: translateX(calc(var(--scroll) * .07px));
     }
     .showcase-inner {
@@ -557,8 +559,7 @@
     .gallery { display: grid; grid-template-columns: 5rem minmax(0,1fr); gap: .9rem; align-items: stretch; }
     .thumbs { display: grid; gap: .7rem; align-content: start; }
     .thumb {
-      aspect-ratio: 1; padding: 0; overflow: hidden; border: 2px solid transparent;
-      border-radius: .5rem;
+      aspect-ratio: 1; overflow: hidden; border: 2px solid transparent; border-radius: .5rem;
       background: radial-gradient(circle at 82% 18%, rgba(215,255,63,.18), transparent 5rem),
         linear-gradient(135deg, #022758, #07c8bb);
       cursor: pointer;
@@ -566,33 +567,33 @@
     .thumb.active { border-color: var(--durex-blue); box-shadow: 0 0 0 .25rem rgba(0,91,170,.14); }
     .thumb img { width: 100%; height: 100%; object-fit: cover; }
     .main-frame {
-      position: relative; min-height: 32rem; display: grid; place-items: center;
+      position: relative; min-height: 30rem; display: grid; place-items: center;
       overflow: hidden; border: .35rem solid var(--ink);
       background:
-        radial-gradient(circle at 18% 20%, rgba(215,255,63,.26), transparent 15rem),
-        radial-gradient(circle at 82% 14%, rgba(77,255,210,.24), transparent 18rem),
+        radial-gradient(circle at 18% 20%, rgba(215,255,63,.24), transparent 15rem),
+        radial-gradient(circle at 82% 14%, rgba(77,255,210,.22), transparent 18rem),
         linear-gradient(135deg, #021842 0%, #022c68 44%, #07c8bb 100%);
     }
     .main-frame img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.02); }
 
     .buy-panel {
       align-self: stretch; display: grid; align-content: center;
-      gap: 1.2rem; padding: clamp(1.2rem,3vw,2rem); color: #fff;
-      background: var(--deep-blue); border-radius: .5rem;
+      gap: 1.2rem; padding: clamp(1.2rem,3vw,2rem);
+      color: #fff; background: var(--deep-blue); border-radius: .5rem;
       box-shadow: 1rem 1rem 0 var(--coral);
     }
     .buy-panel h2 {
-      margin: 0; color: #fff; font-size: clamp(2rem,4.6vw,4.3rem);
-      line-height: .9; letter-spacing: 0; text-transform: uppercase;
+      color: #fff; font-size: clamp(1.9rem,4.2vw,4rem);
+      line-height: .9; text-transform: uppercase;
     }
-    .buy-panel p { margin: 0; color: rgba(255,255,255,.76); line-height: 1.65; }
+    .buy-panel p { color: rgba(255,255,255,.76); line-height: 1.65; }
     .specs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .7rem; }
     .spec { padding: .85rem; border: 1px solid rgba(255,255,255,.18); border-radius: .5rem; background: rgba(255,255,255,.08); }
-    .spec b { display: block; color: var(--acid); font-size: 1.65rem; line-height: 1; }
-    .spec span { display: block; margin-top: .3rem; color: rgba(255,255,255,.72); font-size: .88rem; font-weight: 800; }
+    .spec b { display: block; color: var(--acid); font-size: 1.6rem; line-height: 1; }
+    .spec span { display: block; margin-top: .3rem; color: rgba(255,255,255,.72); font-size: .85rem; font-weight: 800; }
     .quantity {
       display: flex; align-items: center; justify-content: space-between;
-      gap: .8rem; padding: .65rem; border-radius: 999px; background: rgba(255,255,255,.1);
+      gap: .8rem; padding: .6rem; border-radius: 999px; background: rgba(255,255,255,.1);
     }
     .quantity button {
       width: 2.4rem; height: 2.4rem; border: 0; border-radius: 50%;
@@ -600,32 +601,10 @@
     }
     .quantity span { min-width: 3ch; text-align: center; font-weight: 950; }
 
-    /* ── IMMERSIVE ── */
-    .immersive {
-      position: relative; min-height: 90vh; display: grid; place-items: center;
-      padding: clamp(3rem,8vw,8rem) 1rem; background: #050713; overflow: hidden;
-    }
-    .immersive img {
-      position: absolute; inset: 0; width: 100%; height: 120%; object-fit: cover;
-      opacity: .58; transform: translateY(calc((var(--scroll) - 2700) * -.08px)); will-change: transform;
-    }
-    .immersive::after {
-      content: ""; position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(5,7,19,.12), #050713 92%);
-    }
-    .immersive-copy { position: relative; z-index: 1; max-width: 58rem; text-align: center; }
-    .immersive-copy h2 {
-      margin: 0; color: #fff; font-size: clamp(3rem,10vw,9rem);
-      line-height: .82; text-transform: uppercase; letter-spacing: 0;
-      text-shadow: 0 0 3rem rgba(0,0,0,.75);
-    }
-    .immersive-copy p {
-      max-width: 38rem; margin: 1.4rem auto 0;
-      color: rgba(255,255,255,.78); font-size: 1.08rem; line-height: 1.7;
-    }
-
-    /* ── FAQ ── */
-    .faq { padding: clamp(4rem,9vw,7rem) clamp(1rem,5vw,5rem); background: #fff; color: var(--ink); }
+    /* ═══════════════════════════════
+       FAQ
+    ═══════════════════════════════ */
+    .faq { padding: clamp(4rem,9vw,7rem) clamp(1.25rem,5vw,5rem); background: #fff; color: var(--ink); }
     .faq-inner {
       max-width: 72rem; margin: 0 auto; display: grid;
       grid-template-columns: .8fr 1.2fr; gap: clamp(1rem,4vw,4rem);
@@ -636,204 +615,240 @@
       background: #f5f8ff; overflow: hidden;
     }
     summary { padding: 1rem 1.1rem; color: var(--deep-blue); font-weight: 950; cursor: pointer; }
-    details p { margin: 0; padding: 0 1.1rem 1.1rem; color: rgba(8,17,31,.74); line-height: 1.62; }
+    details p { padding: 0 1.1rem 1.1rem; color: rgba(8,17,31,.74); line-height: 1.62; }
 
-    /* ── FOOTER BUY BAR ── */
+    /* ═══════════════════════════════
+       STICKY BUY BAR  ← redesigned
+    ═══════════════════════════════ */
     .footer-buy {
-      position: fixed; left: auto; right: clamp(.75rem,3vw,2rem);
-      bottom: max(.75rem,env(safe-area-inset-bottom)); z-index: 18;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 1rem; width: min(34rem,calc(100% - clamp(1.5rem,6vw,4rem)));
-      margin-left: auto; padding: .8rem .9rem .8rem 1.1rem; overflow: hidden;
-      background: linear-gradient(135deg, rgba(255,255,255,.18), rgba(3,16,52,.62));
-      border: 1px solid rgba(255,255,255,.3); border-radius: 1.35rem;
-      box-shadow: 0 1.35rem 4rem rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.35);
-      backdrop-filter: blur(24px) saturate(1.45); -webkit-backdrop-filter: blur(24px) saturate(1.45);
-      transition: opacity 220ms ease, transform 220ms ease;
+      position: fixed;
+      bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: .75rem .75rem .75rem 1.4rem;
+      width: min(36rem, calc(100vw - 2rem));
+      border-radius: 999px;
+      background: rgba(5,10,32,.72);
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow:
+        0 .5rem 2rem rgba(0,0,0,.35),
+        0 0 0 .5px rgba(255,255,255,.1),
+        inset 0 1px 0 rgba(255,255,255,.2);
+      backdrop-filter: blur(28px) saturate(1.6);
+      -webkit-backdrop-filter: blur(28px) saturate(1.6);
     }
-    .footer-buy::before {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
-      background:
-        linear-gradient(90deg, rgba(255,255,255,.28), transparent 28%),
-        radial-gradient(circle at 85% 20%, rgba(215,255,63,.28), transparent 16rem);
-      opacity: .86;
+    .footer-buy-text { flex: 1; min-width: 0; }
+    .footer-buy-text strong {
+      display: block; color: #fff; font-size: .96rem; font-weight: 900; line-height: 1.2;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .footer-buy > * { position: relative; z-index: 1; }
-    .footer-buy strong { display: block; color: #fff; line-height: 1.1; }
-    .footer-buy span { color: rgba(255,255,255,.68); font-size: .86rem; font-weight: 750; }
-    .footer-buy .primary-cta { min-width: 8.5rem; transform-origin: center; }
+    .footer-buy-text span { color: rgba(255,255,255,.6); font-size: .8rem; font-weight: 700; }
 
-    /* Progress line */
-    .pulse-line {
-      position: fixed; left: 0; right: 0; top: 0; z-index: 30; height: .28rem;
-      background: linear-gradient(90deg, var(--coral), var(--acid), var(--mint), var(--sky));
-      transform-origin: left; transform: scaleX(calc(var(--scroll-progress,0) * 1));
+    /* ── the vibrating BUY NOW button ── */
+    .cta-shake {
+      position: relative; flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 3rem; padding: 0 1.5rem;
+      border: 0; border-radius: 999px;
+      color: #05112a; font-weight: 950; font-size: .95rem; cursor: pointer;
+      text-decoration: none; white-space: nowrap;
+      background: linear-gradient(135deg, var(--acid) 0%, #c8f500 100%);
+      box-shadow:
+        0 0 0 0 rgba(215,255,63,.55),
+        0 .6rem 1.8rem rgba(215,255,63,.38);
+      /* continuous shake + pulse-ring */
+      animation: btn-shake 2.2s ease-in-out infinite, btn-pulse 2.2s ease-in-out infinite;
+    }
+    .cta-shake::after {
+      content: "";
+      position: absolute; inset: 0; border-radius: inherit;
+      background: transparent;
+      box-shadow: 0 0 0 0 rgba(215,255,63,.7);
+      animation: ring-pulse 2.2s ease-in-out infinite;
+      pointer-events: none;
     }
 
-    /* ── ANIMATIONS ── */
-    @keyframes breathe {
-      0%,100% { transform: scale(.96) rotate(0deg); }
-      50% { transform: scale(1.04) rotate(8deg); }
+    @keyframes btn-shake {
+      0%,100%  { transform: rotate(0deg)   translateY(0); }
+      8%       { transform: rotate(-2.5deg) translateY(-1px); }
+      16%      { transform: rotate(2.5deg)  translateY(0); }
+      24%      { transform: rotate(-2deg)   translateY(-1px); }
+      32%      { transform: rotate(1.5deg)  translateY(0); }
+      40%      { transform: rotate(0deg)    translateY(0); }
+      /* rest for ~1.3s then repeat */
     }
+    @keyframes btn-pulse {
+      0%,38%,100% { box-shadow: 0 0 0 0 rgba(215,255,63,.55), 0 .6rem 1.8rem rgba(215,255,63,.38); }
+      20%         { box-shadow: 0 0 0 .55rem rgba(215,255,63,.22), 0 .8rem 2.2rem rgba(215,255,63,.5); }
+    }
+    @keyframes ring-pulse {
+      0%,38%,100% { box-shadow: 0 0 0 0 rgba(215,255,63,.5); opacity: 1; }
+      20%         { box-shadow: 0 0 0 1rem rgba(215,255,63,0); opacity: 0; }
+    }
+
+    /* ═══════════════════════════════
+       KEYFRAMES
+    ═══════════════════════════════ */
     @keyframes bob {
-      0%,100% { transform: translateY(0) rotate(-8deg); }
-      50% { transform: translateY(-1rem) rotate(8deg); }
+      0%,100% { transform: translateY(0) rotate(-6deg); }
+      50%      { transform: translateY(-.8rem) rotate(6deg); }
     }
     @keyframes story-float {
       0%,100% { transform: translate3d(0,0,0) scale(1); }
-      50% { transform: translate3d(0,-.55rem,0) scale(1.012); }
+      50%      { transform: translate3d(0,-.55rem,0) scale(1.012); }
     }
     @keyframes scroll-vibrate {
-      0%,100% { transform: translate3d(-50%,0,0) rotate(0deg); }
-      25% { transform: translate3d(-50%,-2px,0) rotate(-1.2deg); }
-      50% { transform: translate3d(-50%,1px,0) rotate(1.2deg); }
-      75% { transform: translate3d(-50%,-1px,0) rotate(-.8deg); }
+      0%,100% { transform: translateX(-50%) rotate(0deg); }
+      25%     { transform: translateX(-50%) translateY(-2px) rotate(-1.2deg); }
+      50%     { transform: translateX(-50%) translateY(1px) rotate(1.2deg); }
+      75%     { transform: translateX(-50%) translateY(-1px) rotate(-.8deg); }
     }
     @keyframes step-vibrate {
-      0%,100% { transform: translate3d(0,0,0); }
-      33% { transform: translate3d(-1px,0,0); }
-      66% { transform: translate3d(1px,0,0); }
+      0%,100% { transform: translateX(0); }
+      33%     { transform: translateX(-1px); }
+      66%     { transform: translateX(1px); }
     }
     @keyframes card-glow {
-      0%,100% { border-color: rgba(255,255,255,.18); box-shadow: 0 0 0 rgba(77,255,210,0); }
+      0%,100% { border-color: rgba(255,255,255,.18); box-shadow: none; }
       50% {
-        border-color: color-mix(in srgb, var(--tone,var(--mint)) 62%, rgba(255,255,255,.2));
-        box-shadow: 0 0 2.2rem color-mix(in srgb, var(--tone,var(--mint)) 24%, transparent), inset 0 0 1.4rem rgba(255,255,255,.08);
+        border-color: color-mix(in srgb, var(--tone,var(--mint)) 60%, rgba(255,255,255,.2));
+        box-shadow: 0 0 2rem color-mix(in srgb, var(--tone,var(--mint)) 22%, transparent),
+          inset 0 0 1.4rem rgba(255,255,255,.06);
       }
     }
     @keyframes number-glow {
-      0%,100% { filter: brightness(1); text-shadow: 0 0 1.1rem color-mix(in srgb, var(--tone,var(--mint)) 42%, transparent); }
-      50% { filter: brightness(1.2); text-shadow: 0 0 .45rem rgba(255,255,255,.6), 0 0 2.2rem var(--tone,var(--mint)); }
+      0%,100% { filter: brightness(1); }
+      50%     { filter: brightness(1.22); text-shadow: 0 0 .45rem rgba(255,255,255,.6), 0 0 2rem var(--tone,var(--mint)); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(1.4rem); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── TABLET ── */
+    /* ═══════════════════════════════
+       TABLET  ≤ 900px
+    ═══════════════════════════════ */
     @media (max-width: 900px) {
       .hero {
         grid-template-columns: 1fr;
         min-height: auto;
-        padding-top: 6.6rem;
-        gap: 0;
+        padding-top: clamp(5.5rem,12vw,7rem);
+        gap: 1.25rem;
       }
       .hero-stage {
-        height: clamp(22rem, 60vw, 36rem);
-        border-radius: 1.5rem;
-        margin: 1rem 0 2.5rem;
+        height: clamp(20rem, 56vw, 34rem);
+        border-radius: 1.35rem;
         transform: none;
       }
       .wave-inner, .story-head, .story-preview,
       .use-panel, .showcase-inner, .faq-inner {
         grid-template-columns: 1fr;
       }
-      .wave-band { min-height: auto; padding-block: clamp(2.75rem,8vw,4.5rem); }
+      .wave-band { min-height: auto; padding-block: clamp(2.5rem,8vw,4.5rem); }
       .banner-window {
-        width: 100%; max-width: 100%; min-height: auto;
-        aspect-ratio: 1447/724;
-        background: linear-gradient(135deg, #00c6bc, #0b63ac);
+        min-height: auto; aspect-ratio: 16/8;
         box-shadow: 0 0 0 .45rem var(--acid), 0 0 0 .9rem var(--coral);
       }
-      .banner-window img { width:100%; height:100%; min-height:0; object-fit:contain; transform:none; }
+      .banner-window img { min-height: 0; object-fit: contain; transform: none; }
       .product-story { padding-block: clamp(3rem,8vw,5rem); }
       .story-tabs { grid-template-columns: repeat(2,minmax(0,1fr)); }
-      .story-video-showcase { margin-bottom: 1rem; }
-      .story-video-frame { width: min(42rem,100%); }
       .story-preview { min-height: auto; }
-      .story-preview-visual { min-height: 24rem; }
-      .story-info { padding-block: 1.35rem; }
+      .story-preview-visual { min-height: 22rem; }
+      .story-info { padding-block: 1.25rem; }
       .use-visual img { min-height: 18rem; }
       .features, .showcase, .faq { padding-block: clamp(3rem,8vw,5rem); }
       .feature-head { display: block; }
-      .feature-head p { margin-top: 1rem; }
+      .feature-head p { margin-top: 1rem; max-width: 100%; }
       .mode-grid { grid-template-columns: 1fr; }
-      .mode-card { min-height: 17rem; transform: none !important; }
-      .mode-card img { width: min(18rem,68%); max-height: 10.5rem; }
+      .mode-card { min-height: 16rem; transform: none !important; }
+      .mode-card img { width: min(17rem,65%); max-height: 10rem; }
       .gallery { grid-template-columns: 1fr; }
-      .thumbs { display: flex; overflow-x: auto; }
+      .thumbs { flex-direction: row; display: flex; overflow-x: auto; gap: .6rem; }
       .thumb { min-width: 4.5rem; }
     }
 
-    /* ── MOBILE ── */
+    /* ═══════════════════════════════
+       MOBILE  ≤ 640px
+    ═══════════════════════════════ */
     @media (max-width: 640px) {
-      .nav { padding: .75rem; }
-      .page { padding-bottom: 6.8rem; }
+      .nav { padding: .7rem 1rem; }
+      .page { padding-bottom: 7.5rem; }
       .grid-noise, .cursor-glow { display: none; }
       .brand span, .nav-actions .chip:not(.buy) { display: none; }
 
-      h1 { font-size: clamp(3.7rem,19vw,7rem); }
+      h1 { font-size: clamp(3.6rem,18vw,6.5rem); }
 
+      .hero { padding-inline: 1rem; gap: .75rem; }
       .hero-stage {
-        height: clamp(18rem, 72vw, 28rem);
-        border-radius: 1.25rem;
-        margin: .5rem 0 2rem;
+        height: clamp(16rem, 68vw, 26rem);
+        border-radius: 1.1rem;
       }
-
-      /* Float tags smaller on mobile */
-      .float-tag { width: 5.5rem; font-size: .75rem; }
-      .float-tag.one { left: .6rem; top: 10%; }
-      .float-tag.two { right: .6rem; bottom: 10%; }
+      /* Tags tighter on mobile */
+      .float-tag { width: 5rem; font-size: .68rem; }
+      .float-tag.one { left: .65rem; top: 8%; }
+      .float-tag.two { right: .65rem; bottom: 8%; }
 
       .hero-controls {
-        display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-        align-items: stretch; gap: .72rem; margin-top: 1.3rem;
+        display: grid; grid-template-columns: 1fr 1fr;
+        align-items: stretch; gap: .65rem; margin-top: 1.2rem;
       }
-      .price-pill, .primary-cta, .ghost-cta { width: 100%; justify-content: center; }
       .price-pill {
-        grid-column: 1/-1; width: min(22rem,100%); flex-wrap: wrap;
-        gap: .45rem .7rem; row-gap: .25rem; min-height: 4.3rem;
-        padding: .7rem .95rem; border-radius: 1.45rem; justify-self: start;
+        grid-column: 1/-1; flex-wrap: wrap;
+        gap: .4rem .6rem; min-height: 4rem;
+        padding: .65rem .9rem; border-radius: 1.35rem;
       }
-      .price-pill strong { font-size: clamp(1.45rem,8.4vw,2rem); }
-      .price-pill s { font-size: clamp(.95rem,5.2vw,1.25rem); }
+      .price-pill strong { font-size: clamp(1.35rem,8vw,1.9rem); }
+      .price-pill s { font-size: clamp(.9rem,4.8vw,1.2rem); }
       .primary-cta, .ghost-cta {
-        min-height: 3.85rem; padding: .7rem .45rem; border-radius: 1.75rem;
-        font-size: clamp(.88rem,4.25vw,1.08rem); font-weight: 900;
-        line-height: 1; text-align: center; letter-spacing: 0; white-space: nowrap;
+        width: 100%; justify-content: center;
+        min-height: 3.6rem; padding: .65rem .4rem; border-radius: 1.6rem;
+        font-size: clamp(.85rem,4vw,1.05rem); font-weight: 900; white-space: nowrap;
       }
-      .ghost-cta { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.28); }
 
-      .scroll-pulse { bottom: 1rem; width: 2.55rem; }
+      .scroll-pulse { bottom: .85rem; width: 2.4rem; }
 
-      .story-card-label { left:.45rem; right:.45rem; bottom:.45rem; padding:.38rem .45rem; font-size:.58rem; }
       .story-tabs {
-        display: flex; gap: .8rem; margin-inline: -1rem; padding-inline: 1rem;
+        display: flex; gap: .75rem;
+        margin-inline: -1rem; padding-inline: 1rem;
         overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
       }
       .story-tabs::-webkit-scrollbar { display: none; }
-      .story-card { flex: 0 0 min(18rem,78vw); scroll-snap-align: start; }
-      .story-video-showcase { margin-inline: 0; }
-      .story-video-frame { width: 100%; border-radius: 1.15rem; }
-      .story-preview { border-width: .35rem; box-shadow: .55rem .55rem 0 var(--acid); }
-      .story-preview-visual { min-height: 20rem; }
-      .story-info h3 { font-size: clamp(1.8rem,11vw,3.15rem); }
+      .story-card { flex: 0 0 min(17rem,76vw); scroll-snap-align: start; }
+      .story-card-label { left:.4rem; right:.4rem; bottom:.4rem; padding:.35rem .4rem; font-size:.56rem; }
+      .story-video-frame { width: 100%; border-radius: 1rem; }
+      .story-preview { border-width: .35rem; box-shadow: .5rem .5rem 0 var(--acid); }
+      .story-preview-visual { min-height: 18rem; }
+      .story-info h3 { font-size: clamp(1.7rem,10vw,3rem); }
       .use-steps { grid-template-columns: 1fr; }
-      .use-visual img { min-height: 16rem; }
-      .banner-window, .banner-window img, .main-frame { min-height: 18rem; }
+      .use-visual img { min-height: 14rem; }
+
+      .banner-window { aspect-ratio: 4/3; }
+      .main-frame { min-height: 22rem; }
       .specs { grid-template-columns: 1fr; }
+
+      /* footer bar full-width pill on mobile */
       .footer-buy {
-        left: .75rem; right: .75rem; width: auto; align-items: stretch;
-        gap: .7rem; padding: .72rem; border-radius: 1.05rem;
+        width: calc(100vw - 1.5rem);
+        padding: .65rem .65rem .65rem 1.1rem;
       }
-      .footer-buy strong { font-size: .93rem; }
-      .footer-buy span { font-size: .78rem; }
-      .footer-buy .primary-cta { min-height: 3rem; min-width: 7.4rem; padding-inline: .95rem; }
+      .footer-buy-text strong { font-size: .88rem; }
+      .footer-buy-text span { font-size: .74rem; }
+      .cta-shake { min-height: 2.8rem; padding: 0 1.2rem; font-size: .88rem; }
     }
 
-    /* ── REDUCED MOTION ── */
+    /* ═══════════════════════════════
+       REDUCED MOTION
+    ═══════════════════════════════ */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: .001ms !important;
         animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
         transition-duration: .001ms !important;
+        scroll-behavior: auto !important;
       }
     }
-
-    /* ── PAGE LOAD FADE IN ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(1.2rem); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .hero-copy { animation: fadeUp .7s ease both; }
-    .hero-stage { animation: fadeUp .85s .12s ease both; }
   </style>
 </head>
 <body>
@@ -842,21 +857,23 @@
     <div class="grid-noise" aria-hidden="true"></div>
     <div class="cursor-glow" aria-hidden="true"></div>
 
+    <!-- NAV -->
     <nav class="nav" aria-label="Product navigation">
-      <a class="brand" href="https://www.durexindia.com/products/durex-play-wild-wand" aria-label="Open Durex Wild Wand product page">
+      <a class="brand" href="https://www.durexindia.com/products/durex-play-wild-wand" aria-label="Durex Wild Wand product page">
         <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/Durex-logo-white.avif" alt="Durex" width="160" height="54" decoding="async">
         <span>Play Wild Wand</span>
       </a>
       <div class="nav-actions">
         <a class="chip" href="#features">Modes</a>
         <a class="chip" href="#faq">Details</a>
-        <a class="chip buy js-buy-cta" href="https://www.durexindia.com/products/durex-play-wild-wand" aria-label="Buy Durex Play Wild Wand">Buy Now</a>
+        <a class="chip buy" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy Now</a>
       </div>
     </nav>
 
     <main>
+      <!-- ══ HERO ══ -->
       <section class="hero" id="top">
-        <div class="hero-copy">
+        <div class="hero-copy" style="animation: fadeUp .65s ease both;">
           <p class="eyebrow">Durex Play Collection</p>
           <h1><span class="wild">Wild</span><span class="wand">Wand</span></h1>
           <p class="hero-text">What if toe-curling pleasure was a wand away? Discover 3 sensational tapping modes, 7 powerful vibration settings, waterproof confidence, and up to 45 minutes of play.</p>
@@ -870,64 +887,92 @@
           </div>
         </div>
 
-        <div class="hero-stage" id="heroStage" aria-label="Durex Play Wild Wand product visual">
+        <!-- Right: video stage — fully contained -->
+        <div class="hero-stage" id="heroStage" style="animation: fadeUp .8s .1s ease both;" aria-label="Durex Play Wild Wand product visual">
           <div class="hero-video-wrap" id="heroOrbit">
             <video
-              class="hero-parallax-video js-hero-vid"
+              class="hero-parallax-video"
+              id="heroVid"
               src="assets/hero-parallax.mp4"
               autoplay muted loop playsinline
               preload="auto"
-              aria-label="Durex Play Wild Wand parallax product video"
+              aria-label="Wild Wand parallax hero video"
             ></video>
             <div class="hero-video-vignette" aria-hidden="true"></div>
           </div>
-          <div class="float-tag one">7<br>vibes</div>
-          <div class="float-tag two">100%<br>wet ready</div>
-          <a class="scroll-pulse" href="#how-it-works" aria-label="Scroll to how it works"></a>
+          <div class="float-tag one" aria-hidden="true">7<br>VIBES</div>
+          <div class="float-tag two" aria-hidden="true">100%<br>WET<br>READY</div>
+          <a class="scroll-pulse" href="#how-it-works" aria-label="Scroll down"></a>
         </div>
       </section>
 
+      <!-- ══ PRODUCT STORY ══ -->
       <section class="product-story" id="how-it-works">
         <div class="story-shell">
           <div class="story-head">
             <div>
-              <p class="eyebrow" style="color: var(--durex-blue);">Product guide</p>
+              <p class="eyebrow">Product guide</p>
               <h2>See the wand, then work it.</h2>
             </div>
             <p>Tap the product cards to explore the Wild Wand frames. The big preview keeps each image intact, while the steps below make the mode flow easy to scan on mobile.</p>
           </div>
 
-          <div class="story-video-showcase" aria-label="Durex Play Wild Wand product video">
+          <div class="story-video-showcase" aria-label="Wild Wand product video">
             <div class="story-video-frame js-haptic">
-              <video class="hero-video" poster="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Durex Play Wild Wand light-on product video">
+              <video
+                class="hero-video"
+                poster="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg"
+                muted loop playsinline autoplay preload="metadata"
+                aria-label="Wild Wand light-on product video"
+              >
                 <source src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-light-on.mp4" type="video/mp4">
               </video>
             </div>
           </div>
 
-          <div class="story-gallery js-haptic" aria-label="Durex Play Wild Wand product story gallery">
+          <div class="story-gallery js-haptic">
             <div class="story-tabs" role="tablist" aria-label="Wild Wand product images">
-              <button class="story-card active" type="button" data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" data-story-kicker="Clean product" data-story-title="Durex Play Wild Wand" data-story-copy="The compact rechargeable wand with 3 tapping modes, 7 vibration settings, and waterproof confidence." aria-label="Show clean Wild Wand product image">
-                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Clean Durex Play Wild Wand product image" loading="lazy" decoding="async">
+              <button class="story-card active" type="button"
+                data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png"
+                data-story-kicker="Clean product"
+                data-story-title="Durex Play Wild Wand"
+                data-story-copy="The compact rechargeable wand with 3 tapping modes, 7 vibration settings, and waterproof confidence."
+                aria-label="Show clean Wild Wand product image">
+                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Clean product" loading="lazy" decoding="async">
                 <span class="story-card-label"><span>Wild Wand</span><span>Clean</span></span>
               </button>
-              <button class="story-card" type="button" data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" data-story-kicker="Ergonomic grip" data-story-title="Designed ergonomically" data-story-copy="Curved to sit naturally in hand, with a soft-touch body made for confident control." aria-label="Show Wild Wand ergonomic grip image">
-                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" alt="Wild Wand held in hand with ergonomic message" loading="lazy" decoding="async">
+              <button class="story-card" type="button"
+                data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg"
+                data-story-kicker="Ergonomic grip"
+                data-story-title="Designed ergonomically"
+                data-story-copy="Curved to sit naturally in hand, with a soft-touch body made for confident control."
+                aria-label="Show Wild Wand ergonomic grip image">
+                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" alt="Grip-ready" loading="lazy" decoding="async">
                 <span class="story-card-label"><span>Grip</span><span>Ready</span></span>
               </button>
-              <button class="story-card" type="button" data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" data-story-kicker="Mode details" data-story-title="Wand-er to the wild side" data-story-copy="Velvety smooth touch, waterproof play, and up to 45 minutes of run time in one clean product frame." aria-label="Show Wild Wand features image">
-                <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" alt="Wild Wand feature frame with velvety touch waterproof and rechargeable battery" loading="lazy" decoding="async">
+              <button class="story-card" type="button"
+                data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000"
+                data-story-kicker="Mode details"
+                data-story-title="Wand-er to the wild side"
+                data-story-copy="Velvety smooth touch, waterproof play, and up to 45 minutes of run time."
+                aria-label="Show Wild Wand features image">
+                <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" alt="Features" loading="lazy" decoding="async">
                 <span class="story-card-label"><span>3 7 45</span><span>Glow</span></span>
               </button>
-              <button class="story-card" type="button" data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" data-story-kicker="How to use" data-story-title="Press, explore, combine" data-story-copy="Hold to power on, move between tapping and vibrating modes, then hold both buttons to turn it off." aria-label="Show Wild Wand how to use image">
-                <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="Wild Wand how to use instructions frame" loading="lazy" decoding="async">
+              <button class="story-card" type="button"
+                data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000"
+                data-story-kicker="How to use"
+                data-story-title="Press, explore, combine"
+                data-story-copy="Hold to power on, move between tapping and vibrating modes, then hold both buttons to turn it off."
+                aria-label="Show Wild Wand how to use image">
+                <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="How to use" loading="lazy" decoding="async">
                 <span class="story-card-label"><span>How to</span><span>Use</span></span>
               </button>
             </div>
 
             <div class="story-preview">
               <div class="story-preview-visual">
-                <img id="storyImage" src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Clean Durex Play Wild Wand product image" loading="lazy" decoding="async">
+                <img id="storyImage" src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Wild Wand product" loading="lazy" decoding="async">
               </div>
               <div class="story-info">
                 <strong id="storyKicker">Clean product</strong>
@@ -937,9 +982,9 @@
             </div>
           </div>
 
-          <div class="use-panel" aria-label="Wild Wand how to use section">
+          <div class="use-panel">
             <div class="use-visual js-haptic">
-              <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="Wild Wand illustrated how to use guide" loading="lazy" decoding="async">
+              <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="How to use guide" loading="lazy" decoding="async">
             </div>
             <div class="use-steps">
               <article class="use-step"><b>1</b><h3>Hold to start</h3><p>Wash before use, then hold any button for 3 seconds to turn it on.</p></article>
@@ -951,6 +996,7 @@
         </div>
       </section>
 
+      <!-- ══ WAVE BAND ══ -->
       <section class="wave-band">
         <div class="wave-inner">
           <div class="banner-window">
@@ -958,35 +1004,37 @@
           </div>
           <div class="wave-copy">
             <h2>Small wand. Big main-character energy.</h2>
-            <p>Made for external stimulation, the Wild Wand brings a full control panel of playful sensations without making the experience feel complicated. Tap into soft, strong, teasing, or all-out electric.</p>
+            <p>Made for external stimulation, the Wild Wand brings a full control panel of playful sensations without making the experience feel complicated.</p>
           </div>
         </div>
       </section>
 
+      <!-- ══ FEATURES ══ -->
       <section class="features" id="features">
         <div class="feature-head">
           <h2 class="section-title">Pleasure, remixed.</h2>
-          <p>Three tapping patterns meet seven vibration settings, so the pace can shift from warm-up to grand finale in one compact device.</p>
+          <p>Three tapping patterns meet seven vibration settings — warm-up to grand finale in one compact device.</p>
         </div>
         <div class="mode-grid">
           <article class="mode-card js-haptic" style="--tone: var(--acid);">
             <strong>3x</strong>
             <span>Sensational tapping modes for rhythm, tease, and surprise.</span>
-            <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" alt="Wild Wand tapping button detail" loading="lazy" decoding="async">
+            <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" alt="Tapping modes" loading="lazy" decoding="async">
           </article>
           <article class="mode-card js-haptic" style="--tone: var(--mint);">
             <strong>7x</strong>
-            <span>Vibration settings that move from subtle spark to full-volume buzz.</span>
-            <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/banner_3_84e6b366-d08a-4041-b190-fd1dc6107551.webp" alt="Wild Wand vibration mode detail" loading="lazy" decoding="async">
+            <span>Vibration settings from subtle spark to full-volume buzz.</span>
+            <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/banner_3_84e6b366-d08a-4041-b190-fd1dc6107551.webp" alt="Vibration modes" loading="lazy" decoding="async">
           </article>
           <article class="mode-card js-haptic" style="--tone: var(--coral);">
             <strong>45</strong>
-            <span>Minutes of play after charging, with waterproof confidence built in.</span>
-            <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR2_434406f5-4e70-41af-9135-793b98fc7682.jpg?v=1774866547&width=1000" alt="Wild Wand duration and vibration detail" loading="lazy" decoding="async">
+            <span>Minutes of play after charging, waterproof confidence built in.</span>
+            <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR2_434406f5-4e70-41af-9135-793b98fc7682.jpg?v=1774866547&width=1000" alt="Duration" loading="lazy" decoding="async">
           </article>
         </div>
       </section>
 
+      <!-- ══ SHOWCASE ══ -->
       <section class="showcase" id="showcase">
         <div class="showcase-inner">
           <div class="gallery" aria-label="Product gallery">
@@ -994,24 +1042,24 @@
               <button class="thumb active" type="button" data-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" aria-label="Show clean product image">
                 <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="" loading="lazy" decoding="async">
               </button>
-              <button class="thumb" type="button" data-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" aria-label="Show ergonomic product image">
+              <button class="thumb" type="button" data-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" aria-label="Show ergonomic image">
                 <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" alt="" loading="lazy" decoding="async">
               </button>
-              <button class="thumb" type="button" data-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" aria-label="Show feature product image">
+              <button class="thumb" type="button" data-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" aria-label="Show feature image">
                 <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" alt="" loading="lazy" decoding="async">
               </button>
-              <button class="thumb" type="button" data-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" aria-label="Show how to use product image">
+              <button class="thumb" type="button" data-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" aria-label="Show how-to image">
                 <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="" loading="lazy" decoding="async">
               </button>
             </div>
             <div class="main-frame">
-              <img id="galleryImage" src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Durex Play Wild Wand gallery image" loading="lazy" decoding="async">
+              <img id="galleryImage" src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Durex Play Wild Wand" loading="lazy" decoding="async">
             </div>
           </div>
 
           <aside class="buy-panel" id="shop">
             <h2>Durex Play Wild Wand</h2>
-            <p>Body-safe, waterproof, rechargeable, and shipped discreetly. Built for external play only.</p>
+            <p>Body-safe, waterproof, rechargeable, shipped discreetly. Built for external play only.</p>
             <div class="specs">
               <div class="spec"><b>4.6</b><span>average rating</span></div>
               <div class="spec"><b>18+</b><span>adult product</span></div>
@@ -1019,19 +1067,20 @@
               <div class="spec"><b>7</b><span>vibration settings</span></div>
             </div>
             <div class="quantity" aria-label="Quantity selector">
-              <button type="button" id="minus" aria-label="Decrease quantity">-</button>
+              <button type="button" id="minus" aria-label="Decrease">−</button>
               <span id="quantity">1</span>
-              <button type="button" id="plus" aria-label="Increase quantity">+</button>
+              <button type="button" id="plus"  aria-label="Increase">+</button>
             </div>
-            <a class="primary-cta js-buy-cta" href="https://www.durexindia.com/products/durex-play-wild-wand" aria-label="Buy Durex Play Wild Wand on Durex India">Buy on Durex India</a>
+            <a class="primary-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy on Durex India</a>
           </aside>
         </div>
       </section>
 
+      <!-- ══ FAQ ══ -->
       <section class="faq" id="faq">
         <div class="faq-inner">
           <div>
-            <p class="eyebrow" style="color: var(--durex-blue);">Need-to-know details</p>
+            <p class="eyebrow" style="color:var(--durex-blue);">Need-to-know details</p>
             <h2 class="section-title">No mood killers.</h2>
           </div>
           <div class="faq-list">
@@ -1056,99 +1105,93 @@
       </section>
     </main>
 
-    <div class="footer-buy" aria-label="Sticky purchase bar">
-      <div>
+    <!-- ══ STICKY BUY BAR ══ -->
+    <div class="footer-buy" role="complementary" aria-label="Purchase bar">
+      <div class="footer-buy-text">
         <strong>Durex Play Wild Wand</strong>
-        <span>Rs. 2,699 today</span>
+        <span>Rs. 2,699 · Save 42%</span>
       </div>
-      <a class="primary-cta js-buy-cta" href="https://www.durexindia.com/products/durex-play-wild-wand" aria-label="Buy Durex Play Wild Wand now">Buy Now</a>
+      <a class="cta-shake js-buy-cta"
+         href="https://www.durexindia.com/products/durex-play-wild-wand"
+         aria-label="Buy Durex Play Wild Wand">
+        Buy Now
+      </a>
     </div>
-  </div>
+  </div><!-- .page -->
 
   <script>
+    'use strict';
     const root = document.documentElement;
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let scrollFrame = 0;
-    let lastScrollY = window.scrollY || 0;
-    let scrollShakeTimer = 0;
+    const pRM  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const heroOrbit  = document.getElementById("heroOrbit");
-    const heroVid    = document.querySelector(".js-hero-vid");
-    const storyVid   = document.querySelector(".hero-video");
-
-    /* ── SCROLL ENGINE ── */
-    const paintScroll = () => {
-      scrollFrame = 0;
-      const y   = lastScrollY;
+    /* ── SCROLL ENGINE (rAF-throttled) ── */
+    let raf = 0, lastY = 0;
+    const paint = () => {
+      raf = 0;
+      const y   = lastY;
       const max = Math.max(1, document.body.scrollHeight - window.innerHeight);
-
-      root.style.setProperty("--scroll",          y.toFixed(2));
-      root.style.setProperty("--scroll-progress", Math.min(1, y / max).toFixed(4));
-      root.style.setProperty("--hero-media-y",    `${Math.max(-28, Math.min(14, y * -0.032))}px`);
-      root.style.setProperty("--hero-wand-rotate",`${Math.max(-18, Math.min(42, y *  0.055))}deg`);
-      root.style.setProperty("--hero-wand-y",     `${Math.max(-26, Math.min(18, y * -0.018))}px`);
-
-      /* Pause story video when out of view */
-      if (storyVid) {
-        const r = storyVid.getBoundingClientRect();
-        const vis = r.top < window.innerHeight * 0.9 && r.bottom > 0;
-        if (vis && !prefersReducedMotion) storyVid.play().catch(()=>{});
-        else storyVid.pause();
-      }
+      root.style.setProperty('--scroll',          y.toFixed(1));
+      root.style.setProperty('--scroll-progress', Math.min(1, y / max).toFixed(4));
+      root.style.setProperty('--hero-media-y',    `${Math.max(-28, Math.min(14, y * -.032))}px`);
     };
+    window.addEventListener('scroll', () => {
+      lastY = window.scrollY;
+      if (!raf) raf = requestAnimationFrame(paint);
+    }, { passive: true });
+    window.addEventListener('resize', () => {
+      if (!raf) raf = requestAnimationFrame(paint);
+    }, { passive: true });
+    paint();
 
-    const onScroll = () => {
-      lastScrollY = window.scrollY || 0;
-      document.body.classList.add("scrolling");
-      clearTimeout(scrollShakeTimer);
-      scrollShakeTimer = setTimeout(() => document.body.classList.remove("scrolling"), 260);
-      if (!scrollFrame) scrollFrame = requestAnimationFrame(paintScroll);
-    };
-
-    window.addEventListener("scroll",  onScroll, { passive: true });
-    window.addEventListener("resize",  onScroll, { passive: true });
-    paintScroll();
-
-    /* ── POINTER TILT ── */
-    window.addEventListener("pointermove", (e) => {
-      if (prefersReducedMotion || window.innerWidth < 760) return;
+    /* ── POINTER TILT (desktop) ── */
+    window.addEventListener('pointermove', e => {
+      if (pRM || window.innerWidth < 760) return;
       const x = e.clientX / window.innerWidth;
       const y = e.clientY / window.innerHeight;
-      root.style.setProperty("--x", `${e.clientX}px`);
-      root.style.setProperty("--y", `${e.clientY}px`);
-      root.style.setProperty("--hero-tilt-y", `${(x - 0.5) * 10}deg`);
-      root.style.setProperty("--hero-tilt-x", `${(0.5 - y) * 8}deg`);
-      root.style.setProperty("--hero-media-x", `${(x - 0.5) * 14}px`);
+      root.style.setProperty('--x', `${e.clientX}px`);
+      root.style.setProperty('--y', `${e.clientY}px`);
+      root.style.setProperty('--hero-tilt-y', `${(x - .5) * 9}deg`);
+      root.style.setProperty('--hero-tilt-x', `${(.5 - y) * 7}deg`);
+      root.style.setProperty('--hero-media-x', `${(x - .5) * 12}px`);
     }, { passive: true });
 
-    /* ── HERO VIDEO smooth autoplay ── */
+    /* ── HERO VIDEO autoplay ── */
+    const heroVid = document.getElementById('heroVid');
     if (heroVid) {
       heroVid.muted = true;
-      heroVid.play().catch(() => {
-        /* If autoplay blocked, play on first interaction */
-        const play = () => { heroVid.play().catch(()=>{}); document.removeEventListener("pointerdown", play); };
-        document.addEventListener("pointerdown", play, { once: true });
-      });
+      const tryPlay = () => heroVid.play().catch(() => {});
+      tryPlay();
+      // Fallback on first tap (iOS Safari)
+      document.addEventListener('pointerdown', tryPlay, { once: true });
     }
 
-    /* ── STORY CARD TABS ── */
-    const storyImage  = document.getElementById("storyImage");
-    const storyKicker = document.getElementById("storyKicker");
-    const storyTitle  = document.getElementById("storyTitle");
-    const storyCopy   = document.getElementById("storyCopy");
+    /* ── STORY SECTION VIDEO (lazy autoplay via IO) ── */
+    const storyVid = document.querySelector('.hero-video');
+    if (storyVid && 'IntersectionObserver' in window) {
+      new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting && !pRM) storyVid.play().catch(() => {});
+          else storyVid.pause();
+        });
+      }, { threshold: .3 }).observe(storyVid);
+    }
 
-    document.querySelectorAll(".story-card").forEach(card => {
-      card.addEventListener("click", () => {
-        document.querySelectorAll(".story-card").forEach(c => c.classList.remove("active"));
-        card.classList.add("active");
+    /* ── STORY TABS ── */
+    const storyImage  = document.getElementById('storyImage');
+    const storyKicker = document.getElementById('storyKicker');
+    const storyTitle  = document.getElementById('storyTitle');
+    const storyCopy   = document.getElementById('storyCopy');
+    document.querySelectorAll('.story-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.story-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
         if (storyImage) {
           storyImage.animate(
-            [{ opacity: 0.35, transform: "translateY(.6rem) scale(.985)" },
-             { opacity: 1,    transform: "translateY(0) scale(1)" }],
-            { duration: 280, easing: "ease-out" }
+            [{ opacity:.3, transform:'translateY(.5rem) scale(.985)' },
+             { opacity:1,  transform:'translateY(0) scale(1)' }],
+            { duration:260, easing:'ease-out' }
           );
           storyImage.src = card.dataset.storyImage;
-          storyImage.alt = card.getAttribute("aria-label").replace("Show","Showing");
         }
         if (storyKicker) storyKicker.textContent = card.dataset.storyKicker;
         if (storyTitle)  storyTitle.textContent  = card.dataset.storyTitle;
@@ -1157,30 +1200,29 @@
     });
 
     /* ── GALLERY THUMBS ── */
-    const galleryImage = document.getElementById("galleryImage");
-    document.querySelectorAll(".thumb").forEach(thumb => {
-      thumb.addEventListener("click", () => {
-        document.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
-        thumb.classList.add("active");
-        galleryImage.animate(
-          [{ opacity: 0.3, transform: "scale(.97)" },
-           { opacity: 1,   transform: "scale(1.02)" }],
-          { duration: 260, easing: "ease-out" }
+    const galleryImg = document.getElementById('galleryImage');
+    document.querySelectorAll('.thumb').forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+        galleryImg.animate(
+          [{ opacity:.3, transform:'scale(.97)' },
+           { opacity:1,  transform:'scale(1.02)' }],
+          { duration:240, easing:'ease-out' }
         );
-        galleryImage.src = thumb.dataset.image;
-        galleryImage.alt = thumb.getAttribute("aria-label").replace("Show","Showing");
+        galleryImg.src = thumb.dataset.image;
       });
     });
 
     /* ── QUANTITY ── */
-    const qty = document.getElementById("quantity");
-    document.getElementById("minus").addEventListener("click", () => { qty.textContent = Math.max(1, +qty.textContent - 1); });
-    document.getElementById("plus").addEventListener("click",  () => { qty.textContent = Math.min(9, +qty.textContent + 1); });
+    const qty = document.getElementById('quantity');
+    document.getElementById('minus').addEventListener('click', () => { qty.textContent = Math.max(1, +qty.textContent - 1); });
+    document.getElementById('plus').addEventListener('click',  () => { qty.textContent = Math.min(9, +qty.textContent + 1); });
 
     /* ── HAPTIC ── */
-    document.querySelectorAll(".js-buy-cta, .js-haptic").forEach(el => {
-      el.addEventListener("pointerdown", () => {
-        if ("vibrate" in navigator) navigator.vibrate([24,18,24]);
+    document.querySelectorAll('.js-buy-cta, .js-haptic, .cta-shake').forEach(el => {
+      el.addEventListener('pointerdown', () => {
+        if ('vibrate' in navigator) navigator.vibrate([22,14,22]);
       }, { passive: true });
     });
   </script>
