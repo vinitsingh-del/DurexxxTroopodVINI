@@ -26,6 +26,7 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 5.5rem;
     }
 
     body {
@@ -50,6 +51,7 @@
       position: relative;
       isolation: isolate;
       min-height: 100vh;
+      padding-bottom: 5.7rem;
       background:
         radial-gradient(circle at 9% 16%, rgba(255, 93, 108, 0.38), transparent 22rem),
         radial-gradient(circle at 86% 8%, rgba(77, 255, 210, 0.26), transparent 24rem),
@@ -67,6 +69,7 @@
         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
       background-size: 44px 44px;
       transform: translateY(calc(var(--scroll) * -0.04px));
+      will-change: transform;
       mask-image: linear-gradient(to bottom, black 0%, transparent 76%);
     }
 
@@ -82,6 +85,7 @@
       background: radial-gradient(circle, rgba(215, 255, 63, 0.22), transparent 62%);
       filter: blur(4px);
       pointer-events: none;
+      will-change: left, top;
     }
 
     .nav {
@@ -95,6 +99,7 @@
       padding: 1rem clamp(1rem, 3vw, 3rem);
       background: linear-gradient(180deg, rgba(2, 8, 32, 0.92), rgba(2, 8, 32, 0.18));
       backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
     .brand {
@@ -290,6 +295,14 @@
       text-decoration: none;
       font-weight: 950;
       cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    }
+
+    .primary-cta:hover,
+    .primary-cta:focus-visible {
+      transform: translateY(-2px);
+      filter: saturate(1.08);
+      box-shadow: 0 1.25rem 3.8rem rgba(215, 255, 63, 0.36);
     }
 
     .ghost-cta {
@@ -301,6 +314,14 @@
       background: rgba(255, 255, 255, 0.08);
       text-decoration: none;
       font-weight: 850;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .ghost-cta:hover,
+    .ghost-cta:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.16);
     }
 
     .hero-stage {
@@ -308,6 +329,7 @@
       min-height: min(42rem, 78vh);
       perspective: 1000px;
       transform: translateY(calc(var(--scroll) * 0.045px));
+      will-change: transform;
     }
 
     .product-orbit {
@@ -319,6 +341,7 @@
       transform: rotateX(var(--hero-tilt-x)) rotateY(var(--hero-tilt-y));
       transform-style: preserve-3d;
       transition: transform 160ms ease-out;
+      will-change: transform;
     }
 
     .halo {
@@ -349,6 +372,7 @@
       border-radius: 2rem;
       filter: drop-shadow(0 3rem 3rem rgba(0, 0, 0, 0.38));
       transform: translateZ(5rem) rotate(calc(var(--scroll) * -0.012deg));
+      will-change: transform;
     }
 
     .float-tag {
@@ -491,6 +515,7 @@
       border-radius: 0.5rem;
       background: rgba(255, 255, 255, 0.08);
       transform: translateY(calc((var(--scroll) - 1100) * -0.012px));
+      will-change: transform;
     }
 
     .mode-card:nth-child(2) {
@@ -725,6 +750,7 @@
       object-fit: cover;
       opacity: 0.58;
       transform: translateY(calc((var(--scroll) - 2700) * -0.08px));
+      will-change: transform;
     }
 
     .immersive::after {
@@ -800,17 +826,41 @@
     }
 
     .footer-buy {
-      position: sticky;
-      bottom: 0;
+      position: fixed;
+      left: clamp(0.75rem, 3vw, 2rem);
+      right: clamp(0.75rem, 3vw, 2rem);
+      bottom: max(0.75rem, env(safe-area-inset-bottom));
       z-index: 18;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      padding: 0.8rem clamp(1rem, 4vw, 3rem);
-      background: rgba(3, 16, 52, 0.92);
-      border-top: 1px solid rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(20px);
+      width: min(62rem, calc(100% - clamp(1.5rem, 6vw, 4rem)));
+      margin-inline: auto;
+      padding: 0.8rem 0.9rem 0.8rem 1.1rem;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(3, 16, 52, 0.62));
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 1.35rem;
+      box-shadow: 0 1.35rem 4rem rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(24px) saturate(1.45);
+      -webkit-backdrop-filter: blur(24px) saturate(1.45);
+    }
+
+    .footer-buy::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.28), transparent 28%),
+        radial-gradient(circle at 85% 20%, rgba(215, 255, 63, 0.28), transparent 16rem);
+      opacity: 0.86;
+    }
+
+    .footer-buy > * {
+      position: relative;
+      z-index: 1;
     }
 
     .footer-buy strong {
@@ -823,6 +873,12 @@
       color: rgba(255, 255, 255, 0.68);
       font-size: 0.86rem;
       font-weight: 750;
+    }
+
+    .footer-buy .primary-cta {
+      min-width: 8.5rem;
+      animation: cta-vibrate 2.9s ease-in-out infinite;
+      transform-origin: center;
     }
 
     .pulse-line {
@@ -855,6 +911,27 @@
       }
     }
 
+    @keyframes cta-vibrate {
+      0%, 76%, 100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+      78% {
+        transform: translate3d(-1px, 0, 0) rotate(-0.8deg);
+      }
+      80% {
+        transform: translate3d(1px, 0, 0) rotate(0.8deg);
+      }
+      82% {
+        transform: translate3d(-1px, 0, 0) rotate(-0.7deg);
+      }
+      84% {
+        transform: translate3d(1px, 0, 0) rotate(0.7deg);
+      }
+      86% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+    }
+
     @media (max-width: 900px) {
       .hero,
       .wave-inner,
@@ -871,6 +948,7 @@
 
       .hero-stage {
         min-height: 30rem;
+        transform: none;
       }
 
       .product-orbit {
@@ -902,6 +980,7 @@
 
       .mode-card {
         min-height: 17rem;
+        transform: none !important;
       }
 
       .gallery {
@@ -923,6 +1002,15 @@
         padding: 0.75rem;
       }
 
+      .page {
+        padding-bottom: 6.8rem;
+      }
+
+      .grid-noise,
+      .cursor-glow {
+        display: none;
+      }
+
       .brand span,
       .nav-actions .chip:not(.buy) {
         display: none;
@@ -938,6 +1026,7 @@
 
       .product-shot {
         width: min(24rem, 86vw);
+        transform: translateZ(3rem);
       }
 
       .halo {
@@ -960,11 +1049,26 @@
       }
 
       .footer-buy {
+        left: 0.75rem;
+        right: 0.75rem;
+        width: auto;
         align-items: stretch;
+        gap: 0.7rem;
+        padding: 0.72rem;
+        border-radius: 1.05rem;
+      }
+
+      .footer-buy strong {
+        font-size: 0.93rem;
+      }
+
+      .footer-buy span {
+        font-size: 0.78rem;
       }
 
       .footer-buy .primary-cta {
         min-height: 3rem;
+        min-width: 7.4rem;
         padding-inline: 0.95rem;
       }
     }
@@ -978,6 +1082,10 @@
         scroll-behavior: auto !important;
         transition-duration: 0.001ms !important;
       }
+
+      .footer-buy .primary-cta {
+        animation: none !important;
+      }
     }
   </style>
 </head>
@@ -988,14 +1096,14 @@
     <div class="cursor-glow" aria-hidden="true"></div>
 
     <nav class="nav" aria-label="Product navigation">
-      <a class="brand" href="https://www.durexindia.com/products/durex-play-wild-wand">
-        <img src="assets/Durex-logo-white.avif" alt="Durex">
+      <a class="brand" href="https://www.durexindia.com/products/durex-play-wild-wand" aria-label="Open Durex Wild Wand product page">
+        <img src="assets/Durex-logo-white.avif" alt="Durex" width="160" height="54" decoding="async">
         <span>Play Wild Wand</span>
       </a>
       <div class="nav-actions">
         <a class="chip" href="#features">Modes</a>
         <a class="chip" href="#faq">Details</a>
-        <a class="chip buy" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy Now</a>
+        <a class="chip buy js-buy-cta" href="https://www.durexindia.com/products/durex-play-wild-wand" aria-label="Buy Durex Play Wild Wand">Buy Now</a>
       </div>
     </nav>
 
@@ -1018,7 +1126,7 @@
         <div class="hero-stage" aria-label="Durex Play Wild Wand product visual">
           <div class="product-orbit">
             <div class="halo" aria-hidden="true"></div>
-            <img class="product-shot" src="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" alt="Durex Play Wild Wand product pack">
+            <img class="product-shot" src="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" alt="Durex Play Wild Wand product pack" fetchpriority="high" decoding="async">
             <div class="float-tag one">7<br>vibes</div>
             <div class="float-tag two">100%<br>wet ready</div>
           </div>
@@ -1028,7 +1136,7 @@
       <section class="wave-band">
         <div class="wave-inner">
           <div class="banner-window">
-            <img src="assets/banner_2_95ea13c8-59bf-4a20-98ea-c12b70c8b12e.webp" alt="Wild Wand lifestyle banner">
+            <img src="assets/banner_2_95ea13c8-59bf-4a20-98ea-c12b70c8b12e.webp" alt="Wild Wand lifestyle banner" loading="lazy" decoding="async">
           </div>
           <div class="wave-copy">
             <h2>Small wand. Big main-character energy.</h2>
@@ -1047,17 +1155,17 @@
           <article class="mode-card" style="--tone: var(--acid);">
             <strong>3x</strong>
             <span>Sensational tapping modes for rhythm, tease, and surprise.</span>
-            <img src="assets/1_37879527-ffdb-4e3b-bd5c-9c21a09042b6.webp" alt="Wild Wand mode detail">
+            <img src="assets/1_37879527-ffdb-4e3b-bd5c-9c21a09042b6.webp" alt="Wild Wand mode detail" loading="lazy" decoding="async">
           </article>
           <article class="mode-card" style="--tone: var(--mint);">
             <strong>7x</strong>
             <span>Vibration settings that move from subtle spark to full-volume buzz.</span>
-            <img src="assets/2_486df116-b482-496e-a352-62e66b54967e.webp" alt="Wild Wand vibration detail">
+            <img src="assets/2_486df116-b482-496e-a352-62e66b54967e.webp" alt="Wild Wand vibration detail" loading="lazy" decoding="async">
           </article>
           <article class="mode-card" style="--tone: var(--coral);">
             <strong>45</strong>
             <span>Minutes of play after charging, with waterproof confidence built in.</span>
-            <img src="assets/3_12_1d39a484-9c0d-4ebb-8f82-901945ae931a.webp" alt="Wild Wand waterproof detail">
+            <img src="assets/3_12_1d39a484-9c0d-4ebb-8f82-901945ae931a.webp" alt="Wild Wand waterproof detail" loading="lazy" decoding="async">
           </article>
         </div>
       </section>
@@ -1067,20 +1175,20 @@
           <div class="gallery" aria-label="Product gallery">
             <div class="thumbs">
               <button class="thumb active" type="button" data-image="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" aria-label="Show product box">
-                <img src="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" alt="">
+                <img src="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" alt="" loading="lazy" decoding="async">
               </button>
               <button class="thumb" type="button" data-image="assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" aria-label="Show feature banner one">
-                <img src="assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" alt="">
+                <img src="assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" alt="" loading="lazy" decoding="async">
               </button>
               <button class="thumb" type="button" data-image="assets/banner_3_84e6b366-d08a-4041-b190-fd1dc6107551.webp" aria-label="Show feature banner two">
-                <img src="assets/banner_3_84e6b366-d08a-4041-b190-fd1dc6107551.webp" alt="">
+                <img src="assets/banner_3_84e6b366-d08a-4041-b190-fd1dc6107551.webp" alt="" loading="lazy" decoding="async">
               </button>
               <button class="thumb" type="button" data-image="assets/banner_4_36900ed9-2b90-4c12-b01d-cbcb3932ca7d.webp" aria-label="Show feature banner three">
-                <img src="assets/banner_4_36900ed9-2b90-4c12-b01d-cbcb3932ca7d.webp" alt="">
+                <img src="assets/banner_4_36900ed9-2b90-4c12-b01d-cbcb3932ca7d.webp" alt="" loading="lazy" decoding="async">
               </button>
             </div>
             <div class="main-frame">
-              <img id="galleryImage" src="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" alt="Durex Play Wild Wand gallery image">
+              <img id="galleryImage" src="assets/2_f8cf325c-bcb5-4000-9b30-7fae2f9b1a24.webp" alt="Durex Play Wild Wand gallery image" loading="lazy" decoding="async">
             </div>
           </div>
 
@@ -1098,13 +1206,13 @@
               <span id="quantity">1</span>
               <button type="button" id="plus" aria-label="Increase quantity">+</button>
             </div>
-            <a class="primary-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy on Durex India</a>
+            <a class="primary-cta js-buy-cta" href="https://www.durexindia.com/products/durex-play-wild-wand" aria-label="Buy Durex Play Wild Wand on Durex India">Buy on Durex India</a>
           </aside>
         </div>
       </section>
 
       <section class="immersive">
-        <img src="assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" alt="Wild Wand color burst">
+        <img src="assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" alt="Wild Wand color burst" loading="lazy" decoding="async">
         <div class="immersive-copy">
           <h2>Waterproof. Pocket-sized. Unapologetic.</h2>
           <p>A little charge, a lot of range, and a design that does not flinch when things get wet.</p>
@@ -1144,20 +1252,33 @@
         <strong>Durex Play Wild Wand</strong>
         <span>Rs. 2,699 today</span>
       </div>
-      <a class="primary-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy Now</a>
+      <a class="primary-cta js-buy-cta" href="https://www.durexindia.com/products/durex-play-wild-wand" aria-label="Buy Durex Play Wild Wand now">Buy Now</a>
     </div>
   </div>
 
   <script>
     const root = document.documentElement;
-    const updateScroll = () => {
-      const y = window.scrollY || 0;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let scrollFrame = 0;
+    let lastScrollY = window.scrollY || 0;
+
+    const paintScroll = () => {
+      scrollFrame = 0;
+      const y = lastScrollY;
       const max = Math.max(1, document.body.scrollHeight - window.innerHeight);
       root.style.setProperty("--scroll", y.toFixed(2));
       root.style.setProperty("--scroll-progress", Math.min(1, y / max).toFixed(4));
     };
 
+    const updateScroll = () => {
+      lastScrollY = window.scrollY || 0;
+      if (!scrollFrame) {
+        scrollFrame = window.requestAnimationFrame(paintScroll);
+      }
+    };
+
     const updatePointer = (event) => {
+      if (prefersReducedMotion || window.innerWidth < 760) return;
       const x = event.clientX / window.innerWidth;
       const y = event.clientY / window.innerHeight;
       root.style.setProperty("--x", `${event.clientX}px`);
@@ -1167,8 +1288,9 @@
     };
 
     window.addEventListener("scroll", updateScroll, { passive: true });
+    window.addEventListener("resize", updateScroll, { passive: true });
     window.addEventListener("pointermove", updatePointer, { passive: true });
-    updateScroll();
+    paintScroll();
 
     const galleryImage = document.querySelector("#galleryImage");
     const thumbs = document.querySelectorAll(".thumb");
@@ -1181,6 +1303,7 @@
           { duration: 260, easing: "ease-out" }
         );
         galleryImage.src = thumb.dataset.image;
+        galleryImage.alt = thumb.getAttribute("aria-label").replace("Show", "Showing");
       });
     });
 
@@ -1190,6 +1313,14 @@
     });
     document.querySelector("#plus").addEventListener("click", () => {
       quantity.textContent = Math.min(9, Number(quantity.textContent) + 1);
+    });
+
+    document.querySelectorAll(".js-buy-cta").forEach((cta) => {
+      cta.addEventListener("click", () => {
+        if ("vibrate" in navigator) {
+          navigator.vibrate([30, 20, 30]);
+        }
+      });
     });
   </script>
 </body>
