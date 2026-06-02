@@ -20,6 +20,8 @@
       --hero-tilt-y: 0deg;
       --hero-media-x: 0px;
       --hero-media-y: 0px;
+      --hero-wand-rotate: 0deg;
+      --hero-wand-y: 0px;
     }
 
     * {
@@ -334,6 +336,63 @@
       will-change: transform;
     }
 
+    .hero-cutout-wrap {
+      position: absolute;
+      top: 50%;
+      right: clamp(0.4rem, 4vw, 5rem);
+      z-index: 6;
+      width: min(22rem, 42vw);
+      height: min(43rem, 76vh);
+      pointer-events: none;
+      transform: translate3d(0, calc(-50% + var(--hero-wand-y)), 6rem) rotate(calc(-9deg + var(--hero-wand-rotate)));
+      transform-origin: 52% 54%;
+      filter: drop-shadow(0 2.2rem 2.3rem rgba(0, 0, 0, 0.48));
+      will-change: transform, filter;
+    }
+
+    .hero-cutout-wrap::before,
+    .hero-cutout-wrap::after {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    .hero-cutout-wrap::before {
+      width: 10rem;
+      aspect-ratio: 1;
+      left: 47%;
+      top: 8%;
+      translate: -50% -50%;
+      background:
+        radial-gradient(circle, rgba(255, 255, 210, 0.95) 0 8%, rgba(215, 255, 63, 0.58) 9% 24%, rgba(77, 255, 210, 0.3) 25% 42%, transparent 68%);
+      mix-blend-mode: screen;
+      filter: blur(0.16rem);
+      animation: wand-light-on 2.8s ease-in-out infinite;
+    }
+
+    .hero-cutout-wrap::after {
+      width: 14rem;
+      aspect-ratio: 1;
+      left: 49%;
+      top: 13%;
+      translate: -50% -50%;
+      border: 2px solid rgba(215, 255, 63, 0.55);
+      box-shadow: inset 0 0 1.4rem rgba(77, 255, 210, 0.18), 0 0 2.2rem rgba(215, 255, 63, 0.22);
+      animation: wand-ring-pulse 1.45s linear infinite;
+    }
+
+    .hero-cutout {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      animation: wand-idle-float 4.4s ease-in-out infinite;
+    }
+
     .product-orbit {
       position: absolute;
       inset: 5% 0 auto 0;
@@ -344,6 +403,11 @@
       transform-style: preserve-3d;
       transition: transform 160ms ease-out;
       will-change: transform;
+    }
+
+    .product-orbit.has-video-orbit {
+      opacity: 0.55;
+      transform: translateX(clamp(-3rem, -4vw, -1rem)) rotateX(var(--hero-tilt-x)) rotateY(var(--hero-tilt-y));
     }
 
     .product-orbit.has-video-orbit .halo,
@@ -1358,6 +1422,48 @@
       }
     }
 
+    @keyframes wand-idle-float {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(0, -0.7rem, 0) scale(1.012);
+      }
+    }
+
+    @keyframes wand-light-on {
+      0%, 18%, 100% {
+        opacity: 0.22;
+        transform: scale(0.72);
+      }
+      30% {
+        opacity: 1;
+        transform: scale(1.03);
+      }
+      45% {
+        opacity: 0.5;
+        transform: scale(1.2);
+      }
+      62% {
+        opacity: 0.86;
+        transform: scale(0.94);
+      }
+    }
+
+    @keyframes wand-ring-pulse {
+      0% {
+        opacity: 0;
+        transform: scale(0.62);
+      }
+      42% {
+        opacity: 0.75;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.28);
+      }
+    }
+
 
     @keyframes cta-vibrate {
       0%, 100% {
@@ -1474,6 +1580,18 @@
 
       .product-orbit {
         inset: 0;
+      }
+
+      .product-orbit.has-video-orbit {
+        opacity: 0.42;
+        transform: translateX(-1.2rem);
+      }
+
+      .hero-cutout-wrap {
+        right: -0.6rem;
+        top: 24rem;
+        width: min(14.5rem, 42vw);
+        height: 27rem;
       }
 
       .wave-band {
@@ -1612,6 +1730,24 @@
         max-height: none;
       }
 
+      .hero-cutout-wrap {
+        right: -1.6rem;
+        top: 15.2rem;
+        z-index: 1;
+        width: min(9.7rem, 36vw);
+        height: 16.5rem;
+        opacity: 0.82;
+        filter: drop-shadow(0 1.2rem 1.5rem rgba(0, 0, 0, 0.45));
+      }
+
+      .hero-cutout-wrap::before {
+        width: 5.2rem;
+      }
+
+      .hero-cutout-wrap::after {
+        width: 6.9rem;
+      }
+
       .footer-buy {
         transition: opacity 180ms ease, transform 180ms ease;
       }
@@ -1733,6 +1869,9 @@
       .scroll-pulse,
       .use-step b,
       .story-preview-visual img,
+      .hero-cutout,
+      .hero-cutout-wrap::before,
+      .hero-cutout-wrap::after,
       .hero-media-shell::after {
         animation: none !important;
       }
@@ -1772,6 +1911,10 @@
             <a class="primary-cta" href="#shop">Enter The Pulse</a>
             <a class="ghost-cta" href="#showcase">See The Wand</a>
           </div>
+        </div>
+
+        <div class="hero-cutout-wrap js-haptic" aria-label="Rotating Durex Play Wild Wand cutout with light pulse">
+          <img class="hero-cutout" src="assets/wild-wand-cutout.png" alt="Durex Play Wild Wand transparent product cutout" width="471" height="1400" decoding="async">
         </div>
 
         <div class="hero-stage" aria-label="Durex Play Wild Wand product visual">
@@ -2009,6 +2152,8 @@
       root.style.setProperty("--scroll", y.toFixed(2));
       root.style.setProperty("--scroll-progress", Math.min(1, y / max).toFixed(4));
       root.style.setProperty("--hero-media-y", `${Math.max(-34, Math.min(16, y * -0.035))}px`);
+      root.style.setProperty("--hero-wand-rotate", `${Math.max(-18, Math.min(42, y * 0.055))}deg`);
+      root.style.setProperty("--hero-wand-y", `${Math.max(-26, Math.min(18, y * -0.018))}px`);
       updateHeroVideoState();
     };
 
