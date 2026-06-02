@@ -744,6 +744,18 @@
       overflow: hidden;
     }
 
+    /* When reviews lives inside product-story — override standalone styles */
+    .reviews-embedded {
+      padding-top: clamp(2.5rem,5vw,4rem);
+      padding-bottom: clamp(2.5rem,5vw,4rem);
+      background: none;             /* inherits product-story bg */
+      border-top: 1px solid rgba(255,255,255,.07);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      margin-bottom: clamp(1.5rem,3vw,2.5rem);
+    }
+    .reviews-embedded::before,
+    .reviews-embedded::after { display: none; } /* hide standalone fade edges */
+
     /* top / bottom edge fades so cards melt into the bg */
     .reviews::before, .reviews::after {
       content: ""; position: absolute; z-index: 2; pointer-events: none;
@@ -1176,75 +1188,9 @@
             </div>
           </div>
 
-          <div class="story-gallery js-haptic">
-            <div class="story-tabs" role="tablist" aria-label="Wild Wand product images">
-              <button class="story-card active" type="button"
-                data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png"
-                data-story-kicker="Clean product"
-                data-story-title="Durex Play Wild Wand"
-                data-story-copy="The compact rechargeable wand with 3 tapping modes, 7 vibration settings, and waterproof confidence."
-                aria-label="Show clean Wild Wand product image">
-                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Clean product" loading="lazy" decoding="async">
-                <span class="story-card-label"><span>Wild Wand</span><span>Clean</span></span>
-              </button>
-              <button class="story-card" type="button"
-                data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg"
-                data-story-kicker="Ergonomic grip"
-                data-story-title="Designed ergonomically"
-                data-story-copy="Curved to sit naturally in hand, with a soft-touch body made for confident control."
-                aria-label="Show Wild Wand ergonomic grip image">
-                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" alt="Grip-ready" loading="lazy" decoding="async">
-                <span class="story-card-label"><span>Grip</span><span>Ready</span></span>
-              </button>
-              <button class="story-card" type="button"
-                data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000"
-                data-story-kicker="Mode details"
-                data-story-title="Wand-er to the wild side"
-                data-story-copy="Velvety smooth touch, waterproof play, and up to 45 minutes of run time."
-                aria-label="Show Wild Wand features image">
-                <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" alt="Features" loading="lazy" decoding="async">
-                <span class="story-card-label"><span>3 7 45</span><span>Glow</span></span>
-              </button>
-              <button class="story-card" type="button"
-                data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000"
-                data-story-kicker="How to use"
-                data-story-title="Press, explore, combine"
-                data-story-copy="Hold to power on, move between tapping and vibrating modes, then hold both buttons to turn it off."
-                aria-label="Show Wild Wand how to use image">
-                <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="How to use" loading="lazy" decoding="async">
-                <span class="story-card-label"><span>How to</span><span>Use</span></span>
-              </button>
-            </div>
-
-            <div class="story-preview">
-              <div class="story-preview-visual">
-                <img id="storyImage" src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Wild Wand product" loading="lazy" decoding="async">
-              </div>
-              <div class="story-info">
-                <strong id="storyKicker">Clean product</strong>
-                <h3 id="storyTitle">Durex Play Wild Wand</h3>
-                <p id="storyCopy">The compact rechargeable wand with 3 tapping modes, 7 vibration settings, and waterproof confidence.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="use-panel">
-            <div class="use-visual js-haptic">
-              <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="How to use guide" loading="lazy" decoding="async">
-            </div>
-            <div class="use-steps">
-              <article class="use-step"><b>1</b><h3>Hold to start</h3><p>Wash before use, then hold any button for 3 seconds to turn it on.</p></article>
-              <article class="use-step"><b>2</b><h3>Explore modes</h3><p>Move between tapping and vibrating settings until the rhythm feels right.</p></article>
-              <article class="use-step"><b>3</b><h3>Try both together</h3><p>Use tapping and vibration modes simultaneously when you want extra intensity.</p></article>
-              <article class="use-step"><b>4</b><h3>Hold to stop</h3><p>Hold both buttons for 3 seconds to turn it off and reset for round two.</p></article>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ══ REVIEWS ══ -->
-      <section class="reviews" aria-label="Customer reviews">
-        <div class="reviews-head">
+          <!-- REAL TALK carousel -->
+          <div class="reviews reviews-embedded" aria-label="Customer reviews">
+<div class="reviews-head">
           <p class="eyebrow">Real talk</p>
           <h2>They came.<br>They buzzed.<br>They reviewed.</h2>
           <div class="reviews-agg" aria-label="4.6 out of 5 stars, 2,400 reviews">
@@ -1492,7 +1438,75 @@
 
           </div><!-- .reviews-track -->
         </div><!-- .reviews-viewport -->
+          </div>
+
+          <div class="story-gallery js-haptic">
+            <div class="story-tabs" role="tablist" aria-label="Wild Wand product images">
+              <button class="story-card active" type="button"
+                data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png"
+                data-story-kicker="Clean product"
+                data-story-title="Durex Play Wild Wand"
+                data-story-copy="The compact rechargeable wand with 3 tapping modes, 7 vibration settings, and waterproof confidence."
+                aria-label="Show clean Wild Wand product image">
+                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Clean product" loading="lazy" decoding="async">
+                <span class="story-card-label"><span>Wild Wand</span><span>Clean</span></span>
+              </button>
+              <button class="story-card" type="button"
+                data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg"
+                data-story-kicker="Ergonomic grip"
+                data-story-title="Designed ergonomically"
+                data-story-copy="Curved to sit naturally in hand, with a soft-touch body made for confident control."
+                aria-label="Show Wild Wand ergonomic grip image">
+                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" alt="Grip-ready" loading="lazy" decoding="async">
+                <span class="story-card-label"><span>Grip</span><span>Ready</span></span>
+              </button>
+              <button class="story-card" type="button"
+                data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000"
+                data-story-kicker="Mode details"
+                data-story-title="Wand-er to the wild side"
+                data-story-copy="Velvety smooth touch, waterproof play, and up to 45 minutes of run time."
+                aria-label="Show Wild Wand features image">
+                <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" alt="Features" loading="lazy" decoding="async">
+                <span class="story-card-label"><span>3 7 45</span><span>Glow</span></span>
+              </button>
+              <button class="story-card" type="button"
+                data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000"
+                data-story-kicker="How to use"
+                data-story-title="Press, explore, combine"
+                data-story-copy="Hold to power on, move between tapping and vibrating modes, then hold both buttons to turn it off."
+                aria-label="Show Wild Wand how to use image">
+                <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="How to use" loading="lazy" decoding="async">
+                <span class="story-card-label"><span>How to</span><span>Use</span></span>
+              </button>
+            </div>
+
+            <div class="story-preview">
+              <div class="story-preview-visual">
+                <img id="storyImage" src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Wild Wand product" loading="lazy" decoding="async">
+              </div>
+              <div class="story-info">
+                <strong id="storyKicker">Clean product</strong>
+                <h3 id="storyTitle">Durex Play Wild Wand</h3>
+                <p id="storyCopy">The compact rechargeable wand with 3 tapping modes, 7 vibration settings, and waterproof confidence.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="use-panel">
+            <div class="use-visual js-haptic">
+              <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="How to use guide" loading="lazy" decoding="async">
+            </div>
+            <div class="use-steps">
+              <article class="use-step"><b>1</b><h3>Hold to start</h3><p>Wash before use, then hold any button for 3 seconds to turn it on.</p></article>
+              <article class="use-step"><b>2</b><h3>Explore modes</h3><p>Move between tapping and vibrating settings until the rhythm feels right.</p></article>
+              <article class="use-step"><b>3</b><h3>Try both together</h3><p>Use tapping and vibration modes simultaneously when you want extra intensity.</p></article>
+              <article class="use-step"><b>4</b><h3>Hold to stop</h3><p>Hold both buttons for 3 seconds to turn it off and reset for round two.</p></article>
+            </div>
+          </div>
+        </div>
       </section>
+
+
 
       <!-- ══ WAVE BAND ══ -->
       <section class="wave-band">
