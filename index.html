@@ -728,6 +728,183 @@
     }
 
     /* ═══════════════════════════════
+       REVIEWS CAROUSEL
+    ═══════════════════════════════ */
+    .reviews {
+      position: relative;
+      padding: clamp(4rem,9vw,8rem) 0;
+      background:
+        radial-gradient(ellipse at 10% 50%, rgba(99,60,255,.22), transparent 40%),
+        radial-gradient(ellipse at 90% 30%, rgba(255,93,108,.18), transparent 38%),
+        linear-gradient(180deg, #050713 0%, #07112a 50%, #050713 100%);
+      overflow: hidden;
+    }
+
+    /* top / bottom edge fades so cards melt into the bg */
+    .reviews::before, .reviews::after {
+      content: ""; position: absolute; z-index: 2; pointer-events: none;
+      top: 0; bottom: 0; width: clamp(3rem,8vw,7rem);
+    }
+    .reviews::before {
+      left: 0;
+      background: linear-gradient(90deg, #050713, transparent);
+    }
+    .reviews::after {
+      right: 0;
+      background: linear-gradient(270deg, #050713, transparent);
+    }
+
+    .reviews-head {
+      text-align: center;
+      padding-inline: clamp(1.25rem,5vw,5rem);
+      margin-bottom: clamp(2rem,5vw,3.5rem);
+    }
+    .reviews-head .eyebrow { justify-content: center; margin-bottom: .75rem; }
+    .reviews-head h2 {
+      color: #fff; font-size: clamp(2.2rem,5.5vw,5rem);
+      line-height: .9; text-transform: uppercase;
+      text-shadow: 0 0 3rem rgba(99,60,255,.5);
+    }
+
+    /* aggregate star row */
+    .reviews-agg {
+      display: flex; align-items: center; justify-content: center;
+      gap: .65rem; margin-top: 1rem;
+    }
+    .reviews-agg .stars { color: var(--acid); font-size: 1.2rem; letter-spacing: .05em; }
+    .reviews-agg span { color: rgba(255,255,255,.6); font-size: .9rem; font-weight: 700; }
+
+    /* ── TRACK ── */
+    .reviews-viewport {
+      overflow: hidden;
+      width: 100%;
+      position: relative; z-index: 1;
+    }
+
+    .reviews-track {
+      display: flex;
+      gap: 1.25rem;
+      width: max-content;
+      /* infinite marquee — paused on hover */
+      animation: reviews-scroll 38s linear infinite;
+      will-change: transform;
+    }
+    .reviews-track:hover { animation-play-state: paused; }
+
+    @keyframes reviews-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── CARD ── */
+    .rv-card {
+      flex-shrink: 0;
+      width: clamp(18rem, 30vw, 26rem);
+      padding: 1.75rem 1.6rem 1.5rem;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        linear-gradient(135deg,
+          rgba(255,255,255,.07) 0%,
+          rgba(99,60,255,.12) 50%,
+          rgba(255,93,108,.06) 100%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow:
+        0 .5rem 2.5rem rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.14);
+      position: relative;
+      overflow: hidden;
+      transition: transform 280ms ease, box-shadow 280ms ease;
+      cursor: default;
+    }
+    .rv-card::before {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(ellipse at 80% 10%, rgba(215,255,63,.1), transparent 55%);
+      pointer-events: none;
+    }
+    .rv-card:hover {
+      transform: translateY(-.4rem) scale(1.015);
+      box-shadow:
+        0 1.2rem 3.5rem rgba(99,60,255,.22),
+        inset 0 1px 0 rgba(255,255,255,.2);
+    }
+
+    /* accent top bar */
+    .rv-card-accent {
+      position: absolute; top: 0; left: 1.4rem; right: 1.4rem;
+      height: .18rem; border-radius: 0 0 999px 999px;
+      background: linear-gradient(90deg, var(--violet), var(--coral), var(--acid));
+    }
+
+    /* quote mark */
+    .rv-quote-mark {
+      display: block;
+      color: var(--acid);
+      font-size: 4rem;
+      line-height: .7;
+      font-family: Georgia, serif;
+      margin-bottom: .6rem;
+      opacity: .55;
+    }
+
+    .rv-stars {
+      display: flex; gap: .2rem; margin-bottom: 1rem;
+    }
+    .rv-stars span {
+      color: var(--acid); font-size: .95rem;
+    }
+    /* half star for variety */
+    .rv-stars span.half { opacity: .45; }
+
+    .rv-text {
+      color: rgba(255,255,255,.88);
+      font-size: clamp(.9rem,1.2vw,1.05rem);
+      line-height: 1.65;
+      font-style: italic;
+      margin-bottom: 1.4rem;
+    }
+
+    .rv-author {
+      display: flex; align-items: center; gap: .85rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 1.1rem;
+    }
+    .rv-avatar {
+      width: 2.6rem; height: 2.6rem;
+      border-radius: 50%; flex-shrink: 0;
+      display: grid; place-items: center;
+      font-weight: 900; font-size: .85rem;
+      color: #07101d;
+      /* each card gets a custom --av-bg set inline */
+      background: var(--av-bg, var(--acid));
+      box-shadow: 0 0 0 2px rgba(255,255,255,.18);
+    }
+    .rv-name {
+      display: block; color: #fff; font-weight: 800;
+      font-size: .88rem; letter-spacing: .02em;
+    }
+    .rv-meta {
+      display: block;
+      color: rgba(255,255,255,.45); font-size: .76rem; margin-top: .18rem;
+    }
+
+    /* verified badge */
+    .rv-badge {
+      margin-left: auto; flex-shrink: 0;
+      display: inline-flex; align-items: center; gap: .3rem;
+      padding: .28rem .6rem;
+      border: 1px solid rgba(77,255,210,.3); border-radius: 999px;
+      color: var(--mint); font-size: .68rem; font-weight: 800;
+      background: rgba(77,255,210,.08); white-space: nowrap;
+    }
+    .rv-badge::before {
+      content: "✓"; font-weight: 900;
+    }
+
+    /* ═══════════════════════════════
        TABLET  ≤ 900px
     ═══════════════════════════════ */
     @media (max-width: 900px) {
@@ -842,6 +1019,11 @@
       }
 
       .scroll-pulse { bottom: .75rem; width: 2.3rem; }
+
+      /* reviews on mobile */
+      .rv-card { width: clamp(15rem, 78vw, 20rem); padding: 1.4rem 1.3rem 1.2rem; }
+      .rv-text { font-size: .88rem; }
+      .reviews-track { animation-duration: 28s; }
 
       .story-tabs {
         display: flex; gap: .75rem;
@@ -1028,6 +1210,258 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- ══ REVIEWS ══ -->
+      <section class="reviews" aria-label="Customer reviews">
+        <div class="reviews-head">
+          <p class="eyebrow">Real talk</p>
+          <h2>They came.<br>They buzzed.<br>They reviewed.</h2>
+          <div class="reviews-agg" aria-label="4.6 out of 5 stars, 2,400 reviews">
+            <span class="stars" aria-hidden="true">★★★★★</span>
+            <span>4.6 · 2,400+ reviews</span>
+          </div>
+        </div>
+
+        <div class="reviews-viewport">
+          <div class="reviews-track" id="reviewsTrack">
+
+            <!-- ── CARD 1 ── -->
+            <article class="rv-card">
+              <div class="rv-card-accent"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars" aria-label="5 stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="rv-text">Honestly this thing changed my entire solo routine. The tapping mode alone is worth every rupee. Whisper-quiet too — my flatmate had no idea.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--acid);">P</div>
+                <div>
+                  <span class="rv-name">Priya S.</span>
+                  <span class="rv-meta">Mumbai · Verified Purchase</span>
+                </div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+
+            <!-- ── CARD 2 ── -->
+            <article class="rv-card">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--coral),var(--mint),var(--violet));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars" aria-label="5 stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="rv-text">The waterproof feature is real — took it into the shower and it performed flawlessly. Packaging was so discreet, the delivery guy had zero idea what was inside.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--coral);">A</div>
+                <div>
+                  <span class="rv-name">Anika R.</span>
+                  <span class="rv-meta">Bangalore · Verified Purchase</span>
+                </div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+
+            <!-- ── CARD 3 ── -->
+            <article class="rv-card">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--mint),var(--sky),var(--acid));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars" aria-label="5 stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="rv-text">Gifted this to my partner and we've barely put it down. Seven vibration settings means we haven't run out of surprises. Best purchase of the year, no contest.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--mint); color:#07101d;">K</div>
+                <div>
+                  <span class="rv-name">Kavitha M.</span>
+                  <span class="rv-meta">Chennai · Verified Purchase</span>
+                </div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+
+            <!-- ── CARD 4 ── -->
+            <article class="rv-card">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--violet),var(--acid),var(--coral));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars" aria-label="4 stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span class="half">★</span>
+              </div>
+              <p class="rv-text">The ergonomic shape fits perfectly in hand. Love that I can use tapping and vibration at the same time — that combination on mode 3 is absolutely unreal.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--violet); color:#fff;">N</div>
+                <div>
+                  <span class="rv-name">Neha T.</span>
+                  <span class="rv-meta">Delhi · Verified Purchase</span>
+                </div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+
+            <!-- ── CARD 5 ── -->
+            <article class="rv-card">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--sky),var(--violet),var(--mint));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars" aria-label="5 stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="rv-text">Charged it once and it lasted me almost a week of daily use. Battery life is no joke. The velvety texture feels premium and the glow when it's on is so satisfying.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--sky); color:#07101d;">R</div>
+                <div>
+                  <span class="rv-name">Roshni V.</span>
+                  <span class="rv-meta">Pune · Verified Purchase</span>
+                </div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+
+            <!-- ── CARD 6 ── -->
+            <article class="rv-card">
+              <div class="rv-card-accent"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars" aria-label="5 stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="rv-text">I was sceptical at first but the tapping sensation is genuinely like nothing else. It's precise, powerful and surprisingly addictive. Durex really understood the assignment.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--coral);">S</div>
+                <div>
+                  <span class="rv-name">Sneha L.</span>
+                  <span class="rv-meta">Hyderabad · Verified Purchase</span>
+                </div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+
+            <!-- ── CARD 7 ── -->
+            <article class="rv-card">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--acid),var(--mint),var(--sky));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars" aria-label="5 stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="rv-text">45 minutes is plenty for a very thorough session. The discreet shipping is everything — arrived in a plain brown box, nothing to see. Will order again and again.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--acid);">D</div>
+                <div>
+                  <span class="rv-name">Divya K.</span>
+                  <span class="rv-meta">Kolkata · Verified Purchase</span>
+                </div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+
+            <!-- ── CARD 8 ── -->
+            <article class="rv-card">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--coral),var(--violet),var(--acid));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars" aria-label="5 stars">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p class="rv-text">The price point compared to similar toys abroad is a steal. Quality feels genuinely premium — no rattles, no cheap plasticky feel. The glow lights are a gorgeous touch.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--mint); color:#07101d;">M</div>
+                <div>
+                  <span class="rv-name">Meera P.</span>
+                  <span class="rv-meta">Ahmedabad · Verified Purchase</span>
+                </div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+
+            <!-- DUPLICATE SET for seamless loop (JS also handles this) -->
+            <article class="rv-card" aria-hidden="true">
+              <div class="rv-card-accent"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">Honestly this thing changed my entire solo routine. The tapping mode alone is worth every rupee. Whisper-quiet too — my flatmate had no idea.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--acid);">P</div>
+                <div><span class="rv-name">Priya S.</span><span class="rv-meta">Mumbai · Verified Purchase</span></div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+            <article class="rv-card" aria-hidden="true">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--coral),var(--mint),var(--violet));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">The waterproof feature is real — took it into the shower and it performed flawlessly. Packaging was so discreet, the delivery guy had zero idea.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--coral);">A</div>
+                <div><span class="rv-name">Anika R.</span><span class="rv-meta">Bangalore · Verified Purchase</span></div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+            <article class="rv-card" aria-hidden="true">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--mint),var(--sky),var(--acid));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">Gifted this to my partner and we've barely put it down. Seven vibration settings means we haven't run out of surprises. Best purchase of the year, no contest.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--mint); color:#07101d;">K</div>
+                <div><span class="rv-name">Kavitha M.</span><span class="rv-meta">Chennai · Verified Purchase</span></div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+            <article class="rv-card" aria-hidden="true">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--violet),var(--acid),var(--coral));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="half">★</span></div>
+              <p class="rv-text">The ergonomic shape fits perfectly in hand. Love that I can use tapping and vibration at the same time — that combination on mode 3 is absolutely unreal.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--violet); color:#fff;">N</div>
+                <div><span class="rv-name">Neha T.</span><span class="rv-meta">Delhi · Verified Purchase</span></div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+            <article class="rv-card" aria-hidden="true">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--sky),var(--violet),var(--mint));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">Charged it once and it lasted me almost a week of daily use. Battery life is no joke. The velvety texture feels premium and the glow when it's on is so satisfying.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--sky); color:#07101d;">R</div>
+                <div><span class="rv-name">Roshni V.</span><span class="rv-meta">Pune · Verified Purchase</span></div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+            <article class="rv-card" aria-hidden="true">
+              <div class="rv-card-accent"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">I was sceptical at first but the tapping sensation is genuinely like nothing else. It's precise, powerful and surprisingly addictive. Durex really understood the assignment.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--coral);">S</div>
+                <div><span class="rv-name">Sneha L.</span><span class="rv-meta">Hyderabad · Verified Purchase</span></div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+            <article class="rv-card" aria-hidden="true">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--acid),var(--mint),var(--sky));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">45 minutes is plenty for a very thorough session. The discreet shipping is everything — arrived in a plain brown box. Will order again and again.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--acid);">D</div>
+                <div><span class="rv-name">Divya K.</span><span class="rv-meta">Kolkata · Verified Purchase</span></div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+            <article class="rv-card" aria-hidden="true">
+              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--coral),var(--violet),var(--acid));"></div>
+              <span class="rv-quote-mark" aria-hidden="true">"</span>
+              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <p class="rv-text">The price point compared to similar toys abroad is a steal. Quality feels genuinely premium — no rattles, no cheap plasticky feel. The glow lights are a gorgeous touch.</p>
+              <div class="rv-author">
+                <div class="rv-avatar" style="--av-bg: var(--mint); color:#07101d;">M</div>
+                <div><span class="rv-name">Meera P.</span><span class="rv-meta">Ahmedabad · Verified Purchase</span></div>
+                <span class="rv-badge">Verified</span>
+              </div>
+            </article>
+
+          </div><!-- .reviews-track -->
+        </div><!-- .reviews-viewport -->
       </section>
 
       <!-- ══ WAVE BAND ══ -->
@@ -1252,6 +1686,13 @@
     const qty = document.getElementById('quantity');
     document.getElementById('minus').addEventListener('click', () => { qty.textContent = Math.max(1, +qty.textContent - 1); });
     document.getElementById('plus').addEventListener('click',  () => { qty.textContent = Math.min(9, +qty.textContent + 1); });
+
+    /* ── REVIEWS — pause on touch ── */
+    const track = document.getElementById('reviewsTrack');
+    if (track) {
+      track.addEventListener('touchstart', () => { track.style.animationPlayState = 'paused'; }, { passive: true });
+      track.addEventListener('touchend',   () => { track.style.animationPlayState = 'running'; }, { passive: true });
+    }
 
     /* ── HAPTIC ── */
     document.querySelectorAll('.js-buy-cta, .js-haptic, .cta-shake').forEach(el => {
