@@ -691,9 +691,17 @@
       padding: .9rem 1.2rem;
       color: rgba(255,255,255,.82); font-weight: 700;
       font-size: clamp(.82rem,1.1vw,.95rem);
-      display: flex; align-items: center; gap: .55rem;
+      display: flex; align-items: center; gap: .6rem;
     }
-    .ct-icon { font-size: 1.05rem; }
+    .ct-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.6rem; height: 1.6rem; flex-shrink: 0;
+      border-radius: .35rem;
+      background: rgba(255,255,255,.1);
+      color: var(--acid);
+      padding: .18rem;
+    }
+    .ct-icon svg { width: 100%; height: 100%; }
     .ct-wand {
       padding: .9rem 1rem; text-align: center;
       background: linear-gradient(135deg, rgba(215,255,63,.07), rgba(77,255,210,.05));
@@ -737,8 +745,8 @@
       .compare-shell { padding-inline: 1.25rem; }
       .compare-table { border-radius: 0; border-left: none; border-right: none; margin-inline: -1.25rem; }
       .ct-row { grid-template-columns: 1fr .9fr .9fr; }
-      .ct-feat { padding: .75rem .75rem; font-size: .76rem; gap: .38rem; }
-      .ct-icon { font-size: .9rem; }
+      .ct-feat { padding: .7rem .65rem; font-size: .74rem; gap: .35rem; }
+      .ct-icon { width: 1.3rem; height: 1.3rem; border-radius: .28rem; padding: .14rem; }
       .ct-wand, .ct-other { padding: .75rem .5rem; }
       .ct-yes, .ct-no { font-size: .74rem; }
       .ct-head > div { padding: .75rem .5rem; font-size: .7rem; }
@@ -907,7 +915,7 @@
           <p class="eyebrow">Durex Play Collection</p>
           <h1><span class="wild">Wild</span><span class="wand">Wand</span></h1>
           <p class="hero-subtitle"><strong>3 tapping modes &middot; 7 vibration settings</strong><br>100% waterproof &middot; 45 min play &middot; Whisper-quiet</p>
-          <p class="hero-text">The compact rechargeable wand built for external pleasure — powerful enough to thrill, quiet enough to keep your business your own.</p>
+          <p class="hero-text">The compact rechargeable wand built for external pleasure. Powerful enough to thrill, quiet enough to keep your business your own.</p>
           <div class="hero-controls">
             <div class="price-card" aria-label="Price and product highlights">
               <!-- Price row -->
@@ -956,7 +964,7 @@
               <p class="eyebrow">How it works</p>
               <h2>Tap. Buzz. Repeat.</h2>
             </div>
-            <p>Explore each mode — from the first gentle tap to full-volume vibration. Tap a card to preview the feature, then scroll down to see how to use it.</p>
+            <p>Explore each mode, from the first gentle tap to full-volume vibration. Tap a card to preview the feature, then scroll down to see how to use it.</p>
           </div>
 
           <div class="story-video-showcase" aria-label="Wild Wand in use">
@@ -976,30 +984,30 @@
             </div>
             <div class="reviews-viewport">
               <div class="reviews-track" id="reviewsTrack">
-                <article class="rv-card"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping mode alone is worth every rupee. Whisper-quiet — my flatmate had absolutely no idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--acid);">P</div><div><span class="rv-name">Priya S.</span><span class="rv-meta">Mumbai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
-                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--mint),var(--violet));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Took it into the shower — works flawlessly. Discreet packaging meant the delivery guy had zero idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">A</div><div><span class="rv-name">Anika R.</span><span class="rv-meta">Bangalore · Verified</span></div><span class="rv-badge">Verified</span></div></article>
-                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--mint),var(--sky),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Gifted this to my partner — we've barely put it down. Seven settings means we haven't run out of surprises.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">K</div><div><span class="rv-name">Kavitha M.</span><span class="rv-meta">Chennai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping mode alone is worth every rupee. Whisper-quiet. My flatmate had absolutely no idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--acid);">P</div><div><span class="rv-name">Priya S.</span><span class="rv-meta">Mumbai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--mint),var(--violet));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Took it into the shower. Works flawlessly. Discreet packaging meant the delivery guy had zero idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">A</div><div><span class="rv-name">Anika R.</span><span class="rv-meta">Bangalore · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--mint),var(--sky),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Gifted this to my partner. we've barely put it down. Seven settings, zero surprises left to try.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">K</div><div><span class="rv-name">Kavitha M.</span><span class="rv-meta">Chennai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
                 <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--violet),var(--acid),var(--coral));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="half">★</span></div><p class="rv-text">The ergonomic shape is perfect in hand. Tapping and vibration together on mode 3 is absolutely unreal.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--violet);color:#fff;">N</div><div><span class="rv-name">Neha T.</span><span class="rv-meta">Delhi · Verified</span></div><span class="rv-badge">Verified</span></div></article>
-                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--sky),var(--violet),var(--mint));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Charged once, lasted almost a week. The velvety texture feels premium — and the glow when it powers on is so satisfying.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--sky);color:#07101d;">R</div><div><span class="rv-name">Roshni V.</span><span class="rv-meta">Pune · Verified</span></div><span class="rv-badge">Verified</span></div></article>
-                <article class="rv-card"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping sensation is genuinely like nothing else — precise, powerful, surprisingly addictive. Durex understood the assignment.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">S</div><div><span class="rv-name">Sneha L.</span><span class="rv-meta">Hyderabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--sky),var(--violet),var(--mint));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Charged once, lasted almost a week. The velvety texture feels premium. The glow when it powers on is so satisfying.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--sky);color:#07101d;">R</div><div><span class="rv-name">Roshni V.</span><span class="rv-meta">Pune · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping sensation is genuinely like nothing else. Precise, powerful, surprisingly addictive. Durex understood the assignment.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">S</div><div><span class="rv-name">Sneha L.</span><span class="rv-meta">Hyderabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
                 <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--acid),var(--mint),var(--sky));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">45 minutes is more than enough. Plain brown box, zero external branding. Will order again and again.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--acid);">D</div><div><span class="rv-name">Divya K.</span><span class="rv-meta">Kolkata · Verified</span></div><span class="rv-badge">Verified</span></div></article>
-                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--violet),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The price vs quality ratio is a steal. No rattles, no cheap feel — every bit as premium as the photos suggest.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">M</div><div><span class="rv-name">Meera P.</span><span class="rv-meta">Ahmedabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--violet),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The price vs quality ratio is a steal. No rattles, no cheap feel. Every bit as premium as the photos suggest.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">M</div><div><span class="rv-name">Meera P.</span><span class="rv-meta">Ahmedabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
                 <!-- duplicates for seamless loop -->
-                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping mode alone is worth every rupee. Whisper-quiet — my flatmate had absolutely no idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--acid);">P</div><div><span class="rv-name">Priya S.</span><span class="rv-meta">Mumbai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
-                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--mint),var(--violet));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Took it into the shower — works flawlessly. Discreet packaging meant the delivery guy had zero idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">A</div><div><span class="rv-name">Anika R.</span><span class="rv-meta">Bangalore · Verified</span></div><span class="rv-badge">Verified</span></div></article>
-                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--mint),var(--sky),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Gifted this to my partner — we've barely put it down. Seven settings means we haven't run out of surprises.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">K</div><div><span class="rv-name">Kavitha M.</span><span class="rv-meta">Chennai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping mode alone is worth every rupee. Whisper-quiet. My flatmate had absolutely no idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--acid);">P</div><div><span class="rv-name">Priya S.</span><span class="rv-meta">Mumbai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--mint),var(--violet));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Took it into the shower. Works flawlessly. Discreet packaging meant the delivery guy had zero idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">A</div><div><span class="rv-name">Anika R.</span><span class="rv-meta">Bangalore · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--mint),var(--sky),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Gifted this to my partner. we've barely put it down. Seven settings, zero surprises left to try.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">K</div><div><span class="rv-name">Kavitha M.</span><span class="rv-meta">Chennai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
                 <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--violet),var(--acid),var(--coral));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="half">★</span></div><p class="rv-text">The ergonomic shape is perfect in hand. Tapping and vibration together on mode 3 is absolutely unreal.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--violet);color:#fff;">N</div><div><span class="rv-name">Neha T.</span><span class="rv-meta">Delhi · Verified</span></div><span class="rv-badge">Verified</span></div></article>
                 <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--sky),var(--violet),var(--mint));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Charged once, lasted almost a week. Velvety texture feels premium and the glow when it powers on is so satisfying.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--sky);color:#07101d;">R</div><div><span class="rv-name">Roshni V.</span><span class="rv-meta">Pune · Verified</span></div><span class="rv-badge">Verified</span></div></article>
-                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping sensation is genuinely like nothing else — precise, powerful, surprisingly addictive.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">S</div><div><span class="rv-name">Sneha L.</span><span class="rv-meta">Hyderabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping sensation is genuinely like nothing else. Precise, powerful, surprisingly addictive.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">S</div><div><span class="rv-name">Sneha L.</span><span class="rv-meta">Hyderabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
                 <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--acid),var(--mint),var(--sky));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">45 minutes is more than enough. Plain brown box, zero external branding. Will order again.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--acid);">D</div><div><span class="rv-name">Divya K.</span><span class="rv-meta">Kolkata · Verified</span></div><span class="rv-badge">Verified</span></div></article>
-                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--violet),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The price vs quality ratio is a steal. No rattles, no cheap feel — every bit as premium as the photos suggest.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">M</div><div><span class="rv-name">Meera P.</span><span class="rv-meta">Ahmedabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--violet),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The price vs quality ratio is a steal. No rattles, no cheap feel. Every bit as premium as the photos suggest.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">M</div><div><span class="rv-name">Meera P.</span><span class="rv-meta">Ahmedabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
               </div>
             </div>
           </div>
 
           <div class="story-gallery js-haptic">
             <div class="story-tabs" role="tablist" aria-label="Wild Wand product features">
-              <button class="story-card active" type="button" data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" data-story-kicker="The product" data-story-title="Durex Play Wild Wand" data-story-copy="Compact, rechargeable, and whisper-quiet — the Wild Wand packs 3 tapping modes and 7 vibration settings into a body-safe silicone design." aria-label="Product overview">
+              <button class="story-card active" type="button" data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" data-story-kicker="The product" data-story-title="Durex Play Wild Wand" data-story-copy="Compact, rechargeable, and whisper-quiet. The Wild Wand packs 3 tapping modes and 7 vibration settings into a body-safe silicone design." aria-label="Product overview">
                 <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Wild Wand product" loading="lazy" decoding="async">
                 <span class="story-card-label"><span>Wild Wand</span><span>Overview</span></span>
               </button>
@@ -1007,7 +1015,7 @@
                 <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" alt="Ergonomic grip" loading="lazy" decoding="async">
                 <span class="story-card-label"><span>Grip</span><span>Ergonomic</span></span>
               </button>
-              <button class="story-card" type="button" data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" data-story-kicker="3 tapping · 7 vibration · 45 min" data-story-title="All the Power" data-story-copy="3 tapping rhythms for teasing and surprise. 7 vibration speeds from subtle to electric. 45 minutes of play per charge — all in one wand." aria-label="Features overview">
+              <button class="story-card" type="button" data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" data-story-kicker="3 tapping · 7 vibration · 45 min" data-story-title="All the Power" data-story-copy="3 tapping rhythms for teasing and surprise. 7 vibration speeds from subtle to electric. 45 minutes of play per charge, all in one wand." aria-label="Features overview">
                 <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" alt="Features" loading="lazy" decoding="async">
                 <span class="story-card-label"><span>3·7·45</span><span>Power</span></span>
               </button>
@@ -1024,7 +1032,7 @@
               <div class="story-info">
                 <strong id="storyKicker">The product</strong>
                 <h3 id="storyTitle">Durex Play Wild Wand</h3>
-                <p id="storyCopy">Compact, rechargeable, and whisper-quiet — the Wild Wand packs 3 tapping modes and 7 vibration settings into a body-safe silicone design.</p>
+                <p id="storyCopy">Compact, rechargeable, and whisper-quiet. The Wild Wand packs 3 tapping modes and 7 vibration settings into a body-safe silicone design.</p>
               </div>
             </div>
           </div>
@@ -1051,7 +1059,7 @@
           </div>
           <div class="wave-copy">
             <h2>Small wand. Big energy.</h2>
-            <p>Made for external stimulation — the Wild Wand gives you a full range of sensations without any of the complexity. Soft, strong, teasing, or all-out electric.</p>
+            <p>Made for external stimulation. the Wild Wand gives you a full range of sensations without any of the complexity. Soft, strong, teasing, or all-out electric.</p>
           </div>
         </div>
       </section>
@@ -1065,68 +1073,61 @@
 
           <div class="compare-table" role="table" aria-label="Wild Wand comparison">
 
-            <!-- Header row -->
             <div class="ct-row ct-head" role="row">
               <div class="ct-feat" role="columnheader">Feature</div>
-              <div class="ct-wand" role="columnheader">
-                <span class="ct-wand-badge">Wild Wand</span>
-              </div>
+              <div class="ct-wand" role="columnheader"><span class="ct-wand-badge">Wild Wand</span></div>
               <div class="ct-other" role="columnheader">Ordinary Vibrator</div>
             </div>
 
-            <!-- Rows -->
             <div class="ct-row" role="row">
-              <div class="ct-feat" role="cell"><span class="ct-icon">⚡</span>Tapping Mode</div>
-              <div class="ct-wand" role="cell"><span class="ct-yes">3 rhythms</span></div>
-              <div class="ct-other" role="cell"><span class="ct-no">✗ None</span></div>
+              <div class="ct-feat" role="cell"><span class="ct-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>Tapping Mode</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">3 unique rhythms</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">None</span></div>
             </div>
             <div class="ct-row" role="row">
-              <div class="ct-feat" role="cell"><span class="ct-icon">🌊</span>Vibration Speeds</div>
+              <div class="ct-feat" role="cell"><span class="ct-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 12c2-5 5-7 7-7s5 5 7 5 5-5 7-5"/><path d="M2 18c2-5 5-7 7-7s5 5 7 5 5-5 7-5"/></svg></span>Vibration Speeds</div>
               <div class="ct-wand" role="cell"><span class="ct-yes">7 speeds</span></div>
-              <div class="ct-other" role="cell"><span class="ct-no">1–3 speeds</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">1 to 3 speeds</span></div>
             </div>
             <div class="ct-row" role="row">
-              <div class="ct-feat" role="cell"><span class="ct-icon">💧</span>Waterproof</div>
-              <div class="ct-wand" role="cell"><span class="ct-yes">✓ 100%</span></div>
+              <div class="ct-feat" role="cell"><span class="ct-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 2a6 6 0 0 0-6 6c0 4.5 6 12 6 12s6-7.5 6-12a6 6 0 0 0-6-6z"/><circle cx="12" cy="8" r="2"/></svg></span>Waterproof</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">100% waterproof</span></div>
               <div class="ct-other" role="cell"><span class="ct-no">Often not</span></div>
             </div>
             <div class="ct-row" role="row">
-              <div class="ct-feat" role="cell"><span class="ct-icon">🔋</span>Battery Life</div>
+              <div class="ct-feat" role="cell"><span class="ct-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="7" y="4" width="10" height="17" rx="2"/><line x1="10" y1="4" x2="14" y2="4" stroke-width="3"/><rect x="9.5" y="10" width="5" height="6" rx="1" fill="currentColor" opacity=".5"/></svg></span>Battery Life</div>
               <div class="ct-wand" role="cell"><span class="ct-yes">45 minutes</span></div>
-              <div class="ct-other" role="cell"><span class="ct-no">20–30 min</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">20 to 30 min</span></div>
             </div>
             <div class="ct-row" role="row">
-              <div class="ct-feat" role="cell"><span class="ct-icon">🔇</span>Noise Level</div>
+              <div class="ct-feat" role="cell"><span class="ct-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg></span>Noise Level</div>
               <div class="ct-wand" role="cell"><span class="ct-yes">Whisper-quiet</span></div>
               <div class="ct-other" role="cell"><span class="ct-no">Noticeable buzz</span></div>
             </div>
             <div class="ct-row" role="row">
-              <div class="ct-feat" role="cell"><span class="ct-icon">⚕️</span>Body-Safe Material</div>
-              <div class="ct-wand" role="cell"><span class="ct-yes">✓ Medical silicone</span></div>
+              <div class="ct-feat" role="cell"><span class="ct-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Body-Safe Material</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">Medical silicone</span></div>
               <div class="ct-other" role="cell"><span class="ct-no">Varies</span></div>
             </div>
             <div class="ct-row" role="row">
-              <div class="ct-feat" role="cell"><span class="ct-icon">🔌</span>USB Rechargeable</div>
-              <div class="ct-wand" role="cell"><span class="ct-yes">✓ Always</span></div>
+              <div class="ct-feat" role="cell"><span class="ct-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H2l7-9v6h8l-7 9v-6z"/></svg></span>USB Rechargeable</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">Always included</span></div>
               <div class="ct-other" role="cell"><span class="ct-no">Sometimes</span></div>
             </div>
             <div class="ct-row" role="row">
-              <div class="ct-feat" role="cell"><span class="ct-icon">📦</span>Discreet Shipping</div>
-              <div class="ct-wand" role="cell"><span class="ct-yes">✓ Plain box</span></div>
+              <div class="ct-feat" role="cell"><span class="ct-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="20" height="13" rx="2"/><polyline points="16,8 12,4 8,8"/></svg></span>Discreet Shipping</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">Plain box, always</span></div>
               <div class="ct-other" role="cell"><span class="ct-no">Not guaranteed</span></div>
             </div>
             <div class="ct-row" role="row">
-              <div class="ct-feat" role="cell"><span class="ct-icon">💰</span>Price</div>
+              <div class="ct-feat" role="cell"><span class="ct-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>Price</div>
               <div class="ct-wand" role="cell"><span class="ct-yes">Rs. 2,699</span></div>
-              <div class="ct-other" role="cell"><span class="ct-no">Rs. 3,000–8,000</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">Rs. 3,000 to 8,000</span></div>
             </div>
 
-            <!-- CTA row -->
             <div class="ct-row ct-cta-row" role="row">
               <div class="ct-feat" role="cell"></div>
-              <div class="ct-wand" role="cell">
-                <a class="primary-cta ct-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy Now — Rs. 2,699</a>
-              </div>
+              <div class="ct-wand" role="cell"><a class="primary-cta ct-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy Now · Rs. 2,699</a></div>
               <div class="ct-other" role="cell"><span class="ct-meh">Why settle?</span></div>
             </div>
 
@@ -1138,22 +1139,22 @@
       <section class="features" id="features">
         <div class="feature-head">
           <h2 class="section-title">Pleasure, remixed.</h2>
-          <p>Three tapping patterns meet seven vibration speeds — from warm-up to grand finale, in one compact device.</p>
+          <p>Three tapping patterns meet seven vibration speeds. From warm-up to grand finale in one compact device.</p>
         </div>
         <div class="mode-grid">
           <article class="mode-card js-haptic" style="--tone:var(--acid);">
             <strong>3×</strong>
-            <span>Tapping modes — rhythm, tease, and surprise.</span>
+            <span>Tapping modes: rhythm, tease, and surprise.</span>
             <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" alt="Tapping modes" loading="lazy" decoding="async">
           </article>
           <article class="mode-card js-haptic" style="--tone:var(--mint);">
             <strong>7×</strong>
-            <span>Vibration speeds — from a subtle spark to full buzz.</span>
+            <span>Vibration speeds: from a subtle spark to full buzz.</span>
             <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/banner_3_84e6b366-d08a-4041-b190-fd1dc6107551.webp" alt="Vibration modes" loading="lazy" decoding="async">
           </article>
           <article class="mode-card js-haptic" style="--tone:var(--coral);">
             <strong>45</strong>
-            <span>Minutes per charge — waterproof, rechargeable, ready.</span>
+            <span>Minutes per charge. Waterproof, rechargeable, ready.</span>
             <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR2_434406f5-4e70-41af-9135-793b98fc7682.jpg?v=1774866547&width=1000" alt="Battery life" loading="lazy" decoding="async">
           </article>
         </div>
@@ -1173,7 +1174,7 @@
           </div>
           <aside class="buy-panel" id="shop">
             <h2>Durex Play Wild Wand</h2>
-            <p>Body-safe silicone, 100% waterproof, USB rechargeable. Shipped discreetly — no branding on the box.</p>
+            <p>Body-safe silicone, 100% waterproof, USB rechargeable. Shipped discreetly. No branding on the box.</p>
             <div class="specs">
               <div class="spec"><b>4.6★</b><span>2,400+ reviews</span></div>
               <div class="spec"><b>18+</b><span>Adult product</span></div>
@@ -1185,7 +1186,7 @@
               <span id="quantity">1</span>
               <button type="button" id="plus" aria-label="Increase">+</button>
             </div>
-            <a class="primary-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy on Durex India — Rs. 2,699</a>
+            <a class="primary-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy on Durex India · Rs. 2,699</a>
           </aside>
         </div>
       </section>
@@ -1198,8 +1199,8 @@
             <h2 class="section-title">No surprises.</h2>
           </div>
           <div class="faq-list">
-            <details open><summary>Is Wild Wand safe to use?</summary><p>Yes — designed for external use only. Do not insert internally. Made with body-safe silicone.</p></details>
-            <details><summary>Is it actually waterproof?</summary><p>Fully waterproof — safe for shower or bath use. Rinse it off without worry.</p></details>
+            <details open><summary>Is Wild Wand safe to use?</summary><p>Yes. Designed for external use only. Do not insert internally. Made with body-safe silicone.</p></details>
+            <details><summary>Is it actually waterproof?</summary><p>Fully waterproof. safe for shower or bath use. Rinse it off without worry.</p></details>
             <details><summary>How do I clean it?</summary><p>Wash with mild soap and warm water before and after use. Let it dry completely before storing.</p></details>
             <details><summary>How does shipping work?</summary><p>Shipped in plain, discreet packaging with no product name or branding visible on the outside.</p></details>
           </div>
