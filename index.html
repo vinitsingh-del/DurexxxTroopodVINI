@@ -389,6 +389,23 @@
     }
     .story-card-label span:last-child { color: var(--acid); }
 
+    /* Auto-cycle progress bar — sits at bottom of each card */
+    .sc-progress {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: .22rem;
+      width: 0%;
+      background: linear-gradient(90deg, var(--acid), var(--mint));
+      border-radius: 0 0 .75rem .75rem;
+      transition: none;
+      z-index: 5;
+    }
+    /* Active card gets a glowing outline pulse */
+    .story-card.active {
+      border-color: var(--durex-blue);
+      box-shadow: 0 0 0 .28rem rgba(0,91,170,.22), 0 0 1.4rem rgba(77,255,210,.18);
+    }
+
     .story-preview {
       position: relative; display: grid;
       grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr);
@@ -1690,28 +1707,95 @@
       }, { threshold: .3 }).observe(storyVid);
     }
 
-    /* ── STORY TABS ── */
+    /* ── STORY TABS — auto-cycle ── */
     const storyImage  = document.getElementById('storyImage');
     const storyKicker = document.getElementById('storyKicker');
     const storyTitle  = document.getElementById('storyTitle');
     const storyCopy   = document.getElementById('storyCopy');
-    document.querySelectorAll('.story-card').forEach(card => {
-      card.addEventListener('click', () => {
-        document.querySelectorAll('.story-card').forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        if (storyImage) {
-          storyImage.animate(
-            [{ opacity:.3, transform:'translateY(.5rem) scale(.985)' },
-             { opacity:1,  transform:'translateY(0) scale(1)' }],
-            { duration:260, easing:'ease-out' }
-          );
-          storyImage.src = card.dataset.storyImage;
-        }
-        if (storyKicker) storyKicker.textContent = card.dataset.storyKicker;
-        if (storyTitle)  storyTitle.textContent  = card.dataset.storyTitle;
-        if (storyCopy)   storyCopy.textContent   = card.dataset.storyCopy;
+    const storyCards  = [...document.querySelectorAll('.story-card')];
+    const SLIDE_MS    = 3200;   // ms per card
+    let   storyIdx    = 0;
+    let   storyTimer  = null;
+    let   storyPaused = false;
+
+    function activateCard(idx, animate = true) {
+      storyIdx = (idx + storyCards.length) % storyCards.length;
+      const card = storyCards[storyIdx];
+      storyCards.forEach(c => {
+        c.classList.remove('active');
+        const bar = c.querySelector('.sc-progress');
+        if (bar) { bar.style.transition = 'none'; bar.style.width = '0%'; }
       });
+      card.classList.add('active');
+
+      // animate preview image
+      if (storyImage && animate) {
+        storyImage.animate(
+          [{ opacity:.2, transform:'translateY(.6rem) scale(.97)' },
+           { opacity:1,  transform:'translateY(0) scale(1)' }],
+          { duration:340, easing:'cubic-bezier(.22,1,.36,1)' }
+        );
+      }
+      if (storyImage)  storyImage.src = card.dataset.storyImage;
+      if (storyKicker) storyKicker.textContent = card.dataset.storyKicker;
+      if (storyTitle)  storyTitle.textContent  = card.dataset.storyTitle;
+      if (storyCopy)   storyCopy.textContent   = card.dataset.storyCopy;
+
+      // run progress bar on active card
+      const bar = card.querySelector('.sc-progress');
+      if (bar && !pRM) {
+        requestAnimationFrame(() => {
+          bar.style.transition = `width ${SLIDE_MS}ms linear`;
+          bar.style.width = '100%';
+        });
+      }
+    }
+
+    function startCycle() {
+      clearInterval(storyTimer);
+      storyTimer = setInterval(() => {
+        if (!storyPaused) activateCard(storyIdx + 1);
+      }, SLIDE_MS);
+    }
+
+    // Add progress bar element to each card
+    storyCards.forEach((card, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'sc-progress';
+      card.appendChild(bar);
+
+      // Manual click — reset timer
+      card.addEventListener('click', () => {
+        clearInterval(storyTimer);
+        activateCard(i);
+        startCycle();
+      });
+
+      // Pause on hover/focus
+      card.addEventListener('mouseenter', () => { storyPaused = true; });
+      card.addEventListener('mouseleave', () => { storyPaused = false; });
+      card.addEventListener('focus',      () => { storyPaused = true; });
+      card.addEventListener('blur',       () => { storyPaused = false; });
     });
+
+    // Pause when section is out of view (IO)
+    const storyGallery = document.querySelector('.story-gallery');
+    if (storyGallery && 'IntersectionObserver' in window) {
+      new IntersectionObserver(entries => {
+        storyPaused = !entries[0].isIntersecting;
+      }, { threshold: .2 }).observe(storyGallery);
+    }
+
+    // Touch pause on mobile
+    if (storyGallery) {
+      storyGallery.addEventListener('touchstart', () => { storyPaused = true;  }, { passive:true });
+      storyGallery.addEventListener('touchend',   () => {
+        setTimeout(() => { storyPaused = false; }, 1800);
+      }, { passive:true });
+    }
+
+    activateCard(0, false);
+    startCycle();
 
     /* ── GALLERY THUMBS ── */
     const galleryImg = document.getElementById('galleryImage');
