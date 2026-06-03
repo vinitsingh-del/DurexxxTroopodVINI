@@ -227,17 +227,17 @@
 
     /* ─ RIGHT STAGE ─ */
 
-    /* ── HERO STAGE — 9:16 image slider ── */
+    /* ── HERO STAGE — 9:16 video, 30% smaller ── */
     .hero-stage {
       position: relative; z-index: 2;
-      /* On desktop: fixed width, 9:16 grows naturally in height */
-      width: min(26rem, 42vw);
+      /* 26rem × 0.7 = 18.2rem  |  42vw × 0.7 = 29.4vw */
+      width: min(18.2rem, 29vw);
       aspect-ratio: 9 / 16;
       height: auto;
-      max-height: 88vh;          /* never taller than viewport */
+      max-height: 82vh;
       border-radius: 1.75rem;
       overflow: hidden;
-      background: linear-gradient(135deg, #022c68, #07c8bb);
+      background: #021230;
       box-shadow: 0 2rem 5rem rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.14);
       transform: translateY(calc(var(--scroll) * .03px));
       will-change: transform;
@@ -245,23 +245,19 @@
       flex-shrink: 0;
     }
 
-    /* each slide — absolute fill */
-    .hero-slide {
+    /* video fills the 9:16 container */
+    .hero-parallax-video {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center top;
+      object-position: center center;
       border-radius: inherit;
-      opacity: 0;
-      transition: opacity .9s cubic-bezier(.4,0,.2,1), transform 1.2s cubic-bezier(.4,0,.2,1);
-      transform: scale(1.04);
-      will-change: opacity, transform;
+      display: block;
     }
-    .hero-slide--active {
-      opacity: 1;
-      transform: scale(1);
-      z-index: 1;
-    }
+
+    /* slide CSS kept for fallback but hidden */
+    .hero-slide { display: none; }
+    .hero-dots  { display: none; }
 
     /* slide dots */
     .hero-dots {
@@ -274,10 +270,7 @@
       background: rgba(255,255,255,.35);
       transition: background .3s ease, transform .3s ease;
     }
-    .hero-dot--active {
-      background: var(--acid);
-      transform: scale(1.4);
-    }
+    .hero-dot--active { background: var(--acid); transform: scale(1.4); }
 
     /* vignette stays */
     .hero-video-vignette {
@@ -973,9 +966,9 @@
       .hero-copy { position: relative; z-index: 3; transform: none !important; }
       .hero-controls { position: relative; z-index: 4; }
       .hero-stage {
-        width: min(22rem, 60vw);   /* narrower on tablet — centred */
+        width: min(15.4rem, 42vw);   /* 22rem × 0.7 */
         max-height: none;
-        margin: 0 auto;            /* centre the 9:16 card */
+        margin: 0 auto;
         transform: none;
       }
       .wave-inner, .story-head, .story-preview,
@@ -1072,24 +1065,31 @@
         font-weight: 900; white-space: nowrap;
       }
 
-      /* ── IMAGE STAGE: 9:16, full width, below copy ── */
+      /* ── HERO STAGE: 9:16, 70% width, centred, below copy ── */
       .hero-stage {
         order: 2;
-        width: 100%;              /* fill container width */
-        aspect-ratio: 9 / 16;    /* 9:16 portrait — height is auto */
+        width: 70%;
+        aspect-ratio: 9 / 16;
         height: auto;
-        max-height: none;         /* NO height cap — let 9:16 be 9:16 */
+        max-height: none;
         border-radius: 1.25rem;
-        margin-top: 1rem;
+        margin: 1rem auto 0;
         transform: none !important;
-        align-self: auto;
+        align-self: center;
         box-shadow: 0 1.5rem 3rem rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.1);
       }
+      .hero-parallax-video {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border-radius: inherit !important;
+        transform: none !important;
+      }
 
-      /* Float tags — inside stage corners */
-      .float-tag { width: 4.2rem; font-size: .6rem; }
-      .float-tag.one { left: .65rem; top: 1rem; }
-      .float-tag.two { right: .65rem; bottom: 1rem; }
+      /* Float tags hidden on mobile */
+      .float-tag { display: none; }
 
       .scroll-pulse { bottom: .7rem; width: 2.2rem; }
 
@@ -1181,25 +1181,17 @@
         <!-- Right: image stage — 9:16 auto-cycling product images -->
         <div class="hero-stage" id="heroStage" style="animation: fadeUp .8s .1s ease both;" aria-label="Durex Play Wild Wand product visual">
 
-          <!-- Slide 1 -->
-          <img class="hero-slide hero-slide--active"
-            src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-img-1-crop.jpg"
-            alt="Durex Play Wild Wand — side view" decoding="async">
-
-          <!-- Slide 2 -->
-          <img class="hero-slide"
-            src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-img-2-crop.jpg"
-            alt="Durex Play Wild Wand — front view" decoding="async">
-
-          <!-- dots -->
-          <div class="hero-dots" aria-hidden="true">
-            <span class="hero-dot hero-dot--active"></span>
-            <span class="hero-dot"></span>
-          </div>
+          <!-- Hero video — 9:16 native -->
+          <video
+            class="hero-parallax-video"
+            id="heroVid"
+            autoplay muted loop playsinline preload="auto"
+            aria-label="Wild Wand product video"
+          >
+            <source src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-parallax.mp4" type="video/mp4">
+          </video>
 
           <div class="hero-video-vignette" aria-hidden="true"></div>
-          <div class="float-tag one" aria-hidden="true">7<br>VIBES</div>
-          <div class="float-tag two" aria-hidden="true">100%<br>WET<br>READY</div>
           <a class="scroll-pulse" href="#how-it-works" aria-label="Scroll down"></a>
         </div>
       </section>
@@ -1707,40 +1699,16 @@
       root.style.setProperty('--hero-media-x', `${(x - .5) * 12}px`);
     }, { passive: true });
 
-    /* ── HERO IMAGE SLIDER ── */
+    /* ── HERO VIDEO autoplay ── */
     (function(){
-      const slides = document.querySelectorAll('.hero-slide');
-      const dots   = document.querySelectorAll('.hero-dot');
-      if (!slides.length) return;
-      let cur = 0, timer;
-
-      function goTo(n) {
-        slides[cur].classList.remove('hero-slide--active');
-        dots[cur].classList.remove('hero-dot--active');
-        cur = (n + slides.length) % slides.length;
-        slides[cur].classList.add('hero-slide--active');
-        dots[cur].classList.add('hero-dot--active');
-      }
-
-      function next() { goTo(cur + 1); }
-
-      function start() { timer = setInterval(next, 3500); }
-      function stop()  { clearInterval(timer); }
-
-      start();
-
-      // Pause when stage not visible
-      const stage = document.getElementById('heroStage');
-      if (stage && 'IntersectionObserver' in window) {
-        new IntersectionObserver(entries => {
-          entries[0].isIntersecting ? start() : stop();
-        }, { threshold: .3 }).observe(stage);
-      }
-
-      // Tap to advance on mobile
-      if (stage) {
-        stage.addEventListener('click', () => { stop(); next(); start(); });
-      }
+      const vid = document.getElementById('heroVid');
+      if (!vid) return;
+      vid.muted = true;
+      vid.load();
+      const play = () => vid.play().catch(()=>{});
+      vid.addEventListener('canplay', play, { once: true });
+      play();
+      document.addEventListener('pointerdown', play, { once: true });
     })();
 
     /* ── STORY SECTION VIDEO (lazy autoplay via IO) ── */
