@@ -249,6 +249,19 @@
     }
 
     /* the video itself */
+    /* GIF base layer — always visible on all devices */
+    .hero-gif-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      border-radius: inherit;
+      display: block;
+      z-index: 0;
+    }
+
     .hero-parallax-video {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
@@ -257,11 +270,12 @@
       border-radius: inherit;
       transform: scale(1.04) translateY(calc(var(--hero-media-y) * .4));
       will-change: transform;
+      z-index: 1;   /* sits above GIF, hides it when playing */
     }
 
     /* soft dark vignette so it integrates with the bg */
     .hero-video-vignette {
-      position: absolute; inset: 0; z-index: 1;
+      position: absolute; inset: 0; z-index: 2;
       border-radius: inherit; pointer-events: none;
       background:
         radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(5,7,19,.6) 100%),
@@ -271,7 +285,7 @@
 
     /* float tags — inside the stage, z above vignette */
     .float-tag {
-      position: absolute; z-index: 4;
+      position: absolute; z-index: 5;
       display: grid; place-items: center;
       width: clamp(5.5rem,9vw,7.5rem); aspect-ratio: 1;
       border-radius: 50%;
@@ -1065,10 +1079,29 @@
         position: relative; z-index: 1;
         flex-shrink: 0;
         overflow: hidden;
-        /* Tall enough to show video well, never bleeds */
-        height: clamp(15rem, 60vw, 25rem);
+        /* explicit height + aspect-ratio so it's never 0px */
+        height: clamp(16rem, 64vw, 26rem);
+        aspect-ratio: auto;           /* height wins over aspect-ratio */
         border-radius: 1.1rem;
         margin-top: .85rem;
+        /* force a bg so empty state is visible */
+        background: linear-gradient(135deg, #022c68, #07c8bb);
+        display: block;
+      }
+      /* ensure wrap fills full stage on mobile */
+      .hero-video-wrap {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      /* video fills container */
+      .hero-parallax-video {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center 25% !important;
+        transform: none !important;
       }
       /* Tags smaller on mobile, inside stage */
       .float-tag { width: 4.5rem; font-size: .62rem; }
@@ -1165,18 +1198,22 @@
         <!-- Right: video stage — fully contained -->
         <div class="hero-stage" id="heroStage" style="animation: fadeUp .8s .1s ease both;" aria-label="Durex Play Wild Wand product visual">
           <div class="hero-video-wrap" id="heroOrbit">
+            <!-- GIF always visible — no autoplay policy, works on every device -->
+            <img
+              class="hero-gif-bg"
+              src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-parallax.gif"
+              alt="Wild Wand close up"
+              decoding="async"
+            >
+            <!-- MP4 layered on top — better quality when autoplay works -->
             <video
               class="hero-parallax-video"
               id="heroVid"
               autoplay muted loop playsinline
               preload="auto"
-              poster="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-parallax.gif"
-              aria-label="Wild Wand parallax hero video"
+              aria-hidden="true"
             >
               <source src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-parallax.mp4" type="video/mp4">
-              <!-- GIF fallback — plays on any browser, no autoplay policy -->
-              <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-parallax.gif"
-                   alt="Wild Wand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">
             </video>
             <div class="hero-video-vignette" aria-hidden="true"></div>
           </div>
