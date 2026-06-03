@@ -150,6 +150,21 @@
     }
     .wild { display: block; color: var(--acid); text-shadow: .05em .05em 0 var(--coral), -.03em -.03em 0 rgba(107,216,255,.7); }
     .wand { display: block; color: #fff; text-shadow: 0 0 40px rgba(255,255,255,.4); }
+
+    /* Hero subtitle — sits tight under h1 */
+    .hero-subtitle {
+      margin-top: .9rem;
+      font-size: clamp(1rem, 1.55vw, 1.22rem);
+      font-weight: 600;
+      line-height: 1.55;
+      color: rgba(255,255,255,.78);
+      max-width: 34rem;
+      letter-spacing: .01em;
+    }
+    .hero-subtitle strong {
+      color: var(--acid);
+      font-weight: 800;
+    }
     .hero-text {
       margin-top: 1.2rem; max-width: 36rem;
       color: rgba(255,255,255,.82); font-size: clamp(.95rem,1.5vw,1.15rem); line-height: 1.65;
@@ -167,7 +182,7 @@
     /* RIGHT stage */
     .hero-stage {
       position: relative; z-index: 2;
-      width: min(18rem, 28vw);
+      width: min(19.8rem, 30.8vw);   /* +10% from min(18rem,28vw) */
       aspect-ratio: 9 / 16;
       height: auto;
       max-height: 85vh;
@@ -182,6 +197,7 @@
       width: 100%; height: 100%;
       object-fit: cover; object-position: center;
       border-radius: inherit; display: block;
+      filter: brightness(1.15);   /* +15% brightness */
     }
     .hero-video-vignette {
       position: absolute; inset: 0; z-index: 2;
@@ -521,11 +537,137 @@
     @keyframes number-glow { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.2); } }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(1.2rem); } to { opacity: 1; transform: translateY(0); } }
 
+    /* ═══ COMPARISON ═══ */
+    .compare-section {
+      padding: clamp(4rem,9vw,8rem) clamp(1.5rem,5vw,5rem);
+      background:
+        radial-gradient(ellipse at 15% 50%, rgba(99,60,255,.2), transparent 40%),
+        radial-gradient(ellipse at 85% 20%, rgba(77,255,210,.14), transparent 38%),
+        linear-gradient(180deg, #050713 0%, #07122a 50%, #050713 100%);
+      overflow: hidden;
+    }
+    .compare-shell {
+      max-width: 72rem; margin: 0 auto; text-align: center;
+    }
+    .compare-title {
+      font-size: clamp(2.2rem,5.5vw,5rem);
+      line-height: .9; text-transform: uppercase; color: #fff;
+      margin-bottom: .65rem;
+      text-shadow: 0 0 3rem rgba(99,60,255,.5);
+    }
+    .compare-sub {
+      color: rgba(255,255,255,.6); font-size: clamp(.9rem,1.4vw,1.05rem);
+      margin-bottom: clamp(2rem,4vw,3rem);
+    }
+
+    /* Table grid */
+    .compare-table {
+      width: 100%;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .ct-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .ct-row:last-child { border-bottom: none; }
+
+    /* Header */
+    .ct-head {
+      background: linear-gradient(135deg, rgba(3,18,55,.98), rgba(0,35,80,.98));
+    }
+    .ct-head > div {
+      padding: 1rem 1.2rem;
+      font-weight: 900; font-size: .82rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+    }
+    .ct-head .ct-wand {
+      background: linear-gradient(135deg, rgba(215,255,63,.18), rgba(77,255,210,.1));
+      border-left: 2px solid var(--acid); border-right: 2px solid var(--acid);
+    }
+    .ct-wand-badge {
+      display: inline-block; color: #05112a; background: var(--acid);
+      padding: .3rem .8rem; border-radius: 999px; font-size: .78rem; font-weight: 950;
+    }
+
+    /* Body rows */
+    .ct-row:not(.ct-head):not(.ct-cta-row) {
+      background: rgba(255,255,255,.03);
+      transition: background 160ms ease;
+    }
+    .ct-row:not(.ct-head):not(.ct-cta-row):nth-child(even) {
+      background: rgba(255,255,255,.055);
+    }
+    .ct-row:not(.ct-head):not(.ct-cta-row):hover {
+      background: rgba(255,255,255,.09);
+    }
+    .ct-feat {
+      padding: .9rem 1.2rem;
+      color: rgba(255,255,255,.82); font-weight: 700;
+      font-size: clamp(.82rem,1.1vw,.95rem);
+      display: flex; align-items: center; gap: .55rem;
+    }
+    .ct-icon { font-size: 1.05rem; }
+    .ct-wand {
+      padding: .9rem 1rem; text-align: center;
+      background: linear-gradient(135deg, rgba(215,255,63,.07), rgba(77,255,210,.05));
+      border-left: 2px solid rgba(215,255,63,.28); border-right: 2px solid rgba(215,255,63,.28);
+    }
+    .ct-other {
+      padding: .9rem 1rem; text-align: center;
+    }
+    .ct-yes {
+      display: inline-block; color: var(--acid); font-weight: 800;
+      font-size: clamp(.8rem,1.1vw,.93rem);
+    }
+    .ct-no {
+      display: inline-block; color: rgba(255,255,255,.38); font-weight: 600;
+      font-size: clamp(.78rem,1vw,.9rem);
+    }
+
+    /* CTA row */
+    .ct-cta-row {
+      background: linear-gradient(135deg, rgba(3,18,55,.98), rgba(0,35,80,.98));
+      padding-block: .5rem;
+    }
+    .ct-cta-row .ct-wand {
+      padding: 1.1rem 1rem;
+      background: linear-gradient(135deg, rgba(215,255,63,.14), rgba(77,255,210,.08));
+      border-left: 2px solid var(--acid); border-right: 2px solid var(--acid);
+    }
+    .ct-cta {
+      font-size: clamp(.78rem,1.1vw,.9rem) !important;
+      min-height: 2.6rem !important;
+      padding: .55rem 1rem !important;
+      width: 100%;
+    }
+    .ct-meh {
+      color: rgba(255,255,255,.35); font-style: italic; font-size: .88rem;
+    }
+
+    /* Mobile comparison */
+    @media (max-width: 640px) {
+      .compare-section { padding-inline: 0; }
+      .compare-shell { padding-inline: 1.25rem; }
+      .compare-table { border-radius: 0; border-left: none; border-right: none; margin-inline: -1.25rem; }
+      .ct-row { grid-template-columns: 1fr .9fr .9fr; }
+      .ct-feat { padding: .75rem .75rem; font-size: .76rem; gap: .38rem; }
+      .ct-icon { font-size: .9rem; }
+      .ct-wand, .ct-other { padding: .75rem .5rem; }
+      .ct-yes, .ct-no { font-size: .74rem; }
+      .ct-head > div { padding: .75rem .5rem; font-size: .7rem; }
+      .ct-cta { font-size: .72rem !important; padding: .45rem .5rem !important; }
+    }
+
     /* ═══ TABLET ≤ 900px ═══ */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; min-height: auto; padding-top: clamp(5.5rem,12vw,7rem); padding-bottom: 2rem; gap: 1.5rem; align-items: start; }
       .hero-copy { position: relative; z-index: 3; transform: none !important; }
-      .hero-stage { width: min(16rem,45vw); max-height: none; margin: 0 auto; }
+      .hero-stage { width: min(17.6rem,49.5vw); max-height: none; margin: 0 auto; }
       .wave-inner, .story-head, .story-preview, .use-panel, .showcase-inner, .faq-inner { grid-template-columns: 1fr; }
       .wave-band { min-height: auto; padding-block: clamp(2.5rem,8vw,4.5rem); }
       .banner-window { min-height: auto; aspect-ratio: 16/8; box-shadow: 0 0 0 .45rem var(--acid), 0 0 0 .9rem var(--coral); }
@@ -593,10 +735,10 @@
         font-weight: 900; white-space: nowrap; justify-content: center;
       }
 
-      /* 9:16 video — centred, 72% of screen width */
+      /* 9:16 video — centred, 79% of screen width (+10% of 72%) */
       .hero-stage {
         order: 2;
-        width: 72%;
+        width: 79%;
         aspect-ratio: 9 / 16;
         height: auto; max-height: none;
         border-radius: 1.2rem;
@@ -610,6 +752,13 @@
         width: 100% !important; height: 100% !important;
         object-fit: cover !important; border-radius: inherit !important;
         transform: none !important;
+        filter: brightness(1.15) !important;
+      }
+      /* Subtitle smaller on mobile */
+      .hero-subtitle {
+        font-size: clamp(.82rem, 3.8vw, 1rem);
+        margin-top: .65rem;
+        color: rgba(255,255,255,.74);
       }
       .scroll-pulse { bottom: .7rem; width: 2.2rem; }
 
@@ -669,7 +818,8 @@
         <div class="hero-copy" style="animation:fadeUp .65s ease both;">
           <p class="eyebrow">Durex Play Collection</p>
           <h1><span class="wild">Wild</span><span class="wand">Wand</span></h1>
-          <p class="hero-text">3 tapping modes, 7 vibration settings, 100% waterproof, 45 minutes of play — in one whisper-quiet wand.</p>
+          <p class="hero-subtitle"><strong>3 tapping modes &middot; 7 vibration settings</strong><br>100% waterproof &middot; 45 min play &middot; Whisper-quiet</p>
+          <p class="hero-text">The compact rechargeable wand built for external pleasure — powerful enough to thrill, quiet enough to keep your business your own.</p>
           <div class="hero-controls">
             <div class="price-pill" aria-label="Sale price">
               <strong>Rs. 2,699</strong>
@@ -795,6 +945,84 @@
           <div class="wave-copy">
             <h2>Small wand. Big energy.</h2>
             <p>Made for external stimulation — the Wild Wand gives you a full range of sensations without any of the complexity. Soft, strong, teasing, or all-out electric.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPARISON -->
+      <section class="compare-section" id="compare">
+        <div class="compare-shell">
+          <p class="eyebrow" style="justify-content:center; margin-bottom:.75rem;">Why Wild Wand</p>
+          <h2 class="compare-title">Wild Wand vs. The Rest</h2>
+          <p class="compare-sub">See how the Wild Wand stacks up against ordinary vibrators.</p>
+
+          <div class="compare-table" role="table" aria-label="Wild Wand comparison">
+
+            <!-- Header row -->
+            <div class="ct-row ct-head" role="row">
+              <div class="ct-feat" role="columnheader">Feature</div>
+              <div class="ct-wand" role="columnheader">
+                <span class="ct-wand-badge">Wild Wand</span>
+              </div>
+              <div class="ct-other" role="columnheader">Ordinary Vibrator</div>
+            </div>
+
+            <!-- Rows -->
+            <div class="ct-row" role="row">
+              <div class="ct-feat" role="cell"><span class="ct-icon">⚡</span>Tapping Mode</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">3 rhythms</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">✗ None</span></div>
+            </div>
+            <div class="ct-row" role="row">
+              <div class="ct-feat" role="cell"><span class="ct-icon">🌊</span>Vibration Speeds</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">7 speeds</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">1–3 speeds</span></div>
+            </div>
+            <div class="ct-row" role="row">
+              <div class="ct-feat" role="cell"><span class="ct-icon">💧</span>Waterproof</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">✓ 100%</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">Often not</span></div>
+            </div>
+            <div class="ct-row" role="row">
+              <div class="ct-feat" role="cell"><span class="ct-icon">🔋</span>Battery Life</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">45 minutes</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">20–30 min</span></div>
+            </div>
+            <div class="ct-row" role="row">
+              <div class="ct-feat" role="cell"><span class="ct-icon">🔇</span>Noise Level</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">Whisper-quiet</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">Noticeable buzz</span></div>
+            </div>
+            <div class="ct-row" role="row">
+              <div class="ct-feat" role="cell"><span class="ct-icon">⚕️</span>Body-Safe Material</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">✓ Medical silicone</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">Varies</span></div>
+            </div>
+            <div class="ct-row" role="row">
+              <div class="ct-feat" role="cell"><span class="ct-icon">🔌</span>USB Rechargeable</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">✓ Always</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">Sometimes</span></div>
+            </div>
+            <div class="ct-row" role="row">
+              <div class="ct-feat" role="cell"><span class="ct-icon">📦</span>Discreet Shipping</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">✓ Plain box</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">Not guaranteed</span></div>
+            </div>
+            <div class="ct-row" role="row">
+              <div class="ct-feat" role="cell"><span class="ct-icon">💰</span>Price</div>
+              <div class="ct-wand" role="cell"><span class="ct-yes">Rs. 2,699</span></div>
+              <div class="ct-other" role="cell"><span class="ct-no">Rs. 3,000–8,000</span></div>
+            </div>
+
+            <!-- CTA row -->
+            <div class="ct-row ct-cta-row" role="row">
+              <div class="ct-feat" role="cell"></div>
+              <div class="ct-wand" role="cell">
+                <a class="primary-cta ct-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy Now — Rs. 2,699</a>
+              </div>
+              <div class="ct-other" role="cell"><span class="ct-meh">Why settle?</span></div>
+            </div>
+
           </div>
         </div>
       </section>
