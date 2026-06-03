@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Durex Play Wild Wand | Official Product Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     :root {
       --durex-blue: #005baa;
@@ -19,12 +22,20 @@
       --scroll-progress: 0;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 5rem; overflow-x: hidden; }
+    html {
+      scroll-behavior: smooth; scroll-padding-top: 5rem; overflow-x: hidden;
+      /* Prevent paint flicker from scroll events */
+      -webkit-overflow-scrolling: touch;
+    }
     body {
       color: #f8fbff;
       background: #050713;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
       overflow-x: hidden;
+      /* Prevent subpixel rendering shifts */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeSpeed;
     }
     img { display: block; max-width: 100%; height: auto; }
     button, a { font: inherit; }
@@ -121,7 +132,8 @@
       width: 72vw; height: 72vw; left: -20vw; top: -24vw;
       border-radius: 46% 54% 57% 43%;
       background: conic-gradient(from 140deg,rgba(255,93,108,.5),rgba(107,216,255,.3),rgba(215,255,63,.4),rgba(99,60,255,.45),rgba(255,93,108,.5));
-      filter: blur(30px); opacity: .6;
+      filter: blur(30px); opacity: .55;
+      /* Static — no scroll-driven transform to avoid repaints */
     }
     .hero::after {
       content: ""; position: absolute; z-index: 0; pointer-events: none;
@@ -129,7 +141,7 @@
       width: min(48rem,72vw); aspect-ratio: 1; border-radius: 50%;
       background: repeating-radial-gradient(circle,rgba(255,255,255,.13) 0 2px,transparent 2px 20px),
         radial-gradient(circle,rgba(77,255,210,.26),transparent 58%);
-      opacity: .6;
+      opacity: .55;
     }
 
     /* LEFT copy */
@@ -153,31 +165,95 @@
 
     /* Hero subtitle — sits tight under h1 */
     .hero-subtitle {
-      margin-top: .9rem;
-      font-size: clamp(1rem, 1.55vw, 1.22rem);
-      font-weight: 600;
-      line-height: 1.55;
-      color: rgba(255,255,255,.78);
-      max-width: 34rem;
-      letter-spacing: .01em;
+      margin-top: .85rem;
+      font-family: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+      font-size: clamp(1.15rem, 1.9vw, 1.55rem);
+      font-weight: 400;           /* Bebas Neue is always bold by design */
+      line-height: 1.3;
+      color: #ffffff;             /* pure white */
+      max-width: 38rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
     }
     .hero-subtitle strong {
-      color: var(--acid);
-      font-weight: 800;
+      color: #ffffff;             /* white — no yellow here */
+      font-weight: 400;
     }
     .hero-text {
       margin-top: 1.2rem; max-width: 36rem;
       color: rgba(255,255,255,.82); font-size: clamp(.95rem,1.5vw,1.15rem); line-height: 1.65;
     }
-    .hero-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; margin-top: 1.6rem; }
+    .hero-controls { display: flex; flex-direction: column; gap: .85rem; margin-top: 1.6rem; }
     .hero-cta-row { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
-    .price-pill {
-      display: inline-flex; align-items: baseline; gap: .6rem;
-      padding: .7rem 1rem; border: 1px solid rgba(255,255,255,.22); border-radius: 999px;
-      background: rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
+
+    /* ── PRICE CARD ── */
+    .price-card {
+      display: inline-flex; flex-direction: column; gap: .7rem;
+      padding: .9rem 1.1rem 1rem;
+      border: 1px solid rgba(255,255,255,.18); border-radius: 1.2rem;
+      background: rgba(255,255,255,.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 .5rem 2rem rgba(0,0,0,.22);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
-    .price-pill strong { color: #fff; font-size: 1.4rem; line-height: 1; }
-    .price-pill s { color: rgba(255,255,255,.5); font-weight: 700; }
+
+    /* Price row */
+    .price-row {
+      display: flex; align-items: baseline; gap: .65rem; flex-wrap: wrap;
+    }
+    .price-now { color: #fff; font-size: 1.65rem; font-weight: 950; line-height: 1; }
+    .price-was { color: rgba(255,255,255,.38); font-weight: 700; font-size: 1rem; text-decoration: line-through; }
+    .price-save {
+      display: inline-flex; align-items: center;
+      padding: .18rem .55rem; border-radius: 999px;
+      background: var(--coral); color: #fff;
+      font-size: .72rem; font-weight: 900; letter-spacing: .04em;
+    }
+
+    /* Sticker row */
+    .price-stickers {
+      display: flex; gap: .5rem; flex-wrap: wrap; align-items: center;
+    }
+    .sticker {
+      display: inline-flex; flex-direction: column; align-items: center;
+      padding: .35rem .65rem;
+      border-radius: .55rem;
+      border: 1.5px solid rgba(255,255,255,.15);
+      /* slight skew for that sticker look */
+      transform: rotate(-1.5deg);
+      line-height: 1;
+      user-select: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.2);
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .sticker:nth-child(2) { transform: rotate(1deg); }
+    .sticker:nth-child(3) { transform: rotate(-0.8deg); }
+    .sticker:hover { transform: rotate(0deg) scale(1.06); box-shadow: 0 4px 16px rgba(0,0,0,.35); }
+
+    .sticker--acid {
+      background: var(--acid); border-color: rgba(0,0,0,.12);
+    }
+    .sticker--acid .sticker-num  { color: #07101d; }
+    .sticker--acid .sticker-label { color: rgba(0,0,0,.65); }
+
+    .sticker--coral {
+      background: var(--coral); border-color: rgba(255,255,255,.2);
+    }
+    .sticker--coral .sticker-num  { color: #fff; }
+    .sticker--coral .sticker-label { color: rgba(255,255,255,.82); }
+
+    .sticker--mint {
+      background: var(--mint); border-color: rgba(0,0,0,.1);
+    }
+    .sticker--mint .sticker-num  { color: #07101d; }
+    .sticker--mint .sticker-label { color: rgba(0,0,0,.6); }
+
+    .sticker-num {
+      font-size: 1rem; font-weight: 950; letter-spacing: -.01em; line-height: 1;
+    }
+    .sticker-label {
+      font-size: .55rem; font-weight: 850; letter-spacing: .1em;
+      text-transform: uppercase; margin-top: .12rem;
+    }
 
     /* RIGHT stage */
     .hero-stage {
@@ -197,7 +273,10 @@
       width: 100%; height: 100%;
       object-fit: cover; object-position: center;
       border-radius: inherit; display: block;
-      filter: brightness(1.15);   /* +15% brightness */
+      filter: brightness(1.15);
+      transform: translateZ(0);         /* GPU layer */
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
     .hero-video-vignette {
       position: absolute; inset: 0; z-index: 2;
@@ -365,7 +444,10 @@
     .reviews-viewport { overflow: hidden; width: 100%; position: relative; z-index: 1; }
     .reviews-track {
       display: flex; gap: 1.25rem; width: max-content;
-      animation: reviews-scroll 38s linear infinite; will-change: transform;
+      animation: reviews-scroll 38s linear infinite;
+      will-change: transform;
+      transform: translateZ(0);   /* promote to GPU layer — stops flicker */
+      backface-visibility: hidden;
     }
     .reviews-track:hover { animation-play-state: paused; }
     @keyframes reviews-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -709,21 +791,27 @@
       }
       h1 { font-size: clamp(2.8rem,12.5vw,4.5rem); }
       .hero-text { display: none; }
+      /* Subtitle smaller on mobile */
+      .hero-subtitle {
+        font-size: clamp(.95rem, 4.5vw, 1.2rem);
+        letter-spacing: .05em;
+        margin-top: .55rem;
+      }
 
-      /* Controls stacked: price pill full width, CTAs equal 50/50 */
+      /* Controls stacked: price card full width, CTAs equal 50/50 */
       .hero-controls {
         display: flex; flex-direction: column;
-        gap: .5rem; margin-top: .9rem; width: 100%;
+        gap: .55rem; margin-top: .9rem; width: 100%;
       }
-      .price-pill {
-        width: 100%; min-height: 3.1rem;
-        padding: .55rem .9rem; border-radius: 1rem;
-        background: rgba(255,255,255,.11);
-        border: 1px solid rgba(255,255,255,.2);
-        display: flex; align-items: baseline; gap: .5rem;
+      .price-card {
+        width: 100%; padding: .75rem .9rem .85rem;
+        border-radius: 1rem; gap: .55rem;
       }
-      .price-pill strong { font-size: clamp(1.15rem,6vw,1.5rem); }
-      .price-pill s { font-size: clamp(.78rem,3.8vw,.98rem); }
+      .price-now { font-size: clamp(1.25rem,6.5vw,1.6rem); }
+      .price-was { font-size: clamp(.82rem,3.8vw,.98rem); }
+      .sticker { padding: .3rem .55rem; border-radius: .45rem; }
+      .sticker-num { font-size: .88rem; }
+      .sticker-label { font-size: .5rem; }
       .hero-cta-row {
         display: grid; grid-template-columns: 1fr 1fr;
         gap: .5rem; width: 100%;
@@ -821,9 +909,28 @@
           <p class="hero-subtitle"><strong>3 tapping modes &middot; 7 vibration settings</strong><br>100% waterproof &middot; 45 min play &middot; Whisper-quiet</p>
           <p class="hero-text">The compact rechargeable wand built for external pleasure — powerful enough to thrill, quiet enough to keep your business your own.</p>
           <div class="hero-controls">
-            <div class="price-pill" aria-label="Sale price">
-              <strong>Rs. 2,699</strong>
-              <s>Rs. 4,686</s>
+            <div class="price-card" aria-label="Price and product highlights">
+              <!-- Price row -->
+              <div class="price-row">
+                <strong class="price-now">Rs. 2,699</strong>
+                <s class="price-was">Rs. 4,686</s>
+                <span class="price-save">42% OFF</span>
+              </div>
+              <!-- Sticker badges -->
+              <div class="price-stickers">
+                <span class="sticker sticker--acid">
+                  <span class="sticker-num">7</span>
+                  <span class="sticker-label">VIBES</span>
+                </span>
+                <span class="sticker sticker--coral">
+                  <span class="sticker-num">100%</span>
+                  <span class="sticker-label">WET READY</span>
+                </span>
+                <span class="sticker sticker--mint">
+                  <span class="sticker-num">45</span>
+                  <span class="sticker-label">MIN PLAY</span>
+                </span>
+              </div>
             </div>
             <div class="hero-cta-row">
               <a class="primary-cta" href="#shop">Buy Now</a>
@@ -1120,11 +1227,16 @@
     const paint = () => {
       raf = 0;
       const y = lastY, max = Math.max(1, document.body.scrollHeight - window.innerHeight);
-      root.style.setProperty('--scroll', y.toFixed(1));
+      // Only update progress bar — no other scroll-driven transforms
       root.style.setProperty('--scroll-progress', Math.min(1, y/max).toFixed(4));
     };
-    window.addEventListener('scroll', () => { lastY = window.scrollY; if (!raf) raf = requestAnimationFrame(paint); }, { passive: true });
-    window.addEventListener('resize', () => { if (!raf) raf = requestAnimationFrame(paint); }, { passive: true });
+    window.addEventListener('scroll', () => {
+      lastY = window.scrollY;
+      if (!raf) raf = requestAnimationFrame(paint);
+    }, { passive: true });
+    window.addEventListener('resize', () => {
+      if (!raf) raf = requestAnimationFrame(paint);
+    }, { passive: true });
     paint();
 
     /* Pointer glow */
