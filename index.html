@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Durex Play Wild Wand | Parallax Product Page</title>
+  <title>Durex Play Wild Wand | Official Product Page</title>
   <style>
     :root {
       --durex-blue: #005baa;
@@ -16,351 +16,221 @@
       --violet: #633cff;
       --sky: #6bd8ff;
       --scroll: 0;
-      --hero-tilt-x: 0deg;
-      --hero-tilt-y: 0deg;
-      --hero-media-x: 0px;
-      --hero-media-y: 0px;
+      --scroll-progress: 0;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 5.5rem;
-      /* prevent any horizontal overflow at root */
-      overflow-x: hidden;
-    }
-
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; overflow-x: hidden; }
     body {
       color: #f8fbff;
       background: #050713;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
       overflow-x: hidden;
     }
-
     img { display: block; max-width: 100%; height: auto; }
     button, a { font: inherit; }
 
-    /* ═══════════════════════════════
-       PAGE SHELL
-    ═══════════════════════════════ */
+    /* ═══ PAGE ═══ */
     .page {
-      position: relative;
-      isolation: isolate;
-      min-height: 100vh;
-      padding-bottom: 7rem;           /* clear the sticky bar */
+      position: relative; isolation: isolate;
+      min-height: 100vh; padding-bottom: 7rem;
       background:
-        radial-gradient(circle at 9% 16%,  rgba(255,93,108,.38), transparent 22rem),
+        radial-gradient(circle at 9% 16%, rgba(255,93,108,.38), transparent 22rem),
         radial-gradient(circle at 86% 8%, rgba(77,255,210,.26), transparent 24rem),
         linear-gradient(145deg, #030718 0%, #052675 42%, #080b19 100%);
     }
-
     .grid-noise {
       position: fixed; inset: 0; z-index: -4; opacity: .24; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-image: linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
       background-size: 44px 44px;
-      transform: translateY(calc(var(--scroll) * -.04px));
-      will-change: transform;
-      mask-image: linear-gradient(to bottom, black 0%, transparent 76%);
+      mask-image: linear-gradient(to bottom,black 0%,transparent 76%);
     }
-
     .cursor-glow {
       position: fixed; width: 28rem; aspect-ratio: 1;
       left: var(--x,50%); top: var(--y,30%); z-index: -3;
       translate: -50% -50%; border-radius: 50%;
-      background: radial-gradient(circle, rgba(215,255,63,.22), transparent 62%);
-      filter: blur(4px); pointer-events: none; will-change: left,top;
+      background: radial-gradient(circle,rgba(215,255,63,.22),transparent 62%);
+      filter: blur(4px); pointer-events: none;
     }
-
-    /* ═══════════════════════════════
-       PROGRESS LINE
-    ═══════════════════════════════ */
     .pulse-line {
       position: fixed; left: 0; right: 0; top: 0; z-index: 30; height: .28rem;
-      background: linear-gradient(90deg, var(--coral), var(--acid), var(--mint), var(--sky));
-      transform-origin: left;
-      transform: scaleX(calc(var(--scroll-progress,0) * 1));
+      background: linear-gradient(90deg,var(--coral),var(--acid),var(--mint),var(--sky));
+      transform-origin: left; transform: scaleX(var(--scroll-progress));
     }
 
-    /* ═══════════════════════════════
-       NAV
-    ═══════════════════════════════ */
+    /* ═══ NAV ═══ */
     .nav {
       position: fixed; inset: 0 0 auto 0; z-index: 20;
       display: flex; align-items: center; justify-content: space-between;
-      gap: 1rem; padding: 1rem clamp(1rem,3vw,3rem);
-      background: linear-gradient(180deg, rgba(2,8,32,.92), rgba(2,8,32,.18));
+      gap: 1rem; padding: .9rem clamp(1rem,3vw,3rem);
+      background: linear-gradient(180deg,rgba(2,8,32,.92),rgba(2,8,32,.18));
       backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     }
-    .brand { display: flex; align-items: center; gap: .9rem; min-width: 0; }
-    .brand img { width: 5rem; height: auto; }
+    .brand { display: flex; align-items: center; gap: .8rem; min-width: 0; text-decoration: none; }
+    .brand img { width: 4.5rem; height: auto; }
     .brand span {
-      color: rgba(255,255,255,.78); font-size: .77rem; font-weight: 800;
+      color: rgba(255,255,255,.78); font-size: .75rem; font-weight: 800;
       letter-spacing: .12em; text-transform: uppercase; white-space: nowrap;
     }
-    .nav-actions { display: flex; align-items: center; gap: .7rem; }
+    .nav-actions { display: flex; align-items: center; gap: .6rem; }
     .chip {
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 2.25rem; padding: .45rem .85rem;
+      min-height: 2.1rem; padding: .4rem .8rem;
       border: 1px solid rgba(255,255,255,.22); border-radius: 999px;
       color: #fff; background: rgba(255,255,255,.1);
-      text-decoration: none; font-weight: 800; font-size: .78rem; white-space: nowrap;
+      text-decoration: none; font-weight: 800; font-size: .75rem; white-space: nowrap;
     }
     .chip.buy {
       color: #071022; background: var(--acid); border-color: transparent;
-      box-shadow: 0 0 28px rgba(215,255,63,.34);
+      box-shadow: 0 0 24px rgba(215,255,63,.34);
     }
 
-    /* ═══════════════════════════════
-       SHARED BUTTONS
-    ═══════════════════════════════ */
+    /* ═══ BUTTONS ═══ */
     .primary-cta {
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 3.4rem; padding: .85rem 1.6rem; border: 0; border-radius: 999px;
-      color: #051226; background: linear-gradient(135deg, var(--acid), #fff166);
-      box-shadow: 0 1.1rem 3.5rem rgba(215,255,63,.28);
-      text-decoration: none; font-weight: 950; cursor: pointer;
-      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
-      white-space: nowrap;
+      min-height: 3.2rem; padding: .8rem 1.5rem; border: 0; border-radius: 999px;
+      color: #051226; background: linear-gradient(135deg,var(--acid),#fff166);
+      box-shadow: 0 1rem 3rem rgba(215,255,63,.28);
+      text-decoration: none; font-weight: 950; cursor: pointer; white-space: nowrap;
+      transition: transform 180ms ease, box-shadow 180ms ease;
     }
-    .primary-cta:hover, .primary-cta:focus-visible {
-      transform: translateY(-2px); filter: saturate(1.08);
-      box-shadow: 0 1.25rem 3.8rem rgba(215,255,63,.36);
-    }
+    .primary-cta:hover { transform: translateY(-2px); box-shadow: 0 1.2rem 3.5rem rgba(215,255,63,.36); }
     .ghost-cta {
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 3.4rem; padding: .85rem 1.25rem;
+      min-height: 3.2rem; padding: .8rem 1.2rem;
       border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
       color: #fff; background: rgba(255,255,255,.08);
-      text-decoration: none; font-weight: 850;
-      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+      text-decoration: none; font-weight: 850; white-space: nowrap;
+      transition: transform 180ms ease, background 180ms ease;
     }
-    .ghost-cta:hover, .ghost-cta:focus-visible {
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.16);
-    }
+    .ghost-cta:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); }
 
-    /* ═══════════════════════════════
-       HERO
-    ═══════════════════════════════ */
+    /* ═══ HERO — DESKTOP ═══ */
     .hero {
       position: relative;
       display: grid;
-      grid-template-columns: 1fr auto;   /* copy flexible, stage exact width */
+      grid-template-columns: 1fr auto;
       gap: clamp(2rem,4vw,5rem);
       align-items: center;
       min-height: 100svh;
-      padding: clamp(6rem,10vh,9rem) clamp(1.25rem,5vw,5rem) clamp(3rem,5vh,5rem);
+      padding: clamp(6rem,10vh,9rem) clamp(1.5rem,5vw,5rem) clamp(3rem,5vh,5rem);
       overflow: clip;
     }
-
-    /* decorative blobs */
-    .hero::before, .hero::after {
-      content: ""; position: absolute; z-index: 0; pointer-events: none;
-    }
     .hero::before {
+      content: ""; position: absolute; z-index: 0; pointer-events: none;
       width: 72vw; height: 72vw; left: -20vw; top: -24vw;
       border-radius: 46% 54% 57% 43%;
-      background: conic-gradient(from 140deg,
-        rgba(255,93,108,.55), rgba(107,216,255,.34),
-        rgba(215,255,63,.42), rgba(99,60,255,.48), rgba(255,93,108,.55));
-      filter: blur(28px);
-      transform: rotate(calc(var(--scroll) * .025deg)); opacity: .66;
+      background: conic-gradient(from 140deg,rgba(255,93,108,.5),rgba(107,216,255,.3),rgba(215,255,63,.4),rgba(99,60,255,.45),rgba(255,93,108,.5));
+      filter: blur(30px); opacity: .6;
     }
     .hero::after {
+      content: ""; position: absolute; z-index: 0; pointer-events: none;
       inset: auto -4rem -10rem auto;
-      width: min(50rem,74vw); aspect-ratio: 1; border-radius: 50%;
-      background:
-        repeating-radial-gradient(circle, rgba(255,255,255,.14) 0 2px, transparent 2px 20px),
-        radial-gradient(circle, rgba(77,255,210,.28), transparent 58%);
-      transform: translateY(calc(var(--scroll) * -.1px)); opacity: .65;
+      width: min(48rem,72vw); aspect-ratio: 1; border-radius: 50%;
+      background: repeating-radial-gradient(circle,rgba(255,255,255,.13) 0 2px,transparent 2px 20px),
+        radial-gradient(circle,rgba(77,255,210,.26),transparent 58%);
+      opacity: .6;
     }
 
-    /* ─ LEFT COPY ─ */
-    .hero-copy {
-      position: relative; z-index: 2;
-      transform: translateY(calc(var(--scroll) * -.045px));
-    }
+    /* LEFT copy */
+    .hero-copy { position: relative; z-index: 2; }
     .eyebrow {
       display: inline-flex; align-items: center; gap: .55rem;
-      margin-bottom: 1.1rem; color: var(--acid);
-      font-size: .82rem; font-weight: 950; letter-spacing: .14em; text-transform: uppercase;
+      margin-bottom: 1rem; color: var(--acid);
+      font-size: .8rem; font-weight: 950; letter-spacing: .14em; text-transform: uppercase;
     }
     .eyebrow::before {
-      content: ""; flex-shrink: 0; width: .74rem; height: .74rem; border-radius: 50%;
+      content: ""; flex-shrink: 0; width: .7rem; height: .7rem; border-radius: 50%;
       background: var(--coral);
-      box-shadow: 0 0 0 .45rem rgba(255,93,108,.14), 0 0 32px rgba(255,93,108,.8);
+      box-shadow: 0 0 0 .4rem rgba(255,93,108,.14), 0 0 28px rgba(255,93,108,.8);
     }
     h1 {
-      font-size: clamp(4rem,11vw,11rem);
+      font-size: clamp(3.8rem,10vw,10rem);
       line-height: .82; letter-spacing: -.01em; text-transform: uppercase;
     }
-    .wild {
-      display: block; color: var(--acid);
-      text-shadow: .05em .05em 0 var(--coral), -.035em -.035em 0 rgba(107,216,255,.72);
-    }
-    .wand { display: block; color: #fff; text-shadow: 0 0 42px rgba(255,255,255,.45); }
-
+    .wild { display: block; color: var(--acid); text-shadow: .05em .05em 0 var(--coral), -.03em -.03em 0 rgba(107,216,255,.7); }
+    .wand { display: block; color: #fff; text-shadow: 0 0 40px rgba(255,255,255,.4); }
     .hero-text {
-      margin-top: 1.25rem;
-      color: rgba(255,255,255,.84); font-size: clamp(.95rem,1.6vw,1.2rem); line-height: 1.6;
+      margin-top: 1.2rem; max-width: 36rem;
+      color: rgba(255,255,255,.82); font-size: clamp(.95rem,1.5vw,1.15rem); line-height: 1.65;
     }
-    .hero-controls {
-      display: flex; flex-wrap: wrap; align-items: center;
-      gap: .85rem; margin-top: 1.7rem;
-    }
-    /* CTA pair wrapper — inline on desktop, grid on mobile via override */
-    .hero-cta-row {
-      display: flex; gap: .85rem; flex-wrap: wrap; align-items: center;
-    }
+    .hero-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; margin-top: 1.6rem; }
+    .hero-cta-row { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
     .price-pill {
-      display: inline-flex; align-items: baseline; gap: .65rem;
-      padding: .7rem 1rem;
-      border: 1px solid rgba(255,255,255,.22); border-radius: 999px;
-      background: rgba(255,255,255,.12);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.22);
+      display: inline-flex; align-items: baseline; gap: .6rem;
+      padding: .7rem 1rem; border: 1px solid rgba(255,255,255,.22); border-radius: 999px;
+      background: rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
     }
-    .price-pill strong { color: #fff; font-size: 1.45rem; line-height: 1; }
-    .price-pill s { color: rgba(255,255,255,.55); font-weight: 700; }
+    .price-pill strong { color: #fff; font-size: 1.4rem; line-height: 1; }
+    .price-pill s { color: rgba(255,255,255,.5); font-weight: 700; }
 
-    /* ─ RIGHT STAGE ─ */
-
-    /* ── HERO STAGE — 9:16 video, 30% smaller ── */
+    /* RIGHT stage */
     .hero-stage {
       position: relative; z-index: 2;
-      /* 26rem × 0.7 = 18.2rem  |  42vw × 0.7 = 29.4vw */
-      width: min(18.2rem, 29vw);
+      width: min(18rem, 28vw);
       aspect-ratio: 9 / 16;
       height: auto;
-      max-height: 82vh;
-      border-radius: 1.75rem;
+      max-height: 85vh;
+      border-radius: 1.6rem;
       overflow: hidden;
       background: #021230;
-      box-shadow: 0 2rem 5rem rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.14);
-      transform: translateY(calc(var(--scroll) * .03px));
-      will-change: transform;
-      align-self: center;
-      flex-shrink: 0;
+      box-shadow: 0 2rem 5rem rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.12);
+      align-self: center; flex-shrink: 0;
     }
-
-    /* video fills the 9:16 container */
     .hero-parallax-video {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center center;
-      border-radius: inherit;
-      display: block;
+      object-fit: cover; object-position: center;
+      border-radius: inherit; display: block;
     }
-
-    /* slide CSS kept for fallback but hidden */
-    .hero-slide { display: none; }
-    .hero-dots  { display: none; }
-
-    /* slide dots */
-    .hero-dots {
-      position: absolute; bottom: 1.1rem; left: 50%;
-      transform: translateX(-50%);
-      display: flex; gap: .5rem; z-index: 4;
-    }
-    .hero-dot {
-      width: .45rem; height: .45rem; border-radius: 50%;
-      background: rgba(255,255,255,.35);
-      transition: background .3s ease, transform .3s ease;
-    }
-    .hero-dot--active { background: var(--acid); transform: scale(1.4); }
-
-    /* vignette stays */
     .hero-video-vignette {
       position: absolute; inset: 0; z-index: 2;
       border-radius: inherit; pointer-events: none;
       background:
-        radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(5,7,19,.6) 100%),
-        linear-gradient(180deg, rgba(5,7,19,.2) 0%, transparent 20%,
-          transparent 76%, rgba(5,7,19,.3) 100%);
+        radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(5,7,19,.55) 100%),
+        linear-gradient(180deg,rgba(5,7,19,.15) 0%,transparent 18%,transparent 80%,rgba(5,7,19,.25) 100%);
     }
-
-    /* float tags — inside the stage, z above vignette */
-    .float-tag {
-      position: absolute; z-index: 5;
-      display: grid; place-items: center;
-      width: clamp(5.5rem,9vw,7.5rem); aspect-ratio: 1;
-      border-radius: 50%;
-      font-weight: 1000; text-align: center; text-transform: uppercase;
-      line-height: 1.05; font-size: clamp(.72rem,.9vw,.9rem);
-      color: #07101d; background: var(--acid);
-      box-shadow: 0 0 0 .5rem rgba(215,255,63,.18), 0 1rem 2rem rgba(0,0,0,.3);
-      animation: bob 3.2s ease-in-out infinite;
-    }
-    .float-tag.one { left: 1rem; top: 12%; }
-    .float-tag.two {
-      right: 1rem; bottom: 12%; color: #fff; background: var(--coral);
-      box-shadow: 0 0 0 .5rem rgba(255,93,108,.2), 0 1rem 2rem rgba(0,0,0,.3);
-      animation-delay: -1.1s;
-    }
-
-    /* scroll cue inside stage */
     .scroll-pulse {
-      position: absolute; bottom: 1.25rem; left: 50%; z-index: 5;
+      position: absolute; bottom: 1rem; left: 50%; z-index: 5;
       transform: translateX(-50%);
       display: grid; place-items: center;
-      width: 2.8rem; aspect-ratio: 1;
+      width: 2.6rem; aspect-ratio: 1;
       border: 1px solid rgba(255,255,255,.3); border-radius: 50%;
       color: var(--acid); background: rgba(255,255,255,.1);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      text-decoration: none;
+      backdrop-filter: blur(14px); text-decoration: none;
       animation: scroll-vibrate .9s linear infinite;
     }
     .scroll-pulse::before, .scroll-pulse::after {
-      content: ""; width: .7rem; height: .7rem;
-      border-right: .15rem solid currentColor; border-bottom: .15rem solid currentColor;
+      content: ""; width: .65rem; height: .65rem;
+      border-right: .14rem solid currentColor; border-bottom: .14rem solid currentColor;
       transform: rotate(45deg);
     }
-    .scroll-pulse::after { margin-top: -.48rem; opacity: .55; }
+    .scroll-pulse::after { margin-top: -.44rem; opacity: .55; }
 
-    /* ═══════════════════════════════
-       PRODUCT STORY
-    ═══════════════════════════════ */
+    /* ═══ PRODUCT STORY ═══ */
     .product-story {
       position: relative; overflow: hidden;
-      padding: clamp(3.5rem,8vw,7rem) clamp(1.25rem,5vw,5rem);
-      color: #f8fbff;
+      padding: clamp(3.5rem,8vw,7rem) clamp(1.5rem,5vw,5rem);
       background:
-        radial-gradient(circle at 8% 18%, rgba(255,93,108,.26), transparent 20rem),
-        radial-gradient(circle at 92% 28%, rgba(77,255,210,.24), transparent 22rem),
-        linear-gradient(180deg, #071342 0%, #041d55 42%, #050713 100%);
-    }
-    .product-story::before {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
-      background:
-        repeating-radial-gradient(circle at 88% 7%, rgba(255,255,255,.12) 0 1px, transparent 1px 20px),
-        linear-gradient(120deg, transparent 0 42%, rgba(77,255,210,.06) 42% 44%, transparent 44% 100%);
-      opacity: .7; transform: translateY(calc(var(--scroll) * -.03px));
+        radial-gradient(circle at 8% 18%,rgba(255,93,108,.24),transparent 20rem),
+        radial-gradient(circle at 92% 28%,rgba(77,255,210,.22),transparent 22rem),
+        linear-gradient(180deg,#071342 0%,#041d55 42%,#050713 100%);
     }
     .story-shell { position: relative; z-index: 1; max-width: 82rem; margin: 0 auto; }
     .story-head {
-      display: grid;
-      grid-template-columns: minmax(0,.75fr) minmax(0,1fr);
+      display: grid; grid-template-columns: minmax(0,.75fr) minmax(0,1fr);
       gap: clamp(1rem,4vw,3rem); align-items: end;
       margin-bottom: clamp(1.4rem,4vw,2.4rem);
     }
     .story-head h2 {
-      color: #fff; font-size: clamp(2.4rem,6vw,5.5rem);
-      line-height: .9; letter-spacing: 0; text-transform: uppercase;
-      text-shadow: 0 0 2.2rem rgba(255,255,255,.22);
+      color: #fff; font-size: clamp(2.2rem,6vw,5rem);
+      line-height: .9; text-transform: uppercase;
     }
-    .story-head p:not(.eyebrow) {
-      color: rgba(255,255,255,.76); font-size: clamp(1rem,1.5vw,1.1rem); line-height: 1.65;
-    }
+    .story-head p { color: rgba(255,255,255,.74); font-size: clamp(.95rem,1.5vw,1.1rem); line-height: 1.65; }
     .product-story .eyebrow { color: var(--acid) !important; }
-
     .story-gallery { display: grid; gap: 1rem; }
-
     .story-video-showcase {
-      position: relative; z-index: 2; display: flex;
-      justify-content: center; width: 100%;
+      display: flex; justify-content: center; width: 100%;
       margin-bottom: clamp(1.2rem,3vw,2rem);
     }
     .story-video-frame {
@@ -369,73 +239,47 @@
     }
     .story-video-frame video {
       display: block; width: 100%; height: auto;
-      aspect-ratio: 1126/720; object-fit: cover; object-position: center;
+      aspect-ratio: 16/10; object-fit: cover;
     }
-
-    .story-tabs {
-      display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1rem;
-    }
+    .story-tabs { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1rem; }
     .story-card {
       position: relative; overflow: hidden;
-      border: 3px solid rgba(255,255,255,.85); border-radius: .75rem;
+      border: 3px solid rgba(255,255,255,.8); border-radius: .75rem;
       aspect-ratio: 1; background: linear-gradient(135deg,#00295b,#08c7b9);
-      cursor: pointer;
-      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      cursor: pointer; transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     }
-    .story-card:hover, .story-card:focus-visible, .story-card.active {
-      transform: translateY(-.18rem); border-color: var(--durex-blue);
-      box-shadow: 0 0 0 .24rem rgba(0,91,170,.2); outline: none;
+    .story-card:hover, .story-card.active {
+      transform: translateY(-.15rem); border-color: var(--durex-blue);
+      box-shadow: 0 0 0 .22rem rgba(0,91,170,.2); outline: none;
     }
     .story-card img {
-      width: 100%; height: 100%; object-fit: contain; object-position: center; padding: .35rem;
-      background:
-        radial-gradient(circle at 82% 16%, rgba(215,255,63,.18), transparent 8rem),
-        linear-gradient(135deg, rgba(0,198,188,.92), rgba(9,32,91,.96));
+      width: 100%; height: 100%; object-fit: contain; padding: .35rem;
+      background: radial-gradient(circle at 82% 16%,rgba(215,255,63,.18),transparent 8rem),
+        linear-gradient(135deg,rgba(0,198,188,.92),rgba(9,32,91,.96));
     }
     .story-card-label {
-      position: absolute; left: .6rem; right: .6rem; bottom: .55rem;
+      position: absolute; left: .55rem; right: .55rem; bottom: .5rem;
       display: flex; justify-content: space-between; gap: .4rem;
-      padding: .4rem .55rem;
-      border: 1px solid rgba(255,255,255,.28); border-radius: 999px;
+      padding: .4rem .5rem; border: 1px solid rgba(255,255,255,.26); border-radius: 999px;
       color: #fff; background: rgba(0,24,67,.54);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      font-size: .68rem; font-weight: 950; text-transform: uppercase;
+      backdrop-filter: blur(12px); font-size: .66rem; font-weight: 950; text-transform: uppercase;
     }
     .story-card-label span:last-child { color: var(--acid); }
-
-    /* Auto-cycle progress bar — sits at bottom of each card */
     .sc-progress {
-      position: absolute;
-      bottom: 0; left: 0;
-      height: .22rem;
-      width: 0%;
-      background: linear-gradient(90deg, var(--acid), var(--mint));
-      border-radius: 0 0 .75rem .75rem;
-      transition: none;
-      z-index: 5;
+      position: absolute; bottom: 0; left: 0; height: .2rem; width: 0%;
+      background: linear-gradient(90deg,var(--acid),var(--mint));
+      border-radius: 0 0 .75rem .75rem; z-index: 5; transition: none;
     }
-    /* Active card gets a glowing outline pulse */
-    .story-card.active {
-      border-color: var(--durex-blue);
-      box-shadow: 0 0 0 .28rem rgba(0,91,170,.22), 0 0 1.4rem rgba(77,255,210,.18);
-    }
+    .story-card.active { border-color: var(--durex-blue); box-shadow: 0 0 0 .26rem rgba(0,91,170,.2), 0 0 1.2rem rgba(77,255,210,.16); }
 
     .story-preview {
       position: relative; display: grid;
       grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr);
-      min-height: clamp(26rem,50vw,42rem); overflow: hidden;
-      border: .65rem solid #061229;
-      background:
-        radial-gradient(circle at 6% 16%, rgba(215,255,63,.3), transparent 16rem),
-        linear-gradient(135deg, #022758 0%, #022c68 46%, #07c8bb 100%);
+      min-height: clamp(24rem,48vw,40rem); overflow: hidden;
+      border: .6rem solid #061229;
+      background: radial-gradient(circle at 6% 16%,rgba(215,255,63,.28),transparent 16rem),
+        linear-gradient(135deg,#022758 0%,#022c68 46%,#07c8bb 100%);
       box-shadow: 1rem 1rem 0 var(--acid);
-    }
-    .story-preview::before {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(circle at 76% 18%, rgba(255,255,255,.18), transparent 16rem),
-        repeating-radial-gradient(circle at 90% 20%, rgba(255,255,255,.16) 0 1px, transparent 1px 22px);
-      opacity: .65;
     }
     .story-preview-visual {
       position: relative; z-index: 1; display: grid; place-items: center;
@@ -448,50 +292,97 @@
     }
     .story-info {
       position: relative; z-index: 1; display: grid; align-content: center;
-      gap: 1rem; padding: clamp(1.2rem,4vw,3rem); color: #fff;
-      background: linear-gradient(90deg, rgba(3,18,55,.22), rgba(3,18,55,.7));
+      gap: .9rem; padding: clamp(1.2rem,4vw,3rem);
+      background: linear-gradient(90deg,rgba(3,18,55,.2),rgba(3,18,55,.7));
     }
-    .story-info strong {
-      color: var(--acid); font-size: clamp(.78rem,1.2vw,.9rem);
-      letter-spacing: .14em; text-transform: uppercase;
-    }
-    .story-info h3 {
-      font-size: clamp(1.9rem,4.5vw,4rem); line-height: .92; text-transform: uppercase;
-      text-shadow: 0 0 1.4rem rgba(255,255,255,.3);
-    }
-    .story-info p {
-      color: rgba(255,255,255,.78); font-size: clamp(1rem,1.4vw,1.1rem); line-height: 1.6;
-    }
+    .story-info strong { color: var(--acid); font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
+    .story-info h3 { font-size: clamp(1.8rem,4.5vw,3.8rem); line-height: .92; text-transform: uppercase; color: #fff; }
+    .story-info p { color: rgba(255,255,255,.76); font-size: clamp(.95rem,1.4vw,1.08rem); line-height: 1.6; }
 
     .use-panel {
-      display: grid;
-      grid-template-columns: minmax(0,.72fr) minmax(0,1.28fr);
+      display: grid; grid-template-columns: minmax(0,.72fr) minmax(0,1.28fr);
       gap: clamp(1rem,3vw,2rem); align-items: stretch; margin-top: 1rem;
     }
     .use-visual { overflow: hidden; border-radius: .65rem; background: #071342; box-shadow: -.7rem .7rem 0 var(--coral); }
     .use-visual img { width: 100%; height: 100%; min-height: 22rem; object-fit: contain; background: linear-gradient(135deg,#08c7b9,#03265f); }
-    .use-steps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .85rem; }
+    .use-steps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .8rem; }
     .use-step {
-      padding: 1rem;
-      border: 1px solid rgba(255,255,255,.18); border-radius: .65rem;
-      background: linear-gradient(135deg, rgba(3,28,93,.96), rgba(0,91,170,.86));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.18);
+      padding: 1rem; border: 1px solid rgba(255,255,255,.16); border-radius: .65rem;
+      background: linear-gradient(135deg,rgba(3,28,93,.96),rgba(0,91,170,.86));
     }
     .use-step b {
-      display: grid; place-items: center; width: 2.2rem; aspect-ratio: 1;
-      margin-bottom: .7rem; border-radius: 50%; color: #061329; background: var(--acid);
-      font-size: .9rem;
+      display: grid; place-items: center; width: 2.1rem; aspect-ratio: 1;
+      margin-bottom: .65rem; border-radius: 50%; color: #061329; background: var(--acid);
       animation: step-vibrate 1.15s linear infinite;
     }
-    .use-step h3 { color: #fff; font-size: 1.05rem; line-height: 1.15; margin-bottom: .4rem; }
-    .use-step p { color: rgba(255,255,255,.76); line-height: 1.5; font-size: .92rem; }
+    .use-step h3 { color: #fff; font-size: 1rem; margin-bottom: .35rem; }
+    .use-step p { color: rgba(255,255,255,.74); line-height: 1.5; font-size: .9rem; }
 
-    /* ═══════════════════════════════
-       WAVE BAND
-    ═══════════════════════════════ */
+    /* ═══ REVIEWS ═══ */
+    .reviews {
+      position: relative; padding: clamp(4rem,9vw,8rem) 0; overflow: hidden;
+      background:
+        radial-gradient(ellipse at 10% 50%,rgba(99,60,255,.22),transparent 40%),
+        radial-gradient(ellipse at 90% 30%,rgba(255,93,108,.18),transparent 38%),
+        linear-gradient(180deg,#050713 0%,#07112a 50%,#050713 100%);
+    }
+    .reviews::before, .reviews::after {
+      content: ""; position: absolute; z-index: 2; pointer-events: none;
+      top: 0; bottom: 0; width: clamp(3rem,8vw,7rem);
+    }
+    .reviews::before { left: 0; background: linear-gradient(90deg,#050713,transparent); }
+    .reviews::after  { right: 0; background: linear-gradient(270deg,#050713,transparent); }
+    .reviews-embedded {
+      padding-top: clamp(2.5rem,5vw,4rem); padding-bottom: clamp(2.5rem,5vw,4rem);
+      background: none;
+      border-top: 1px solid rgba(255,255,255,.07);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      margin-bottom: clamp(1.5rem,3vw,2.5rem);
+    }
+    .reviews-embedded::before, .reviews-embedded::after { display: none; }
+    .reviews-head { text-align: center; padding-inline: clamp(1.5rem,5vw,5rem); margin-bottom: clamp(2rem,5vw,3.5rem); }
+    .reviews-head .eyebrow { justify-content: center; margin-bottom: .75rem; }
+    .reviews-head h2 { color: #fff; font-size: clamp(2rem,5vw,4.5rem); line-height: .9; text-transform: uppercase; }
+    .reviews-agg { display: flex; align-items: center; justify-content: center; gap: .6rem; margin-top: 1rem; }
+    .reviews-agg .stars { color: var(--acid); font-size: 1.15rem; letter-spacing: .05em; }
+    .reviews-agg span { color: rgba(255,255,255,.6); font-size: .88rem; font-weight: 700; }
+    .reviews-viewport { overflow: hidden; width: 100%; position: relative; z-index: 1; }
+    .reviews-track {
+      display: flex; gap: 1.25rem; width: max-content;
+      animation: reviews-scroll 38s linear infinite; will-change: transform;
+    }
+    .reviews-track:hover { animation-play-state: paused; }
+    @keyframes reviews-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .rv-card {
+      flex-shrink: 0; width: clamp(18rem,30vw,26rem);
+      padding: 1.75rem 1.6rem 1.5rem; border-radius: 1.25rem;
+      border: 1px solid rgba(255,255,255,.11);
+      background: linear-gradient(135deg,rgba(255,255,255,.07) 0%,rgba(99,60,255,.12) 50%,rgba(255,93,108,.06) 100%);
+      backdrop-filter: blur(18px); position: relative; overflow: hidden; cursor: default;
+      transition: transform 280ms ease, box-shadow 280ms ease;
+    }
+    .rv-card::before {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      background: radial-gradient(ellipse at 80% 10%,rgba(215,255,63,.09),transparent 55%); pointer-events: none;
+    }
+    .rv-card:hover { transform: translateY(-.35rem); box-shadow: 0 1.2rem 3.5rem rgba(99,60,255,.2); }
+    .rv-card-accent { position: absolute; top: 0; left: 1.4rem; right: 1.4rem; height: .17rem; border-radius: 0 0 999px 999px; background: linear-gradient(90deg,var(--violet),var(--coral),var(--acid)); }
+    .rv-quote-mark { display: block; color: var(--acid); font-size: 3.8rem; line-height: .7; font-family: Georgia,serif; margin-bottom: .55rem; opacity: .5; }
+    .rv-stars { display: flex; gap: .18rem; margin-bottom: .9rem; }
+    .rv-stars span { color: var(--acid); font-size: .9rem; }
+    .rv-stars span.half { opacity: .4; }
+    .rv-text { color: rgba(255,255,255,.86); font-size: clamp(.88rem,1.1vw,1rem); line-height: 1.65; font-style: italic; margin-bottom: 1.3rem; }
+    .rv-author { display: flex; align-items: center; gap: .8rem; border-top: 1px solid rgba(255,255,255,.1); padding-top: 1rem; }
+    .rv-avatar { width: 2.5rem; height: 2.5rem; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; font-weight: 900; font-size: .82rem; color: #07101d; background: var(--av-bg,var(--acid)); box-shadow: 0 0 0 2px rgba(255,255,255,.16); }
+    .rv-name { display: block; color: #fff; font-weight: 800; font-size: .86rem; }
+    .rv-meta { display: block; color: rgba(255,255,255,.42); font-size: .74rem; margin-top: .15rem; }
+    .rv-badge { margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: .28rem; padding: .26rem .55rem; border: 1px solid rgba(77,255,210,.28); border-radius: 999px; color: var(--mint); font-size: .66rem; font-weight: 800; background: rgba(77,255,210,.07); white-space: nowrap; }
+    .rv-badge::before { content: "✓"; font-weight: 900; }
+
+    /* ═══ WAVE BAND ═══ */
     .wave-band {
-      position: relative; min-height: 52vh; display: grid; place-items: center;
-      padding: clamp(3rem,8vw,7rem) clamp(1.25rem,5vw,5rem); overflow: hidden;
+      position: relative; min-height: 50vh; display: grid; place-items: center;
+      padding: clamp(3rem,8vw,7rem) clamp(1.5rem,5vw,5rem); overflow: hidden;
       background: #fff; color: var(--deep-blue);
     }
     .wave-band::before {
@@ -499,7 +390,6 @@
       position: absolute; left: -6vw; top: 4vh;
       color: rgba(0,91,170,.07); font-size: clamp(4rem,12vw,12rem);
       font-weight: 1000; line-height: .85; white-space: nowrap; text-transform: uppercase;
-      transform: translateX(calc(var(--scroll) * -.18px));
     }
     .wave-inner {
       position: relative; z-index: 1; width: min(72rem,100%);
@@ -511,632 +401,247 @@
       background: var(--durex-blue);
       box-shadow: 1rem 1rem 0 var(--acid), -1rem -1rem 0 var(--coral);
     }
-    .banner-window img {
-      width: 100%; height: 100%; min-height: 26rem; object-fit: cover;
-      transform: scale(1.08) translateY(calc(var(--scroll) * -.03px));
-    }
-    .wave-copy h2, .section-title {
-      font-size: clamp(2.2rem,5.5vw,5.5rem); line-height: .9; text-transform: uppercase;
-    }
-    .wave-copy p {
-      margin-top: 1.25rem; color: rgba(3,28,93,.78);
-      font-size: clamp(1rem,1.6vw,1.15rem); line-height: 1.7;
-    }
+    .banner-window img { width: 100%; height: 100%; min-height: 26rem; object-fit: cover; }
+    .wave-copy h2, .section-title { font-size: clamp(2rem,5.5vw,5rem); line-height: .9; text-transform: uppercase; }
+    .wave-copy p { margin-top: 1.2rem; color: rgba(3,28,93,.76); font-size: clamp(.95rem,1.6vw,1.12rem); line-height: 1.7; }
 
-    /* ═══════════════════════════════
-       FEATURES
-    ═══════════════════════════════ */
+    /* ═══ FEATURES ═══ */
     .features {
-      padding: clamp(4rem,9vw,8rem) clamp(1.25rem,5vw,5rem);
-      background: linear-gradient(180deg, #071342 0%, #060712 100%);
+      padding: clamp(4rem,9vw,8rem) clamp(1.5rem,5vw,5rem);
+      background: linear-gradient(180deg,#071342 0%,#060712 100%);
     }
-    .feature-head {
-      display: flex; justify-content: space-between; gap: 2rem;
-      align-items: end; max-width: 78rem; margin: 0 auto 2rem;
-    }
-    .feature-head p { max-width: 23rem; color: rgba(255,255,255,.72); line-height: 1.55; }
-    .mode-grid {
-      display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
-      gap: 1rem; max-width: 78rem; margin: 0 auto;
-    }
+    .feature-head { display: flex; justify-content: space-between; gap: 2rem; align-items: end; max-width: 78rem; margin: 0 auto 2rem; }
+    .feature-head p { max-width: 22rem; color: rgba(255,255,255,.7); line-height: 1.55; }
+    .mode-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; max-width: 78rem; margin: 0 auto; }
     .mode-card {
       position: relative; overflow: hidden; min-height: 20rem; padding: 1.2rem;
-      border: 1px solid rgba(255,255,255,.18); border-radius: .5rem;
-      background: rgba(255,255,255,.08);
-      transform: translateY(calc((var(--scroll) - 1100) * -.012px));
+      border: 1px solid rgba(255,255,255,.16); border-radius: .5rem;
+      background: rgba(255,255,255,.07);
       animation: card-glow 3.8s ease-in-out infinite; will-change: transform;
     }
-    .mode-card:nth-child(2) { transform: translateY(calc((var(--scroll) - 1100) * .012px)); animation-delay: -1.2s; }
-    .mode-card:nth-child(3) { transform: translateY(calc((var(--scroll) - 1100) * -.018px)); animation-delay: -2.1s; }
+    .mode-card:nth-child(2) { animation-delay: -1.2s; }
+    .mode-card:nth-child(3) { animation-delay: -2.1s; }
     .mode-card::before {
       content: ""; position: absolute; inset: auto -20% -22% auto;
       width: 14rem; aspect-ratio: 1; border-radius: 50%;
-      background: var(--tone,var(--mint)); filter: blur(3rem); opacity: .55;
+      background: var(--tone,var(--mint)); filter: blur(3rem); opacity: .5;
     }
-    .mode-card img {
-      position: absolute; inset: auto .85rem .85rem auto;
-      width: min(18rem,72%); max-height: 11.5rem;
-      object-fit: contain; object-position: right bottom;
-      opacity: .92; filter: drop-shadow(0 1.4rem 1rem rgba(0,0,0,.32));
-    }
-    .mode-card strong {
-      position: relative; z-index: 1; display: block; max-width: 12rem;
-      color: var(--tone,var(--mint)); font-size: 4.7rem; line-height: .8;
-      text-transform: uppercase;
-      text-shadow: 0 0 1.4rem color-mix(in srgb, var(--tone,var(--mint)) 55%, transparent);
-      animation: number-glow 1.8s ease-in-out infinite;
-    }
-    .mode-card span {
-      position: relative; z-index: 1; display: block; max-width: 12rem;
-      margin-top: .8rem; color: rgba(255,255,255,.78); line-height: 1.45; font-weight: 750;
-    }
+    .mode-card img { position: absolute; inset: auto .85rem .85rem auto; width: min(18rem,72%); max-height: 11.5rem; object-fit: contain; object-position: right bottom; opacity: .9; filter: drop-shadow(0 1.4rem 1rem rgba(0,0,0,.3)); }
+    .mode-card strong { position: relative; z-index: 1; display: block; color: var(--tone,var(--mint)); font-size: 4.5rem; line-height: .8; text-transform: uppercase; animation: number-glow 1.8s ease-in-out infinite; }
+    .mode-card span { position: relative; z-index: 1; display: block; max-width: 11rem; margin-top: .8rem; color: rgba(255,255,255,.76); line-height: 1.45; font-weight: 750; }
 
-    /* ═══════════════════════════════
-       SHOWCASE
-    ═══════════════════════════════ */
-    .showcase {
-      position: relative; overflow: hidden;
-      padding: clamp(4rem,9vw,8rem) clamp(1.25rem,5vw,5rem);
-      color: var(--ink); background: var(--cream);
-    }
-    .showcase::before {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
-      background:
-        linear-gradient(120deg, transparent 0 42%, rgba(0,91,170,.1) 42% 44%, transparent 44% 100%),
-        repeating-linear-gradient(90deg, rgba(8,17,31,.04) 0 1px, transparent 1px 7rem);
-      transform: translateX(calc(var(--scroll) * .07px));
-    }
-    .showcase-inner {
-      position: relative; z-index: 1; display: grid;
-      grid-template-columns: 1fr 1fr; gap: clamp(1rem,4vw,4rem);
-      align-items: center; max-width: 80rem; margin: 0 auto;
-    }
+    /* ═══ SHOWCASE ═══ */
+    .showcase { position: relative; overflow: hidden; padding: clamp(4rem,9vw,8rem) clamp(1.5rem,5vw,5rem); color: var(--ink); background: var(--cream); }
+    .showcase-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem,4vw,4rem); align-items: center; max-width: 80rem; margin: 0 auto; }
     .gallery { display: grid; grid-template-columns: 5rem minmax(0,1fr); gap: .9rem; align-items: stretch; }
     .thumbs { display: grid; gap: .7rem; align-content: start; }
-    .thumb {
-      aspect-ratio: 1; overflow: hidden; border: 2px solid transparent; border-radius: .5rem;
-      background: radial-gradient(circle at 82% 18%, rgba(215,255,63,.18), transparent 5rem),
-        linear-gradient(135deg, #022758, #07c8bb);
-      cursor: pointer;
-    }
-    .thumb.active { border-color: var(--durex-blue); box-shadow: 0 0 0 .25rem rgba(0,91,170,.14); }
+    .thumb { aspect-ratio: 1; overflow: hidden; border: 2px solid transparent; border-radius: .5rem; background: linear-gradient(135deg,#022758,#07c8bb); cursor: pointer; }
+    .thumb.active { border-color: var(--durex-blue); box-shadow: 0 0 0 .22rem rgba(0,91,170,.14); }
     .thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .main-frame {
-      position: relative; min-height: 30rem; display: grid; place-items: center;
-      overflow: hidden; border: .35rem solid var(--ink);
-      background:
-        radial-gradient(circle at 18% 20%, rgba(215,255,63,.24), transparent 15rem),
-        radial-gradient(circle at 82% 14%, rgba(77,255,210,.22), transparent 18rem),
-        linear-gradient(135deg, #021842 0%, #022c68 44%, #07c8bb 100%);
-    }
+    .main-frame { position: relative; min-height: 30rem; display: grid; place-items: center; overflow: hidden; border: .35rem solid var(--ink); background: linear-gradient(135deg,#021842 0%,#022c68 44%,#07c8bb 100%); }
     .main-frame img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.02); }
-
-    .buy-panel {
-      align-self: stretch; display: grid; align-content: center;
-      gap: 1.2rem; padding: clamp(1.2rem,3vw,2rem);
-      color: #fff; background: var(--deep-blue); border-radius: .5rem;
-      box-shadow: 1rem 1rem 0 var(--coral);
-    }
-    .buy-panel h2 {
-      color: #fff; font-size: clamp(1.9rem,4.2vw,4rem);
-      line-height: .9; text-transform: uppercase;
-    }
-    .buy-panel p { color: rgba(255,255,255,.76); line-height: 1.65; }
+    .buy-panel { align-self: stretch; display: grid; align-content: center; gap: 1.2rem; padding: clamp(1.2rem,3vw,2rem); color: #fff; background: var(--deep-blue); border-radius: .5rem; box-shadow: 1rem 1rem 0 var(--coral); }
+    .buy-panel h2 { color: #fff; font-size: clamp(1.8rem,4vw,3.8rem); line-height: .9; text-transform: uppercase; }
+    .buy-panel p { color: rgba(255,255,255,.74); line-height: 1.65; }
     .specs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .7rem; }
-    .spec { padding: .85rem; border: 1px solid rgba(255,255,255,.18); border-radius: .5rem; background: rgba(255,255,255,.08); }
-    .spec b { display: block; color: var(--acid); font-size: 1.6rem; line-height: 1; }
-    .spec span { display: block; margin-top: .3rem; color: rgba(255,255,255,.72); font-size: .85rem; font-weight: 800; }
-    .quantity {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: .8rem; padding: .6rem; border-radius: 999px; background: rgba(255,255,255,.1);
-    }
-    .quantity button {
-      width: 2.4rem; height: 2.4rem; border: 0; border-radius: 50%;
-      background: #fff; color: var(--deep-blue); font-weight: 1000; cursor: pointer;
-    }
+    .spec { padding: .8rem; border: 1px solid rgba(255,255,255,.16); border-radius: .5rem; background: rgba(255,255,255,.07); }
+    .spec b { display: block; color: var(--acid); font-size: 1.55rem; line-height: 1; }
+    .spec span { display: block; margin-top: .28rem; color: rgba(255,255,255,.7); font-size: .83rem; font-weight: 800; }
+    .quantity { display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding: .6rem; border-radius: 999px; background: rgba(255,255,255,.1); }
+    .quantity button { width: 2.3rem; height: 2.3rem; border: 0; border-radius: 50%; background: #fff; color: var(--deep-blue); font-weight: 1000; cursor: pointer; }
     .quantity span { min-width: 3ch; text-align: center; font-weight: 950; }
 
-    /* ═══════════════════════════════
-       FAQ
-    ═══════════════════════════════ */
-    .faq { padding: clamp(4rem,9vw,7rem) clamp(1.25rem,5vw,5rem); background: #fff; color: var(--ink); }
-    .faq-inner {
-      max-width: 72rem; margin: 0 auto; display: grid;
-      grid-template-columns: .8fr 1.2fr; gap: clamp(1rem,4vw,4rem);
-    }
+    /* ═══ FAQ ═══ */
+    .faq { padding: clamp(4rem,9vw,7rem) clamp(1.5rem,5vw,5rem); background: #fff; color: var(--ink); }
+    .faq-inner { max-width: 72rem; margin: 0 auto; display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(1rem,4vw,4rem); }
     .faq-list { display: grid; gap: .7rem; }
-    details {
-      border: 1px solid rgba(8,17,31,.14); border-radius: .5rem;
-      background: #f5f8ff; overflow: hidden;
-    }
+    details { border: 1px solid rgba(8,17,31,.13); border-radius: .5rem; background: #f5f8ff; overflow: hidden; }
     summary { padding: 1rem 1.1rem; color: var(--deep-blue); font-weight: 950; cursor: pointer; }
-    details p { padding: 0 1.1rem 1.1rem; color: rgba(8,17,31,.74); line-height: 1.62; }
+    details p { padding: 0 1.1rem 1.1rem; color: rgba(8,17,31,.72); line-height: 1.62; }
 
-    /* ═══════════════════════════════
-       STICKY BUY BAR  ← redesigned
-    ═══════════════════════════════ */
+    /* ═══ STICKY BAR ═══ */
     .footer-buy {
-      position: fixed;
-      bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex; align-items: center; gap: 1.25rem;
-      padding: .75rem .75rem .75rem 1.4rem;
-      width: min(36rem, calc(100vw - 2rem));
-      border-radius: 999px;
-      background: rgba(5,10,32,.72);
-      border: 1px solid rgba(255,255,255,.22);
-      box-shadow:
-        0 .5rem 2rem rgba(0,0,0,.35),
-        0 0 0 .5px rgba(255,255,255,.1),
-        inset 0 1px 0 rgba(255,255,255,.2);
-      backdrop-filter: blur(28px) saturate(1.6);
-      -webkit-backdrop-filter: blur(28px) saturate(1.6);
+      position: fixed; bottom: max(1rem,env(safe-area-inset-bottom,1rem)); left: 50%;
+      transform: translateX(-50%); z-index: 100;
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: .75rem .75rem .75rem 1.35rem;
+      width: min(36rem,calc(100vw - 2rem)); border-radius: 999px;
+      background: rgba(5,10,32,.72); border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 .5rem 2rem rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18);
+      backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
     }
     .footer-buy-text { flex: 1; min-width: 0; }
-    .footer-buy-text strong {
-      display: block; color: #fff; font-size: .96rem; font-weight: 900; line-height: 1.2;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .footer-buy-text span { color: rgba(255,255,255,.6); font-size: .8rem; font-weight: 700; }
-
-    /* ── the vibrating BUY NOW button ── */
+    .footer-buy-text strong { display: block; color: #fff; font-size: .94rem; font-weight: 900; }
+    .footer-buy-text span { color: rgba(255,255,255,.58); font-size: .78rem; font-weight: 700; }
     .cta-shake {
       position: relative; flex-shrink: 0;
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 3rem; padding: 0 1.5rem;
-      border: 0; border-radius: 999px;
-      color: #05112a; font-weight: 950; font-size: .95rem; cursor: pointer;
-      text-decoration: none; white-space: nowrap;
-      background: linear-gradient(135deg, var(--acid) 0%, #c8f500 100%);
-      box-shadow:
-        0 0 0 0 rgba(215,255,63,.55),
-        0 .6rem 1.8rem rgba(215,255,63,.38);
-      /* continuous shake + pulse-ring */
+      min-height: 2.9rem; padding: 0 1.45rem;
+      border: 0; border-radius: 999px; color: #05112a; font-weight: 950; font-size: .92rem;
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+      background: linear-gradient(135deg,var(--acid),#c8f500);
       animation: btn-shake 2.2s ease-in-out infinite, btn-pulse 2.2s ease-in-out infinite;
     }
     .cta-shake::after {
-      content: "";
-      position: absolute; inset: 0; border-radius: inherit;
-      background: transparent;
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
       box-shadow: 0 0 0 0 rgba(215,255,63,.7);
-      animation: ring-pulse 2.2s ease-in-out infinite;
-      pointer-events: none;
+      animation: ring-pulse 2.2s ease-in-out infinite; pointer-events: none;
     }
 
+    /* ═══ KEYFRAMES ═══ */
     @keyframes btn-shake {
-      0%,100%  { transform: rotate(0deg)   translateY(0); }
+      0%,100% { transform: rotate(0deg) translateY(0); }
       8%       { transform: rotate(-2.5deg) translateY(-1px); }
-      16%      { transform: rotate(2.5deg)  translateY(0); }
-      24%      { transform: rotate(-2deg)   translateY(-1px); }
-      32%      { transform: rotate(1.5deg)  translateY(0); }
-      40%      { transform: rotate(0deg)    translateY(0); }
-      /* rest for ~1.3s then repeat */
+      16%      { transform: rotate(2.5deg) translateY(0); }
+      24%      { transform: rotate(-2deg) translateY(-1px); }
+      32%      { transform: rotate(1.5deg) translateY(0); }
+      40%      { transform: rotate(0deg) translateY(0); }
     }
     @keyframes btn-pulse {
-      0%,38%,100% { box-shadow: 0 0 0 0 rgba(215,255,63,.55), 0 .6rem 1.8rem rgba(215,255,63,.38); }
-      20%         { box-shadow: 0 0 0 .55rem rgba(215,255,63,.22), 0 .8rem 2.2rem rgba(215,255,63,.5); }
+      0%,38%,100% { box-shadow: 0 0 0 0 rgba(215,255,63,.5), 0 .6rem 1.8rem rgba(215,255,63,.35); }
+      20%         { box-shadow: 0 0 0 .5rem rgba(215,255,63,.2), 0 .8rem 2.2rem rgba(215,255,63,.48); }
     }
     @keyframes ring-pulse {
       0%,38%,100% { box-shadow: 0 0 0 0 rgba(215,255,63,.5); opacity: 1; }
       20%         { box-shadow: 0 0 0 1rem rgba(215,255,63,0); opacity: 0; }
     }
-
-    /* ═══════════════════════════════
-       KEYFRAMES
-    ═══════════════════════════════ */
-    @keyframes bob {
-      0%,100% { transform: translateY(0) rotate(-6deg); }
-      50%      { transform: translateY(-.8rem) rotate(6deg); }
-    }
-    @keyframes story-float {
-      0%,100% { transform: translate3d(0,0,0) scale(1); }
-      50%      { transform: translate3d(0,-.55rem,0) scale(1.012); }
-    }
+    @keyframes bob { 0%,100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-.8rem) rotate(6deg); } }
+    @keyframes story-float { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(0,-.55rem,0) scale(1.012); } }
     @keyframes scroll-vibrate {
-      0%,100% { transform: translateX(-50%) rotate(0deg); }
-      25%     { transform: translateX(-50%) translateY(-2px) rotate(-1.2deg); }
-      50%     { transform: translateX(-50%) translateY(1px) rotate(1.2deg); }
-      75%     { transform: translateX(-50%) translateY(-1px) rotate(-.8deg); }
+      0%,100% { transform: translateX(-50%) rotate(0); }
+      25% { transform: translateX(-50%) translateY(-2px) rotate(-1.2deg); }
+      50% { transform: translateX(-50%) translateY(1px) rotate(1.2deg); }
+      75% { transform: translateX(-50%) translateY(-1px) rotate(-.8deg); }
     }
-    @keyframes step-vibrate {
-      0%,100% { transform: translateX(0); }
-      33%     { transform: translateX(-1px); }
-      66%     { transform: translateX(1px); }
-    }
+    @keyframes step-vibrate { 0%,100% { transform: translateX(0); } 33% { transform: translateX(-1px); } 66% { transform: translateX(1px); } }
     @keyframes card-glow {
-      0%,100% { border-color: rgba(255,255,255,.18); box-shadow: none; }
-      50% {
-        border-color: color-mix(in srgb, var(--tone,var(--mint)) 60%, rgba(255,255,255,.2));
-        box-shadow: 0 0 2rem color-mix(in srgb, var(--tone,var(--mint)) 22%, transparent),
-          inset 0 0 1.4rem rgba(255,255,255,.06);
-      }
+      0%,100% { border-color: rgba(255,255,255,.16); }
+      50% { border-color: color-mix(in srgb,var(--tone,var(--mint)) 58%,rgba(255,255,255,.2)); box-shadow: 0 0 2rem color-mix(in srgb,var(--tone,var(--mint)) 20%,transparent); }
     }
-    @keyframes number-glow {
-      0%,100% { filter: brightness(1); }
-      50%     { filter: brightness(1.22); text-shadow: 0 0 .45rem rgba(255,255,255,.6), 0 0 2rem var(--tone,var(--mint)); }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(1.4rem); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes number-glow { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.2); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(1.2rem); } to { opacity: 1; transform: translateY(0); } }
 
-    /* ═══════════════════════════════
-       REVIEWS CAROUSEL
-    ═══════════════════════════════ */
-    .reviews {
-      position: relative;
-      padding: clamp(4rem,9vw,8rem) 0;
-      background:
-        radial-gradient(ellipse at 10% 50%, rgba(99,60,255,.22), transparent 40%),
-        radial-gradient(ellipse at 90% 30%, rgba(255,93,108,.18), transparent 38%),
-        linear-gradient(180deg, #050713 0%, #07112a 50%, #050713 100%);
-      overflow: hidden;
-    }
-
-    /* When reviews lives inside product-story — override standalone styles */
-    .reviews-embedded {
-      padding-top: clamp(2.5rem,5vw,4rem);
-      padding-bottom: clamp(2.5rem,5vw,4rem);
-      background: none;             /* inherits product-story bg */
-      border-top: 1px solid rgba(255,255,255,.07);
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      margin-bottom: clamp(1.5rem,3vw,2.5rem);
-    }
-    .reviews-embedded::before,
-    .reviews-embedded::after { display: none; } /* hide standalone fade edges */
-
-    /* top / bottom edge fades so cards melt into the bg */
-    .reviews::before, .reviews::after {
-      content: ""; position: absolute; z-index: 2; pointer-events: none;
-      top: 0; bottom: 0; width: clamp(3rem,8vw,7rem);
-    }
-    .reviews::before {
-      left: 0;
-      background: linear-gradient(90deg, #050713, transparent);
-    }
-    .reviews::after {
-      right: 0;
-      background: linear-gradient(270deg, #050713, transparent);
-    }
-
-    .reviews-head {
-      text-align: center;
-      padding-inline: clamp(1.25rem,5vw,5rem);
-      margin-bottom: clamp(2rem,5vw,3.5rem);
-    }
-    .reviews-head .eyebrow { justify-content: center; margin-bottom: .75rem; }
-    .reviews-head h2 {
-      color: #fff; font-size: clamp(2.2rem,5.5vw,5rem);
-      line-height: .9; text-transform: uppercase;
-      text-shadow: 0 0 3rem rgba(99,60,255,.5);
-    }
-
-    /* aggregate star row */
-    .reviews-agg {
-      display: flex; align-items: center; justify-content: center;
-      gap: .65rem; margin-top: 1rem;
-    }
-    .reviews-agg .stars { color: var(--acid); font-size: 1.2rem; letter-spacing: .05em; }
-    .reviews-agg span { color: rgba(255,255,255,.6); font-size: .9rem; font-weight: 700; }
-
-    /* ── TRACK ── */
-    .reviews-viewport {
-      overflow: hidden;
-      width: 100%;
-      position: relative; z-index: 1;
-    }
-
-    .reviews-track {
-      display: flex;
-      gap: 1.25rem;
-      width: max-content;
-      /* infinite marquee — paused on hover */
-      animation: reviews-scroll 38s linear infinite;
-      will-change: transform;
-    }
-    .reviews-track:hover { animation-play-state: paused; }
-
-    @keyframes reviews-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ── CARD ── */
-    .rv-card {
-      flex-shrink: 0;
-      width: clamp(18rem, 30vw, 26rem);
-      padding: 1.75rem 1.6rem 1.5rem;
-      border-radius: 1.25rem;
-      border: 1px solid rgba(255,255,255,.12);
-      background:
-        linear-gradient(135deg,
-          rgba(255,255,255,.07) 0%,
-          rgba(99,60,255,.12) 50%,
-          rgba(255,93,108,.06) 100%);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow:
-        0 .5rem 2.5rem rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.14);
-      position: relative;
-      overflow: hidden;
-      transition: transform 280ms ease, box-shadow 280ms ease;
-      cursor: default;
-    }
-    .rv-card::before {
-      content: "";
-      position: absolute; inset: 0;
-      border-radius: inherit;
-      background: radial-gradient(ellipse at 80% 10%, rgba(215,255,63,.1), transparent 55%);
-      pointer-events: none;
-    }
-    .rv-card:hover {
-      transform: translateY(-.4rem) scale(1.015);
-      box-shadow:
-        0 1.2rem 3.5rem rgba(99,60,255,.22),
-        inset 0 1px 0 rgba(255,255,255,.2);
-    }
-
-    /* accent top bar */
-    .rv-card-accent {
-      position: absolute; top: 0; left: 1.4rem; right: 1.4rem;
-      height: .18rem; border-radius: 0 0 999px 999px;
-      background: linear-gradient(90deg, var(--violet), var(--coral), var(--acid));
-    }
-
-    /* quote mark */
-    .rv-quote-mark {
-      display: block;
-      color: var(--acid);
-      font-size: 4rem;
-      line-height: .7;
-      font-family: Georgia, serif;
-      margin-bottom: .6rem;
-      opacity: .55;
-    }
-
-    .rv-stars {
-      display: flex; gap: .2rem; margin-bottom: 1rem;
-    }
-    .rv-stars span {
-      color: var(--acid); font-size: .95rem;
-    }
-    /* half star for variety */
-    .rv-stars span.half { opacity: .45; }
-
-    .rv-text {
-      color: rgba(255,255,255,.88);
-      font-size: clamp(.9rem,1.2vw,1.05rem);
-      line-height: 1.65;
-      font-style: italic;
-      margin-bottom: 1.4rem;
-    }
-
-    .rv-author {
-      display: flex; align-items: center; gap: .85rem;
-      border-top: 1px solid rgba(255,255,255,.1);
-      padding-top: 1.1rem;
-    }
-    .rv-avatar {
-      width: 2.6rem; height: 2.6rem;
-      border-radius: 50%; flex-shrink: 0;
-      display: grid; place-items: center;
-      font-weight: 900; font-size: .85rem;
-      color: #07101d;
-      /* each card gets a custom --av-bg set inline */
-      background: var(--av-bg, var(--acid));
-      box-shadow: 0 0 0 2px rgba(255,255,255,.18);
-    }
-    .rv-name {
-      display: block; color: #fff; font-weight: 800;
-      font-size: .88rem; letter-spacing: .02em;
-    }
-    .rv-meta {
-      display: block;
-      color: rgba(255,255,255,.45); font-size: .76rem; margin-top: .18rem;
-    }
-
-    /* verified badge */
-    .rv-badge {
-      margin-left: auto; flex-shrink: 0;
-      display: inline-flex; align-items: center; gap: .3rem;
-      padding: .28rem .6rem;
-      border: 1px solid rgba(77,255,210,.3); border-radius: 999px;
-      color: var(--mint); font-size: .68rem; font-weight: 800;
-      background: rgba(77,255,210,.08); white-space: nowrap;
-    }
-    .rv-badge::before {
-      content: "✓"; font-weight: 900;
-    }
-
-    /* ═══════════════════════════════
-       TABLET  ≤ 900px
-    ═══════════════════════════════ */
+    /* ═══ TABLET ≤ 900px ═══ */
     @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        padding-top: clamp(5.5rem,12vw,7rem);
-        padding-bottom: 2rem;
-        gap: 1.25rem;
-        align-items: start;
-      }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: clamp(5.5rem,12vw,7rem); padding-bottom: 2rem; gap: 1.5rem; align-items: start; }
       .hero-copy { position: relative; z-index: 3; transform: none !important; }
-      .hero-controls { position: relative; z-index: 4; }
-      .hero-stage {
-        width: min(15.4rem, 42vw);   /* 22rem × 0.7 */
-        max-height: none;
-        margin: 0 auto;
-        transform: none;
-      }
-      .wave-inner, .story-head, .story-preview,
-      .use-panel, .showcase-inner, .faq-inner {
-        grid-template-columns: 1fr;
-      }
+      .hero-stage { width: min(16rem,45vw); max-height: none; margin: 0 auto; }
+      .wave-inner, .story-head, .story-preview, .use-panel, .showcase-inner, .faq-inner { grid-template-columns: 1fr; }
       .wave-band { min-height: auto; padding-block: clamp(2.5rem,8vw,4.5rem); }
-      .banner-window {
-        min-height: auto; aspect-ratio: 16/8;
-        box-shadow: 0 0 0 .45rem var(--acid), 0 0 0 .9rem var(--coral);
-      }
-      .banner-window img { min-height: 0; object-fit: contain; transform: none; }
-      .product-story { padding-block: clamp(3rem,8vw,5rem); }
+      .banner-window { min-height: auto; aspect-ratio: 16/8; box-shadow: 0 0 0 .45rem var(--acid), 0 0 0 .9rem var(--coral); }
+      .banner-window img { min-height: 0; object-fit: contain; }
       .story-tabs { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .story-preview { min-height: auto; }
       .story-preview-visual { min-height: 22rem; }
-      .story-info { padding-block: 1.25rem; }
-      .use-visual img { min-height: 18rem; }
       .features, .showcase, .faq { padding-block: clamp(3rem,8vw,5rem); }
       .feature-head { display: block; }
       .feature-head p { margin-top: 1rem; max-width: 100%; }
       .mode-grid { grid-template-columns: 1fr; }
-      .mode-card { min-height: 16rem; transform: none !important; }
-      .mode-card img { width: min(17rem,65%); max-height: 10rem; }
+      .mode-card { min-height: 15rem; }
       .gallery { grid-template-columns: 1fr; }
       .thumbs { flex-direction: row; display: flex; overflow-x: auto; gap: .6rem; }
       .thumb { min-width: 4.5rem; }
     }
 
-    /* ═══════════════════════════════
-       MOBILE  ≤ 640px
-    ═══════════════════════════════ */
+    /* ═══ MOBILE ≤ 640px ═══ */
     @media (max-width: 640px) {
       .nav { padding: .7rem 1rem; }
       .page { padding-bottom: 7.5rem; }
       .grid-noise, .cursor-glow { display: none; }
       .brand span, .nav-actions .chip:not(.buy) { display: none; }
 
-      h1 { font-size: clamp(2.8rem,13vw,5rem); }
-
-      /* ── HERO: single column, copy above, image below ── */
+      /* ── HERO: perfectly symmetric single-column ── */
       .hero {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
+        display: flex; flex-direction: column;
+        align-items: center;          /* centre everything horizontally */
+        text-align: left;
         gap: 0;
         min-height: auto;
-        padding: 5.2rem 1rem 1.5rem;
+        padding: 5rem 1.25rem 1.5rem;
         overflow: visible;
       }
-
-      /* COPY block */
       .hero-copy {
-        order: 1;
+        order: 1; width: 100%;
         position: relative; z-index: 3;
         transform: none !important;
-        padding-bottom: 0;
       }
+      h1 { font-size: clamp(2.8rem,12.5vw,4.5rem); }
       .hero-text { display: none; }
 
-      /* Price pill — full width */
+      /* Controls stacked: price pill full width, CTAs equal 50/50 */
       .hero-controls {
-        display: flex;
-        flex-direction: column;
-        gap: .5rem;
-        margin-top: .85rem;
-        position: relative; z-index: 4;
+        display: flex; flex-direction: column;
+        gap: .5rem; margin-top: .9rem; width: 100%;
       }
       .price-pill {
-        display: flex; align-items: baseline;
-        gap: .5rem; width: 100%;
-        min-height: 3.2rem;
-        padding: .55rem .9rem;
-        border-radius: 1.1rem;
-        background: rgba(255,255,255,.12);
+        width: 100%; min-height: 3.1rem;
+        padding: .55rem .9rem; border-radius: 1rem;
+        background: rgba(255,255,255,.11);
         border: 1px solid rgba(255,255,255,.2);
+        display: flex; align-items: baseline; gap: .5rem;
       }
-      .price-pill strong { font-size: clamp(1.2rem,6.5vw,1.55rem); }
-      .price-pill s { font-size: clamp(.8rem,4vw,1rem); }
-
-      /* CTAs: side by side */
+      .price-pill strong { font-size: clamp(1.15rem,6vw,1.5rem); }
+      .price-pill s { font-size: clamp(.78rem,3.8vw,.98rem); }
       .hero-cta-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: .5rem;
-        width: 100%;
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: .5rem; width: 100%;
       }
       .primary-cta, .ghost-cta {
-        width: 100%; justify-content: center;
-        min-height: 2.9rem;
-        padding: .5rem .35rem;
-        border-radius: 1.3rem;
-        font-size: clamp(.76rem,3.5vw,.9rem);
-        font-weight: 900; white-space: nowrap;
+        width: 100%; min-height: 2.8rem;
+        padding: .5rem .35rem; border-radius: 1.2rem;
+        font-size: clamp(.75rem,3.4vw,.88rem);
+        font-weight: 900; white-space: nowrap; justify-content: center;
       }
 
-      /* ── HERO STAGE: 9:16, 70% width, centred, below copy ── */
+      /* 9:16 video — centred, 72% of screen width */
       .hero-stage {
         order: 2;
-        width: 70%;
+        width: 72%;
         aspect-ratio: 9 / 16;
-        height: auto;
-        max-height: none;
-        border-radius: 1.25rem;
+        height: auto; max-height: none;
+        border-radius: 1.2rem;
         margin: 1rem auto 0;
         transform: none !important;
         align-self: center;
         box-shadow: 0 1.5rem 3rem rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.1);
       }
       .hero-parallax-video {
-        position: absolute !important;
-        inset: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        border-radius: inherit !important;
+        position: absolute !important; inset: 0 !important;
+        width: 100% !important; height: 100% !important;
+        object-fit: cover !important; border-radius: inherit !important;
         transform: none !important;
       }
-
-      /* Float tags hidden on mobile */
-      .float-tag { display: none; }
-
       .scroll-pulse { bottom: .7rem; width: 2.2rem; }
 
-      /* ── OTHER SECTIONS ── */
+      /* Other sections */
       .story-tabs {
         display: flex; gap: .75rem;
-        margin-inline: -1rem; padding-inline: 1rem;
+        margin-inline: -1.25rem; padding-inline: 1.25rem;
         overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
       }
       .story-tabs::-webkit-scrollbar { display: none; }
-      .story-card { flex: 0 0 min(17rem,76vw); scroll-snap-align: start; }
-      .story-card-label { left:.4rem; right:.4rem; bottom:.4rem; padding:.35rem .4rem; font-size:.56rem; }
+      .story-card { flex: 0 0 min(16rem,74vw); scroll-snap-align: start; }
+      .story-card-label { left:.4rem; right:.4rem; bottom:.4rem; padding:.35rem .4rem; font-size:.55rem; }
       .story-video-frame { width: 100%; border-radius: 1rem; }
-      .story-preview { border-width: .35rem; box-shadow: .5rem .5rem 0 var(--acid); }
+      .story-preview { border-width: .3rem; box-shadow: .5rem .5rem 0 var(--acid); }
       .story-preview-visual { min-height: 18rem; }
-      .story-info h3 { font-size: clamp(1.7rem,10vw,3rem); }
+      .story-info h3 { font-size: clamp(1.6rem,9vw,2.8rem); }
       .use-steps { grid-template-columns: 1fr; }
       .use-visual img { min-height: 14rem; }
       .banner-window { aspect-ratio: 4/3; }
       .main-frame { min-height: 22rem; }
       .specs { grid-template-columns: 1fr; }
-
-      /* reviews */
-      .rv-card { width: clamp(15rem, 78vw, 20rem); padding: 1.4rem 1.3rem 1.2rem; }
-      .rv-text { font-size: .88rem; }
-      .reviews-track { animation-duration: 28s; }
-
-      /* footer bar */
-      .footer-buy {
-        width: calc(100vw - 1.5rem);
-        padding: .65rem .65rem .65rem 1.1rem;
-      }
-      .footer-buy-text strong { font-size: .88rem; }
-      .footer-buy-text span { font-size: .74rem; }
-      .cta-shake { min-height: 2.8rem; padding: 0 1.2rem; font-size: .88rem; }
+      .rv-card { width: clamp(15rem,78vw,20rem); padding: 1.3rem 1.2rem 1.1rem; }
+      .rv-text { font-size: .86rem; }
+      .reviews-track { animation-duration: 26s; }
+      .footer-buy { width: calc(100vw - 1.5rem); padding: .65rem .65rem .65rem 1rem; }
+      .footer-buy-text strong { font-size: .86rem; }
+      .footer-buy-text span { font-size: .72rem; }
+      .cta-shake { min-height: 2.7rem; padding: 0 1.1rem; font-size: .86rem; }
     }
 
-    /* ═══════════════════════════════
-       REDUCED MOTION
-    ═══════════════════════════════ */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .001ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .001ms !important;
-        scroll-behavior: auto !important;
-      }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
     }
   </style>
 </head>
@@ -1146,9 +651,8 @@
     <div class="grid-noise" aria-hidden="true"></div>
     <div class="cursor-glow" aria-hidden="true"></div>
 
-    <!-- NAV -->
-    <nav class="nav" aria-label="Product navigation">
-      <a class="brand" href="https://www.durexindia.com/products/durex-play-wild-wand" aria-label="Durex Wild Wand product page">
+    <nav class="nav" aria-label="Site navigation">
+      <a class="brand" href="https://www.durexindia.com/products/durex-play-wild-wand">
         <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/Durex-logo-white.avif" alt="Durex" width="160" height="54" decoding="async">
         <span>Play Wild Wand</span>
       </a>
@@ -1160,61 +664,47 @@
     </nav>
 
     <main>
-      <!-- ══ HERO ══ -->
+      <!-- HERO -->
       <section class="hero" id="top">
-        <div class="hero-copy" style="animation: fadeUp .65s ease both;">
+        <div class="hero-copy" style="animation:fadeUp .65s ease both;">
           <p class="eyebrow">Durex Play Collection</p>
           <h1><span class="wild">Wild</span><span class="wand">Wand</span></h1>
-          <p class="hero-text">What if toe-curling pleasure was a wand away? Discover 3 sensational tapping modes, 7 powerful vibration settings, waterproof confidence, and up to 45 minutes of play.</p>
+          <p class="hero-text">3 tapping modes, 7 vibration settings, 100% waterproof, 45 minutes of play — in one whisper-quiet wand.</p>
           <div class="hero-controls">
             <div class="price-pill" aria-label="Sale price">
               <strong>Rs. 2,699</strong>
               <s>Rs. 4,686</s>
             </div>
             <div class="hero-cta-row">
-              <a class="primary-cta" href="#shop">Enter The Pulse</a>
-              <a class="ghost-cta" href="#showcase">See The Wand</a>
+              <a class="primary-cta" href="#shop">Buy Now</a>
+              <a class="ghost-cta" href="#showcase">See It</a>
             </div>
           </div>
         </div>
 
-        <!-- Right: image stage — 9:16 auto-cycling product images -->
-        <div class="hero-stage" id="heroStage" style="animation: fadeUp .8s .1s ease both;" aria-label="Durex Play Wild Wand product visual">
-
-          <!-- Hero video — 9:16 native -->
-          <video
-            class="hero-parallax-video"
-            id="heroVid"
-            autoplay muted loop playsinline preload="auto"
-            aria-label="Wild Wand product video"
-          >
+        <div class="hero-stage" id="heroStage" style="animation:fadeUp .8s .12s ease both;" aria-label="Wild Wand product video">
+          <video class="hero-parallax-video" id="heroVid" autoplay muted loop playsinline preload="auto">
             <source src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-parallax.mp4" type="video/mp4">
           </video>
-
           <div class="hero-video-vignette" aria-hidden="true"></div>
           <a class="scroll-pulse" href="#how-it-works" aria-label="Scroll down"></a>
         </div>
       </section>
 
-      <!-- ══ PRODUCT STORY ══ -->
+      <!-- PRODUCT STORY -->
       <section class="product-story" id="how-it-works">
         <div class="story-shell">
           <div class="story-head">
             <div>
-              <p class="eyebrow">Product guide</p>
-              <h2>See the wand, then work it.</h2>
+              <p class="eyebrow">How it works</p>
+              <h2>Tap. Buzz. Repeat.</h2>
             </div>
-            <p>Tap the product cards to explore the Wild Wand frames. The big preview keeps each image intact, while the steps below make the mode flow easy to scan on mobile.</p>
+            <p>Explore each mode — from the first gentle tap to full-volume vibration. Tap a card to preview the feature, then scroll down to see how to use it.</p>
           </div>
 
-          <div class="story-video-showcase" aria-label="Wild Wand product video">
+          <div class="story-video-showcase" aria-label="Wild Wand in use">
             <div class="story-video-frame js-haptic">
-              <video
-                class="hero-video"
-                poster="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg"
-                muted loop playsinline autoplay preload="metadata"
-                aria-label="Wild Wand light-on product video"
-              >
+              <video class="hero-video" poster="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" muted loop playsinline autoplay preload="metadata">
                 <source src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-light-on.mp4" type="video/mp4">
               </video>
             </div>
@@ -1222,291 +712,49 @@
 
           <!-- REAL TALK carousel -->
           <div class="reviews reviews-embedded" aria-label="Customer reviews">
-<div class="reviews-head">
-          <p class="eyebrow">Real talk</p>
-          <h2>They came.<br>They buzzed.<br>They reviewed.</h2>
-          <div class="reviews-agg" aria-label="4.6 out of 5 stars, 2,400 reviews">
-            <span class="stars" aria-hidden="true">★★★★★</span>
-            <span>4.6 · 2,400+ reviews</span>
-          </div>
-        </div>
-
-        <div class="reviews-viewport">
-          <div class="reviews-track" id="reviewsTrack">
-
-            <!-- ── CARD 1 ── -->
-            <article class="rv-card">
-              <div class="rv-card-accent"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars" aria-label="5 stars">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <div class="reviews-head">
+              <p class="eyebrow">Real talk</p>
+              <h2>They tried it.<br>They loved it.</h2>
+              <div class="reviews-agg"><span class="stars" aria-hidden="true">★★★★★</span><span>4.6 · 2,400+ verified reviews</span></div>
+            </div>
+            <div class="reviews-viewport">
+              <div class="reviews-track" id="reviewsTrack">
+                <article class="rv-card"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping mode alone is worth every rupee. Whisper-quiet — my flatmate had absolutely no idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--acid);">P</div><div><span class="rv-name">Priya S.</span><span class="rv-meta">Mumbai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--mint),var(--violet));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Took it into the shower — works flawlessly. Discreet packaging meant the delivery guy had zero idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">A</div><div><span class="rv-name">Anika R.</span><span class="rv-meta">Bangalore · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--mint),var(--sky),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Gifted this to my partner — we've barely put it down. Seven settings means we haven't run out of surprises.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">K</div><div><span class="rv-name">Kavitha M.</span><span class="rv-meta">Chennai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--violet),var(--acid),var(--coral));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="half">★</span></div><p class="rv-text">The ergonomic shape is perfect in hand. Tapping and vibration together on mode 3 is absolutely unreal.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--violet);color:#fff;">N</div><div><span class="rv-name">Neha T.</span><span class="rv-meta">Delhi · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--sky),var(--violet),var(--mint));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Charged once, lasted almost a week. The velvety texture feels premium — and the glow when it powers on is so satisfying.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--sky);color:#07101d;">R</div><div><span class="rv-name">Roshni V.</span><span class="rv-meta">Pune · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping sensation is genuinely like nothing else — precise, powerful, surprisingly addictive. Durex understood the assignment.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">S</div><div><span class="rv-name">Sneha L.</span><span class="rv-meta">Hyderabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--acid),var(--mint),var(--sky));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">45 minutes is more than enough. Plain brown box, zero external branding. Will order again and again.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--acid);">D</div><div><span class="rv-name">Divya K.</span><span class="rv-meta">Kolkata · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--violet),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The price vs quality ratio is a steal. No rattles, no cheap feel — every bit as premium as the photos suggest.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">M</div><div><span class="rv-name">Meera P.</span><span class="rv-meta">Ahmedabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <!-- duplicates for seamless loop -->
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping mode alone is worth every rupee. Whisper-quiet — my flatmate had absolutely no idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--acid);">P</div><div><span class="rv-name">Priya S.</span><span class="rv-meta">Mumbai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--mint),var(--violet));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Took it into the shower — works flawlessly. Discreet packaging meant the delivery guy had zero idea.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">A</div><div><span class="rv-name">Anika R.</span><span class="rv-meta">Bangalore · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--mint),var(--sky),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Gifted this to my partner — we've barely put it down. Seven settings means we haven't run out of surprises.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">K</div><div><span class="rv-name">Kavitha M.</span><span class="rv-meta">Chennai · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--violet),var(--acid),var(--coral));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="half">★</span></div><p class="rv-text">The ergonomic shape is perfect in hand. Tapping and vibration together on mode 3 is absolutely unreal.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--violet);color:#fff;">N</div><div><span class="rv-name">Neha T.</span><span class="rv-meta">Delhi · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--sky),var(--violet),var(--mint));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">Charged once, lasted almost a week. Velvety texture feels premium and the glow when it powers on is so satisfying.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--sky);color:#07101d;">R</div><div><span class="rv-name">Roshni V.</span><span class="rv-meta">Pune · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The tapping sensation is genuinely like nothing else — precise, powerful, surprisingly addictive.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--coral);">S</div><div><span class="rv-name">Sneha L.</span><span class="rv-meta">Hyderabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--acid),var(--mint),var(--sky));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">45 minutes is more than enough. Plain brown box, zero external branding. Will order again.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--acid);">D</div><div><span class="rv-name">Divya K.</span><span class="rv-meta">Kolkata · Verified</span></div><span class="rv-badge">Verified</span></div></article>
+                <article class="rv-card" aria-hidden="true"><div class="rv-card-accent" style="background:linear-gradient(90deg,var(--coral),var(--violet),var(--acid));"></div><span class="rv-quote-mark" aria-hidden="true">"</span><div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p class="rv-text">The price vs quality ratio is a steal. No rattles, no cheap feel — every bit as premium as the photos suggest.</p><div class="rv-author"><div class="rv-avatar" style="--av-bg:var(--mint);color:#07101d;">M</div><div><span class="rv-name">Meera P.</span><span class="rv-meta">Ahmedabad · Verified</span></div><span class="rv-badge">Verified</span></div></article>
               </div>
-              <p class="rv-text">Honestly this thing changed my entire solo routine. The tapping mode alone is worth every rupee. Whisper-quiet too — my flatmate had no idea.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--acid);">P</div>
-                <div>
-                  <span class="rv-name">Priya S.</span>
-                  <span class="rv-meta">Mumbai · Verified Purchase</span>
-                </div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-
-            <!-- ── CARD 2 ── -->
-            <article class="rv-card">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--coral),var(--mint),var(--violet));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars" aria-label="5 stars">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-              </div>
-              <p class="rv-text">The waterproof feature is real — took it into the shower and it performed flawlessly. Packaging was so discreet, the delivery guy had zero idea what was inside.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--coral);">A</div>
-                <div>
-                  <span class="rv-name">Anika R.</span>
-                  <span class="rv-meta">Bangalore · Verified Purchase</span>
-                </div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-
-            <!-- ── CARD 3 ── -->
-            <article class="rv-card">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--mint),var(--sky),var(--acid));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars" aria-label="5 stars">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-              </div>
-              <p class="rv-text">Gifted this to my partner and we've barely put it down. Seven vibration settings means we haven't run out of surprises. Best purchase of the year, no contest.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--mint); color:#07101d;">K</div>
-                <div>
-                  <span class="rv-name">Kavitha M.</span>
-                  <span class="rv-meta">Chennai · Verified Purchase</span>
-                </div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-
-            <!-- ── CARD 4 ── -->
-            <article class="rv-card">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--violet),var(--acid),var(--coral));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars" aria-label="4 stars">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span class="half">★</span>
-              </div>
-              <p class="rv-text">The ergonomic shape fits perfectly in hand. Love that I can use tapping and vibration at the same time — that combination on mode 3 is absolutely unreal.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--violet); color:#fff;">N</div>
-                <div>
-                  <span class="rv-name">Neha T.</span>
-                  <span class="rv-meta">Delhi · Verified Purchase</span>
-                </div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-
-            <!-- ── CARD 5 ── -->
-            <article class="rv-card">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--sky),var(--violet),var(--mint));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars" aria-label="5 stars">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-              </div>
-              <p class="rv-text">Charged it once and it lasted me almost a week of daily use. Battery life is no joke. The velvety texture feels premium and the glow when it's on is so satisfying.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--sky); color:#07101d;">R</div>
-                <div>
-                  <span class="rv-name">Roshni V.</span>
-                  <span class="rv-meta">Pune · Verified Purchase</span>
-                </div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-
-            <!-- ── CARD 6 ── -->
-            <article class="rv-card">
-              <div class="rv-card-accent"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars" aria-label="5 stars">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-              </div>
-              <p class="rv-text">I was sceptical at first but the tapping sensation is genuinely like nothing else. It's precise, powerful and surprisingly addictive. Durex really understood the assignment.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--coral);">S</div>
-                <div>
-                  <span class="rv-name">Sneha L.</span>
-                  <span class="rv-meta">Hyderabad · Verified Purchase</span>
-                </div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-
-            <!-- ── CARD 7 ── -->
-            <article class="rv-card">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--acid),var(--mint),var(--sky));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars" aria-label="5 stars">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-              </div>
-              <p class="rv-text">45 minutes is plenty for a very thorough session. The discreet shipping is everything — arrived in a plain brown box, nothing to see. Will order again and again.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--acid);">D</div>
-                <div>
-                  <span class="rv-name">Divya K.</span>
-                  <span class="rv-meta">Kolkata · Verified Purchase</span>
-                </div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-
-            <!-- ── CARD 8 ── -->
-            <article class="rv-card">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--coral),var(--violet),var(--acid));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars" aria-label="5 stars">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-              </div>
-              <p class="rv-text">The price point compared to similar toys abroad is a steal. Quality feels genuinely premium — no rattles, no cheap plasticky feel. The glow lights are a gorgeous touch.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--mint); color:#07101d;">M</div>
-                <div>
-                  <span class="rv-name">Meera P.</span>
-                  <span class="rv-meta">Ahmedabad · Verified Purchase</span>
-                </div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-
-            <!-- DUPLICATE SET for seamless loop (JS also handles this) -->
-            <article class="rv-card" aria-hidden="true">
-              <div class="rv-card-accent"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <p class="rv-text">Honestly this thing changed my entire solo routine. The tapping mode alone is worth every rupee. Whisper-quiet too — my flatmate had no idea.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--acid);">P</div>
-                <div><span class="rv-name">Priya S.</span><span class="rv-meta">Mumbai · Verified Purchase</span></div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-            <article class="rv-card" aria-hidden="true">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--coral),var(--mint),var(--violet));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <p class="rv-text">The waterproof feature is real — took it into the shower and it performed flawlessly. Packaging was so discreet, the delivery guy had zero idea.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--coral);">A</div>
-                <div><span class="rv-name">Anika R.</span><span class="rv-meta">Bangalore · Verified Purchase</span></div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-            <article class="rv-card" aria-hidden="true">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--mint),var(--sky),var(--acid));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <p class="rv-text">Gifted this to my partner and we've barely put it down. Seven vibration settings means we haven't run out of surprises. Best purchase of the year, no contest.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--mint); color:#07101d;">K</div>
-                <div><span class="rv-name">Kavitha M.</span><span class="rv-meta">Chennai · Verified Purchase</span></div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-            <article class="rv-card" aria-hidden="true">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--violet),var(--acid),var(--coral));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="half">★</span></div>
-              <p class="rv-text">The ergonomic shape fits perfectly in hand. Love that I can use tapping and vibration at the same time — that combination on mode 3 is absolutely unreal.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--violet); color:#fff;">N</div>
-                <div><span class="rv-name">Neha T.</span><span class="rv-meta">Delhi · Verified Purchase</span></div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-            <article class="rv-card" aria-hidden="true">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--sky),var(--violet),var(--mint));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <p class="rv-text">Charged it once and it lasted me almost a week of daily use. Battery life is no joke. The velvety texture feels premium and the glow when it's on is so satisfying.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--sky); color:#07101d;">R</div>
-                <div><span class="rv-name">Roshni V.</span><span class="rv-meta">Pune · Verified Purchase</span></div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-            <article class="rv-card" aria-hidden="true">
-              <div class="rv-card-accent"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <p class="rv-text">I was sceptical at first but the tapping sensation is genuinely like nothing else. It's precise, powerful and surprisingly addictive. Durex really understood the assignment.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--coral);">S</div>
-                <div><span class="rv-name">Sneha L.</span><span class="rv-meta">Hyderabad · Verified Purchase</span></div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-            <article class="rv-card" aria-hidden="true">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--acid),var(--mint),var(--sky));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <p class="rv-text">45 minutes is plenty for a very thorough session. The discreet shipping is everything — arrived in a plain brown box. Will order again and again.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--acid);">D</div>
-                <div><span class="rv-name">Divya K.</span><span class="rv-meta">Kolkata · Verified Purchase</span></div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-            <article class="rv-card" aria-hidden="true">
-              <div class="rv-card-accent" style="background: linear-gradient(90deg,var(--coral),var(--violet),var(--acid));"></div>
-              <span class="rv-quote-mark" aria-hidden="true">"</span>
-              <div class="rv-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <p class="rv-text">The price point compared to similar toys abroad is a steal. Quality feels genuinely premium — no rattles, no cheap plasticky feel. The glow lights are a gorgeous touch.</p>
-              <div class="rv-author">
-                <div class="rv-avatar" style="--av-bg: var(--mint); color:#07101d;">M</div>
-                <div><span class="rv-name">Meera P.</span><span class="rv-meta">Ahmedabad · Verified Purchase</span></div>
-                <span class="rv-badge">Verified</span>
-              </div>
-            </article>
-
-          </div><!-- .reviews-track -->
-        </div><!-- .reviews-viewport -->
+            </div>
           </div>
 
           <div class="story-gallery js-haptic">
-            <div class="story-tabs" role="tablist" aria-label="Wild Wand product images">
-              <button class="story-card active" type="button"
-                data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png"
-                data-story-kicker="Clean product"
-                data-story-title="Durex Play Wild Wand"
-                data-story-copy="The compact rechargeable wand with 3 tapping modes, 7 vibration settings, and waterproof confidence."
-                aria-label="Show clean Wild Wand product image">
-                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Clean product" loading="lazy" decoding="async">
-                <span class="story-card-label"><span>Wild Wand</span><span>Clean</span></span>
+            <div class="story-tabs" role="tablist" aria-label="Wild Wand product features">
+              <button class="story-card active" type="button" data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" data-story-kicker="The product" data-story-title="Durex Play Wild Wand" data-story-copy="Compact, rechargeable, and whisper-quiet — the Wild Wand packs 3 tapping modes and 7 vibration settings into a body-safe silicone design." aria-label="Product overview">
+                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Wild Wand product" loading="lazy" decoding="async">
+                <span class="story-card-label"><span>Wild Wand</span><span>Overview</span></span>
               </button>
-              <button class="story-card" type="button"
-                data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg"
-                data-story-kicker="Ergonomic grip"
-                data-story-title="Designed ergonomically"
-                data-story-copy="Curved to sit naturally in hand, with a soft-touch body made for confident control."
-                aria-label="Show Wild Wand ergonomic grip image">
-                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" alt="Grip-ready" loading="lazy" decoding="async">
-                <span class="story-card-label"><span>Grip</span><span>Ready</span></span>
+              <button class="story-card" type="button" data-story-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" data-story-kicker="Designed to fit" data-story-title="Ergonomic Grip" data-story-copy="Curved to sit naturally in your hand with a soft-touch body. The shape is designed for confident, comfortable control." aria-label="Ergonomic design">
+                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" alt="Ergonomic grip" loading="lazy" decoding="async">
+                <span class="story-card-label"><span>Grip</span><span>Ergonomic</span></span>
               </button>
-              <button class="story-card" type="button"
-                data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000"
-                data-story-kicker="Mode details"
-                data-story-title="Wand-er to the wild side"
-                data-story-copy="Velvety smooth touch, waterproof play, and up to 45 minutes of run time."
-                aria-label="Show Wild Wand features image">
+              <button class="story-card" type="button" data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" data-story-kicker="3 tapping · 7 vibration · 45 min" data-story-title="All the Power" data-story-copy="3 tapping rhythms for teasing and surprise. 7 vibration speeds from subtle to electric. 45 minutes of play per charge — all in one wand." aria-label="Features overview">
                 <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" alt="Features" loading="lazy" decoding="async">
-                <span class="story-card-label"><span>3 7 45</span><span>Glow</span></span>
+                <span class="story-card-label"><span>3·7·45</span><span>Power</span></span>
               </button>
-              <button class="story-card" type="button"
-                data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000"
-                data-story-kicker="How to use"
-                data-story-title="Press, explore, combine"
-                data-story-copy="Hold to power on, move between tapping and vibrating modes, then hold both buttons to turn it off."
-                aria-label="Show Wild Wand how to use image">
+              <button class="story-card" type="button" data-story-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" data-story-kicker="Simple to use" data-story-title="How to Use" data-story-copy="Hold any button 3 seconds to power on. Cycle tapping modes with one button, vibration with the other. Use both together for maximum intensity. Hold 3 seconds to stop." aria-label="How to use">
                 <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="How to use" loading="lazy" decoding="async">
                 <span class="story-card-label"><span>How to</span><span>Use</span></span>
               </button>
@@ -1514,12 +762,12 @@
 
             <div class="story-preview">
               <div class="story-preview-visual">
-                <img id="storyImage" src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Wild Wand product" loading="lazy" decoding="async">
+                <img id="storyImage" src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Wild Wand" loading="lazy" decoding="async">
               </div>
               <div class="story-info">
-                <strong id="storyKicker">Clean product</strong>
+                <strong id="storyKicker">The product</strong>
                 <h3 id="storyTitle">Durex Play Wild Wand</h3>
-                <p id="storyCopy">The compact rechargeable wand with 3 tapping modes, 7 vibration settings, and waterproof confidence.</p>
+                <p id="storyCopy">Compact, rechargeable, and whisper-quiet — the Wild Wand packs 3 tapping modes and 7 vibration settings into a body-safe silicone design.</p>
               </div>
             </div>
           </div>
@@ -1529,322 +777,218 @@
               <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="How to use guide" loading="lazy" decoding="async">
             </div>
             <div class="use-steps">
-              <article class="use-step"><b>1</b><h3>Hold to start</h3><p>Wash before use, then hold any button for 3 seconds to turn it on.</p></article>
-              <article class="use-step"><b>2</b><h3>Explore modes</h3><p>Move between tapping and vibrating settings until the rhythm feels right.</p></article>
-              <article class="use-step"><b>3</b><h3>Try both together</h3><p>Use tapping and vibration modes simultaneously when you want extra intensity.</p></article>
-              <article class="use-step"><b>4</b><h3>Hold to stop</h3><p>Hold both buttons for 3 seconds to turn it off and reset for round two.</p></article>
+              <article class="use-step"><b>1</b><h3>Power on</h3><p>Wash first, then hold any button for 3 seconds to turn it on.</p></article>
+              <article class="use-step"><b>2</b><h3>Choose a mode</h3><p>Cycle through 3 tapping rhythms or 7 vibration speeds until it feels right.</p></article>
+              <article class="use-step"><b>3</b><h3>Stack them</h3><p>Run tapping and vibration together for maximum intensity.</p></article>
+              <article class="use-step"><b>4</b><h3>Power off</h3><p>Hold both buttons 3 seconds to turn off and reset for next time.</p></article>
             </div>
           </div>
         </div>
       </section>
 
-
-
-      <!-- ══ WAVE BAND ══ -->
+      <!-- WAVE BAND -->
       <section class="wave-band">
         <div class="wave-inner">
           <div class="banner-window">
-            <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/banner_2_95ea13c8-59bf-4a20-98ea-c12b70c8b12e.webp" alt="Wild Wand lifestyle banner" loading="lazy" decoding="async">
+            <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/banner_2_95ea13c8-59bf-4a20-98ea-c12b70c8b12e.webp" alt="Wild Wand lifestyle" loading="lazy" decoding="async">
           </div>
           <div class="wave-copy">
-            <h2>Small wand. Big main-character energy.</h2>
-            <p>Made for external stimulation, the Wild Wand brings a full control panel of playful sensations without making the experience feel complicated.</p>
+            <h2>Small wand. Big energy.</h2>
+            <p>Made for external stimulation — the Wild Wand gives you a full range of sensations without any of the complexity. Soft, strong, teasing, or all-out electric.</p>
           </div>
         </div>
       </section>
 
-      <!-- ══ FEATURES ══ -->
+      <!-- FEATURES -->
       <section class="features" id="features">
         <div class="feature-head">
           <h2 class="section-title">Pleasure, remixed.</h2>
-          <p>Three tapping patterns meet seven vibration settings — warm-up to grand finale in one compact device.</p>
+          <p>Three tapping patterns meet seven vibration speeds — from warm-up to grand finale, in one compact device.</p>
         </div>
         <div class="mode-grid">
-          <article class="mode-card js-haptic" style="--tone: var(--acid);">
-            <strong>3x</strong>
-            <span>Sensational tapping modes for rhythm, tease, and surprise.</span>
+          <article class="mode-card js-haptic" style="--tone:var(--acid);">
+            <strong>3×</strong>
+            <span>Tapping modes — rhythm, tease, and surprise.</span>
             <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/banner_1_92708bc0-5966-47f9-b2bc-390e1dab79a0.webp" alt="Tapping modes" loading="lazy" decoding="async">
           </article>
-          <article class="mode-card js-haptic" style="--tone: var(--mint);">
-            <strong>7x</strong>
-            <span>Vibration settings from subtle spark to full-volume buzz.</span>
+          <article class="mode-card js-haptic" style="--tone:var(--mint);">
+            <strong>7×</strong>
+            <span>Vibration speeds — from a subtle spark to full buzz.</span>
             <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/banner_3_84e6b366-d08a-4041-b190-fd1dc6107551.webp" alt="Vibration modes" loading="lazy" decoding="async">
           </article>
-          <article class="mode-card js-haptic" style="--tone: var(--coral);">
+          <article class="mode-card js-haptic" style="--tone:var(--coral);">
             <strong>45</strong>
-            <span>Minutes of play after charging, waterproof confidence built in.</span>
-            <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR2_434406f5-4e70-41af-9135-793b98fc7682.jpg?v=1774866547&width=1000" alt="Duration" loading="lazy" decoding="async">
+            <span>Minutes per charge — waterproof, rechargeable, ready.</span>
+            <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR2_434406f5-4e70-41af-9135-793b98fc7682.jpg?v=1774866547&width=1000" alt="Battery life" loading="lazy" decoding="async">
           </article>
         </div>
       </section>
 
-      <!-- ══ SHOWCASE ══ -->
+      <!-- SHOWCASE -->
       <section class="showcase" id="showcase">
         <div class="showcase-inner">
           <div class="gallery" aria-label="Product gallery">
             <div class="thumbs">
-              <button class="thumb active" type="button" data-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" aria-label="Show clean product image">
-                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="" loading="lazy" decoding="async">
-              </button>
-              <button class="thumb" type="button" data-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" aria-label="Show ergonomic image">
-                <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" alt="" loading="lazy" decoding="async">
-              </button>
-              <button class="thumb" type="button" data-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" aria-label="Show feature image">
-                <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" alt="" loading="lazy" decoding="async">
-              </button>
-              <button class="thumb" type="button" data-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" aria-label="Show how-to image">
-                <img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="" loading="lazy" decoding="async">
-              </button>
+              <button class="thumb active" type="button" data-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" aria-label="Product front view"><img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="" loading="lazy" decoding="async"></button>
+              <button class="thumb" type="button" data-image="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" aria-label="Ergonomic view"><img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-hero-ergonomic.jpg" alt="" loading="lazy" decoding="async"></button>
+              <button class="thumb" type="button" data-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" aria-label="Features view"><img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR6_074d1d34-bac9-494e-a39c-d5d8315d4345.jpg?v=1774866547&width=1000" alt="" loading="lazy" decoding="async"></button>
+              <button class="thumb" type="button" data-image="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" aria-label="How to use view"><img src="https://cdn.shopify.com/s/files/1/0072/3681/2858/files/FR7_ebccc054-fe8e-44cf-bf05-50364db09bce.jpg?v=1774856868&width=1000" alt="" loading="lazy" decoding="async"></button>
             </div>
-            <div class="main-frame">
-              <img id="galleryImage" src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Durex Play Wild Wand" loading="lazy" decoding="async">
-            </div>
+            <div class="main-frame"><img id="galleryImage" src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/wild-wand-clean-front.png" alt="Durex Play Wild Wand" loading="lazy" decoding="async"></div>
           </div>
-
           <aside class="buy-panel" id="shop">
             <h2>Durex Play Wild Wand</h2>
-            <p>Body-safe, waterproof, rechargeable, shipped discreetly. Built for external play only.</p>
+            <p>Body-safe silicone, 100% waterproof, USB rechargeable. Shipped discreetly — no branding on the box.</p>
             <div class="specs">
-              <div class="spec"><b>4.6</b><span>average rating</span></div>
-              <div class="spec"><b>18+</b><span>adult product</span></div>
-              <div class="spec"><b>3</b><span>tapping modes</span></div>
-              <div class="spec"><b>7</b><span>vibration settings</span></div>
+              <div class="spec"><b>4.6★</b><span>2,400+ reviews</span></div>
+              <div class="spec"><b>18+</b><span>Adult product</span></div>
+              <div class="spec"><b>3</b><span>Tapping modes</span></div>
+              <div class="spec"><b>7</b><span>Vibration speeds</span></div>
             </div>
-            <div class="quantity" aria-label="Quantity selector">
+            <div class="quantity" aria-label="Quantity">
               <button type="button" id="minus" aria-label="Decrease">−</button>
               <span id="quantity">1</span>
-              <button type="button" id="plus"  aria-label="Increase">+</button>
+              <button type="button" id="plus" aria-label="Increase">+</button>
             </div>
-            <a class="primary-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy on Durex India</a>
+            <a class="primary-cta" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy on Durex India — Rs. 2,699</a>
           </aside>
         </div>
       </section>
 
-      <!-- ══ FAQ ══ -->
+      <!-- FAQ -->
       <section class="faq" id="faq">
         <div class="faq-inner">
           <div>
-            <p class="eyebrow" style="color:var(--durex-blue);">Need-to-know details</p>
-            <h2 class="section-title">No mood killers.</h2>
+            <p class="eyebrow" style="color:var(--durex-blue);">Good to know</p>
+            <h2 class="section-title">No surprises.</h2>
           </div>
           <div class="faq-list">
-            <details open>
-              <summary>Is Wild Wand safe for my body?</summary>
-              <p>Yes. It is designed for external use and should not be inserted internally.</p>
-            </details>
-            <details>
-              <summary>Is it waterproof?</summary>
-              <p>Yes. The original product page describes Wild Wand as 100% waterproof.</p>
-            </details>
-            <details>
-              <summary>How do I clean it?</summary>
-              <p>Clean before and after use with mild soap and water, then let it dry completely before storing.</p>
-            </details>
-            <details>
-              <summary>How is it shipped?</summary>
-              <p>Durex India notes discreet packaging with no external branding or product name visible.</p>
-            </details>
+            <details open><summary>Is Wild Wand safe to use?</summary><p>Yes — designed for external use only. Do not insert internally. Made with body-safe silicone.</p></details>
+            <details><summary>Is it actually waterproof?</summary><p>Fully waterproof — safe for shower or bath use. Rinse it off without worry.</p></details>
+            <details><summary>How do I clean it?</summary><p>Wash with mild soap and warm water before and after use. Let it dry completely before storing.</p></details>
+            <details><summary>How does shipping work?</summary><p>Shipped in plain, discreet packaging with no product name or branding visible on the outside.</p></details>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- ══ STICKY BUY BAR ══ -->
+    <!-- STICKY BAR -->
     <div class="footer-buy" role="complementary" aria-label="Purchase bar">
       <div class="footer-buy-text">
         <strong>Durex Play Wild Wand</strong>
         <span>Rs. 2,699 · Save 42%</span>
       </div>
-      <a class="cta-shake js-buy-cta"
-         href="https://www.durexindia.com/products/durex-play-wild-wand"
-         aria-label="Buy Durex Play Wild Wand">
-        Buy Now
-      </a>
+      <a class="cta-shake" href="https://www.durexindia.com/products/durex-play-wild-wand">Buy Now</a>
     </div>
-  </div><!-- .page -->
+  </div>
 
   <script>
     'use strict';
     const root = document.documentElement;
-    const pRM  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pRM = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-    /* ── SCROLL ENGINE (rAF-throttled) ── */
+    /* Scroll engine */
     let raf = 0, lastY = 0;
     const paint = () => {
       raf = 0;
-      const y   = lastY;
-      const max = Math.max(1, document.body.scrollHeight - window.innerHeight);
-      root.style.setProperty('--scroll',          y.toFixed(1));
-      root.style.setProperty('--scroll-progress', Math.min(1, y / max).toFixed(4));
-      root.style.setProperty('--hero-media-y',    `${Math.max(-28, Math.min(14, y * -.032))}px`);
+      const y = lastY, max = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      root.style.setProperty('--scroll', y.toFixed(1));
+      root.style.setProperty('--scroll-progress', Math.min(1, y/max).toFixed(4));
     };
-    window.addEventListener('scroll', () => {
-      lastY = window.scrollY;
-      if (!raf) raf = requestAnimationFrame(paint);
-    }, { passive: true });
-    window.addEventListener('resize', () => {
-      if (!raf) raf = requestAnimationFrame(paint);
-    }, { passive: true });
+    window.addEventListener('scroll', () => { lastY = window.scrollY; if (!raf) raf = requestAnimationFrame(paint); }, { passive: true });
+    window.addEventListener('resize', () => { if (!raf) raf = requestAnimationFrame(paint); }, { passive: true });
     paint();
 
-    /* ── POINTER TILT (desktop) ── */
+    /* Pointer glow */
     window.addEventListener('pointermove', e => {
       if (pRM || window.innerWidth < 760) return;
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-      root.style.setProperty('--x', `${e.clientX}px`);
-      root.style.setProperty('--y', `${e.clientY}px`);
-      root.style.setProperty('--hero-tilt-y', `${(x - .5) * 9}deg`);
-      root.style.setProperty('--hero-tilt-x', `${(.5 - y) * 7}deg`);
-      root.style.setProperty('--hero-media-x', `${(x - .5) * 12}px`);
+      root.style.setProperty('--x', e.clientX + 'px');
+      root.style.setProperty('--y', e.clientY + 'px');
     }, { passive: true });
 
-    /* ── HERO VIDEO autoplay ── */
-    (function(){
-      const vid = document.getElementById('heroVid');
-      if (!vid) return;
-      vid.muted = true;
-      vid.load();
-      const play = () => vid.play().catch(()=>{});
-      vid.addEventListener('canplay', play, { once: true });
+    /* Hero video */
+    const heroVid = document.getElementById('heroVid');
+    if (heroVid) {
+      heroVid.muted = true; heroVid.load();
+      const play = () => heroVid.play().catch(()=>{});
+      heroVid.addEventListener('canplay', play, { once: true });
       play();
       document.addEventListener('pointerdown', play, { once: true });
-    })();
+    }
 
-    /* ── STORY SECTION VIDEO (lazy autoplay via IO) ── */
+    /* Story section video (lazy) */
     const storyVid = document.querySelector('.hero-video');
     if (storyVid && 'IntersectionObserver' in window) {
       new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting && !pRM) storyVid.play().catch(() => {});
-          else storyVid.pause();
-        });
+        entries[0].isIntersecting && !pRM ? storyVid.play().catch(()=>{}) : storyVid.pause();
       }, { threshold: .3 }).observe(storyVid);
     }
 
-    /* ── STORY TABS — auto-cycle ── */
-    const storyImage  = document.getElementById('storyImage');
+    /* Story tabs — auto-cycle */
+    const storyCards = [...document.querySelectorAll('.story-card')];
+    const storyImage = document.getElementById('storyImage');
     const storyKicker = document.getElementById('storyKicker');
-    const storyTitle  = document.getElementById('storyTitle');
-    const storyCopy   = document.getElementById('storyCopy');
-    const storyCards  = [...document.querySelectorAll('.story-card')];
-    const SLIDE_MS    = 3200;   // ms per card
-    let   storyIdx    = 0;
-    let   storyTimer  = null;
-    let   storyPaused = false;
+    const storyTitle = document.getElementById('storyTitle');
+    const storyCopy = document.getElementById('storyCopy');
+    const SLIDE_MS = 3200;
+    let storyIdx = 0, storyTimer = null, storyPaused = false;
 
     function activateCard(idx, animate = true) {
       storyIdx = (idx + storyCards.length) % storyCards.length;
       const card = storyCards[storyIdx];
-      storyCards.forEach(c => {
-        c.classList.remove('active');
-        const bar = c.querySelector('.sc-progress');
-        if (bar) { bar.style.transition = 'none'; bar.style.width = '0%'; }
-      });
+      storyCards.forEach(c => { c.classList.remove('active'); const b = c.querySelector('.sc-progress'); if (b) { b.style.transition = 'none'; b.style.width = '0%'; } });
       card.classList.add('active');
-
-      // animate preview image
-      if (storyImage && animate) {
-        storyImage.animate(
-          [{ opacity:.2, transform:'translateY(.6rem) scale(.97)' },
-           { opacity:1,  transform:'translateY(0) scale(1)' }],
-          { duration:340, easing:'cubic-bezier(.22,1,.36,1)' }
-        );
-      }
-      if (storyImage)  storyImage.src = card.dataset.storyImage;
+      if (storyImage && animate) storyImage.animate([{opacity:.2,transform:'translateY(.6rem) scale(.97)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:340,easing:'cubic-bezier(.22,1,.36,1)'});
+      if (storyImage) storyImage.src = card.dataset.storyImage;
       if (storyKicker) storyKicker.textContent = card.dataset.storyKicker;
-      if (storyTitle)  storyTitle.textContent  = card.dataset.storyTitle;
-      if (storyCopy)   storyCopy.textContent   = card.dataset.storyCopy;
-
-      // run progress bar on active card
+      if (storyTitle) storyTitle.textContent = card.dataset.storyTitle;
+      if (storyCopy) storyCopy.textContent = card.dataset.storyCopy;
       const bar = card.querySelector('.sc-progress');
-      if (bar && !pRM) {
-        requestAnimationFrame(() => {
-          bar.style.transition = `width ${SLIDE_MS}ms linear`;
-          bar.style.width = '100%';
-        });
-      }
+      if (bar && !pRM) requestAnimationFrame(() => { bar.style.transition = `width ${SLIDE_MS}ms linear`; bar.style.width = '100%'; });
     }
+    function startCycle() { clearInterval(storyTimer); storyTimer = setInterval(() => { if (!storyPaused) activateCard(storyIdx + 1); }, SLIDE_MS); }
 
-    function startCycle() {
-      clearInterval(storyTimer);
-      storyTimer = setInterval(() => {
-        if (!storyPaused) activateCard(storyIdx + 1);
-      }, SLIDE_MS);
-    }
-
-    // Add progress bar element to each card
     storyCards.forEach((card, i) => {
-      const bar = document.createElement('div');
-      bar.className = 'sc-progress';
-      card.appendChild(bar);
-
-      // Manual click — reset timer
-      card.addEventListener('click', () => {
-        clearInterval(storyTimer);
-        activateCard(i);
-        startCycle();
-      });
-
-      // Pause on hover/focus
-      card.addEventListener('mouseenter', () => { storyPaused = true; });
-      card.addEventListener('mouseleave', () => { storyPaused = false; });
-      card.addEventListener('focus',      () => { storyPaused = true; });
-      card.addEventListener('blur',       () => { storyPaused = false; });
+      const bar = document.createElement('div'); bar.className = 'sc-progress'; card.appendChild(bar);
+      card.addEventListener('click', () => { clearInterval(storyTimer); activateCard(i); startCycle(); });
+      card.addEventListener('mouseenter', () => storyPaused = true);
+      card.addEventListener('mouseleave', () => storyPaused = false);
     });
-
-    // Pause when section is out of view (IO)
     const storyGallery = document.querySelector('.story-gallery');
-    if (storyGallery && 'IntersectionObserver' in window) {
-      new IntersectionObserver(entries => {
-        storyPaused = !entries[0].isIntersecting;
-      }, { threshold: .2 }).observe(storyGallery);
-    }
-
-    // Touch pause on mobile
+    if (storyGallery && 'IntersectionObserver' in window) new IntersectionObserver(e => storyPaused = !e[0].isIntersecting, {threshold:.2}).observe(storyGallery);
     if (storyGallery) {
-      storyGallery.addEventListener('touchstart', () => { storyPaused = true;  }, { passive:true });
-      storyGallery.addEventListener('touchend',   () => {
-        setTimeout(() => { storyPaused = false; }, 1800);
-      }, { passive:true });
+      storyGallery.addEventListener('touchstart', () => storyPaused = true, {passive:true});
+      storyGallery.addEventListener('touchend', () => setTimeout(()=>storyPaused=false,1800), {passive:true});
     }
+    activateCard(0, false); startCycle();
 
-    activateCard(0, false);
-    startCycle();
-
-    /* ── GALLERY THUMBS ── */
+    /* Gallery thumbs */
     const galleryImg = document.getElementById('galleryImage');
     document.querySelectorAll('.thumb').forEach(thumb => {
       thumb.addEventListener('click', () => {
         document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
         thumb.classList.add('active');
-        galleryImg.animate(
-          [{ opacity:.3, transform:'scale(.97)' },
-           { opacity:1,  transform:'scale(1.02)' }],
-          { duration:240, easing:'ease-out' }
-        );
+        galleryImg.animate([{opacity:.3,transform:'scale(.97)'},{opacity:1,transform:'scale(1.02)'}],{duration:240,easing:'ease-out'});
         galleryImg.src = thumb.dataset.image;
       });
     });
 
-    /* ── QUANTITY ── */
+    /* Quantity */
     const qty = document.getElementById('quantity');
-    document.getElementById('minus').addEventListener('click', () => { qty.textContent = Math.max(1, +qty.textContent - 1); });
-    document.getElementById('plus').addEventListener('click',  () => { qty.textContent = Math.min(9, +qty.textContent + 1); });
+    document.getElementById('minus').addEventListener('click', () => qty.textContent = Math.max(1, +qty.textContent - 1));
+    document.getElementById('plus').addEventListener('click',  () => qty.textContent = Math.min(9, +qty.textContent + 1));
 
-    /* ── REVIEWS — pause on touch ── */
+    /* Reviews — pause on touch */
     const track = document.getElementById('reviewsTrack');
     if (track) {
-      track.addEventListener('touchstart', () => { track.style.animationPlayState = 'paused'; }, { passive: true });
-      track.addEventListener('touchend',   () => { track.style.animationPlayState = 'running'; }, { passive: true });
+      track.addEventListener('touchstart', () => track.style.animationPlayState = 'paused', {passive:true});
+      track.addEventListener('touchend',   () => track.style.animationPlayState = 'running', {passive:true});
     }
 
-    /* ── HAPTIC ── */
-    document.querySelectorAll('.js-buy-cta, .js-haptic, .cta-shake').forEach(el => {
-      el.addEventListener('pointerdown', () => {
-        if ('vibrate' in navigator) navigator.vibrate([22,14,22]);
-      }, { passive: true });
-    });
+    /* Haptic */
+    document.querySelectorAll('.cta-shake,.js-haptic,.primary-cta').forEach(el =>
+      el.addEventListener('pointerdown', () => 'vibrate' in navigator && navigator.vibrate([22,14,22]), {passive:true})
+    );
   </script>
 </body>
 </html>
