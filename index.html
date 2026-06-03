@@ -252,9 +252,10 @@
     .hero-parallax-video {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
+      object-fit: cover;
+      object-position: center 25%;   /* focus on buttons area of the product */
       border-radius: inherit;
-      transform: scale(1.06) translateY(calc(var(--hero-media-y) * .45));
+      transform: scale(1.04) translateY(calc(var(--hero-media-y) * .4));
       will-change: transform;
     }
 
@@ -1169,9 +1170,13 @@
               id="heroVid"
               autoplay muted loop playsinline
               preload="auto"
+              poster="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-parallax.gif"
               aria-label="Wild Wand parallax hero video"
             >
               <source src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-parallax.mp4" type="video/mp4">
+              <!-- GIF fallback — plays on any browser, no autoplay policy -->
+              <img src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-parallax.gif"
+                   alt="Wild Wand" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">
             </video>
             <div class="hero-video-vignette" aria-hidden="true"></div>
           </div>
