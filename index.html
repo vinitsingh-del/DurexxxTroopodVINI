@@ -148,12 +148,11 @@
     .hero {
       position: relative;
       display: grid;
-      grid-template-columns: minmax(0,1fr) minmax(0,.95fr);
-      gap: clamp(1.5rem,3vw,3.5rem);
+      grid-template-columns: 1fr auto;   /* copy flexible, stage exact width */
+      gap: clamp(2rem,4vw,5rem);
       align-items: center;
       min-height: 100svh;
       padding: clamp(6rem,10vh,9rem) clamp(1.25rem,5vw,5rem) clamp(3rem,5vh,5rem);
-      /* Clip the decorative blobs — NOT the video */
       overflow: clip;
     }
 
@@ -227,31 +226,23 @@
     .price-pill s { color: rgba(255,255,255,.55); font-weight: 700; }
 
     /* ─ RIGHT STAGE ─ */
-    .hero-stage {
-      position: relative; z-index: 2;
-      /* Fixed height prevents overflow into next section */
-      height: clamp(24rem, 52vh, 46rem);
-      border-radius: 1.75rem;
-      overflow: hidden;           /* hard clip */
-      perspective: 1200px;
-      transform: translateY(calc(var(--scroll) * .04px));
-      will-change: transform;
-    }
 
     /* ── HERO STAGE — 9:16 image slider ── */
     .hero-stage {
       position: relative; z-index: 2;
-      /* 9:16 aspect ratio, capped height */
-      width: min(28rem, 44vw);
+      /* On desktop: fixed width, 9:16 grows naturally in height */
+      width: min(26rem, 42vw);
       aspect-ratio: 9 / 16;
       height: auto;
+      max-height: 88vh;          /* never taller than viewport */
       border-radius: 1.75rem;
       overflow: hidden;
       background: linear-gradient(135deg, #022c68, #07c8bb);
-      box-shadow: 0 2rem 5rem rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.12);
-      transform: translateY(calc(var(--scroll) * .04px));
+      box-shadow: 0 2rem 5rem rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.14);
+      transform: translateY(calc(var(--scroll) * .03px));
       will-change: transform;
       align-self: center;
+      flex-shrink: 0;
     }
 
     /* each slide — absolute fill */
@@ -976,26 +967,16 @@
         min-height: auto;
         padding-top: clamp(5.5rem,12vw,7rem);
         padding-bottom: 2rem;
-        gap: 1.5rem;
-        /* Ensure copy always ABOVE stage */
+        gap: 1.25rem;
         align-items: start;
       }
-      .hero-copy {
-        position: relative; z-index: 3;
-        transform: none !important;
-      }
+      .hero-copy { position: relative; z-index: 3; transform: none !important; }
+      .hero-controls { position: relative; z-index: 4; }
       .hero-stage {
-        /* Fixed height — never grows beyond this */
-        height: clamp(20rem, 56vw, 34rem);
-        border-radius: 1.35rem;
+        width: min(22rem, 60vw);   /* narrower on tablet — centred */
+        max-height: none;
+        margin: 0 auto;            /* centre the 9:16 card */
         transform: none;
-        /* Stage always BELOW copy, never overlaps */
-        position: relative;
-        z-index: 1;
-        order: 2;
-      }
-      .hero-controls {
-        position: relative; z-index: 4;
       }
       .wave-inner, .story-head, .story-preview,
       .use-panel, .showcase-inner, .faq-inner {
@@ -1033,89 +1014,86 @@
       .grid-noise, .cursor-glow { display: none; }
       .brand span, .nav-actions .chip:not(.buy) { display: none; }
 
-      h1 { font-size: clamp(3rem,15vw,5.5rem); }
+      h1 { font-size: clamp(2.8rem,13vw,5rem); }
 
+      /* ── HERO: single column, copy above, image below ── */
       .hero {
-        padding-inline: 1rem;
-        padding-top: 5.5rem;
-        padding-bottom: 1.5rem;
-        gap: 0;
         display: flex;
         flex-direction: column;
+        align-items: stretch;
+        gap: 0;
         min-height: auto;
-        overflow: visible;   /* don't clip hero-stage child */
+        padding: 5.2rem 1rem 1.5rem;
+        overflow: visible;
       }
+
+      /* COPY block */
       .hero-copy {
         order: 1;
         position: relative; z-index: 3;
         transform: none !important;
-        padding-bottom: .85rem;
+        padding-bottom: 0;
       }
-      .hero-text { display: none; } /* hide on mobile to save space */
+      .hero-text { display: none; }
 
-      /* ── PRICE + CTAs — above video, no overlap ── */
+      /* Price pill — full width */
       .hero-controls {
         display: flex;
         flex-direction: column;
-        gap: .55rem;
-        margin-top: .9rem;
+        gap: .5rem;
+        margin-top: .85rem;
         position: relative; z-index: 4;
       }
       .price-pill {
         display: flex; align-items: baseline;
-        gap: .55rem; width: 100%;
-        min-height: 3.4rem;
-        padding: .6rem 1rem;
-        border-radius: 1.2rem;
-        background: rgba(255,255,255,.13);
-        border: 1px solid rgba(255,255,255,.22);
+        gap: .5rem; width: 100%;
+        min-height: 3.2rem;
+        padding: .55rem .9rem;
+        border-radius: 1.1rem;
+        background: rgba(255,255,255,.12);
+        border: 1px solid rgba(255,255,255,.2);
       }
-      .price-pill strong { font-size: clamp(1.25rem,7vw,1.65rem); }
-      .price-pill s { font-size: clamp(.82rem,4.2vw,1.05rem); }
+      .price-pill strong { font-size: clamp(1.2rem,6.5vw,1.55rem); }
+      .price-pill s { font-size: clamp(.8rem,4vw,1rem); }
 
-      /* CTAs side by side, 10% smaller than desktop */
+      /* CTAs: side by side */
       .hero-cta-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: .55rem;
+        gap: .5rem;
         width: 100%;
       }
       .primary-cta, .ghost-cta {
         width: 100%; justify-content: center;
-        min-height: 3.06rem;           /* 3.4rem × 0.9 = 3.06rem */
-        padding: .55rem .4rem;
-        border-radius: 1.4rem;
-        font-size: clamp(.78rem,3.6vw,.93rem);
+        min-height: 2.9rem;
+        padding: .5rem .35rem;
+        border-radius: 1.3rem;
+        font-size: clamp(.76rem,3.5vw,.9rem);
         font-weight: 900; white-space: nowrap;
       }
 
-      /* ── VIDEO — hard-fixed below all copy ── */
+      /* ── IMAGE STAGE: 9:16, full width, below copy ── */
       .hero-stage {
         order: 2;
-        width: 100%;
-        aspect-ratio: 9 / 16;
+        width: 100%;              /* fill container width */
+        aspect-ratio: 9 / 16;    /* 9:16 portrait — height is auto */
         height: auto;
-        max-height: 70vw;      /* cap on small screens so it doesn't take full page */
+        max-height: none;         /* NO height cap — let 9:16 be 9:16 */
         border-radius: 1.25rem;
-        margin-top: .85rem;
+        margin-top: 1rem;
         transform: none !important;
         align-self: auto;
+        box-shadow: 0 1.5rem 3rem rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.1);
       }
-      .hero-slide {
-        border-radius: 1.25rem;
-      }
-      /* Tags smaller on mobile, inside stage */
-      .float-tag { width: 4.5rem; font-size: .62rem; }
-      .float-tag.one { left: .6rem; top: 8%; }
-      .float-tag.two { right: .6rem; bottom: 8%; }
+
+      /* Float tags — inside stage corners */
+      .float-tag { width: 4.2rem; font-size: .6rem; }
+      .float-tag.one { left: .65rem; top: 1rem; }
+      .float-tag.two { right: .65rem; bottom: 1rem; }
 
       .scroll-pulse { bottom: .7rem; width: 2.2rem; }
 
-      /* reviews on mobile */
-      .rv-card { width: clamp(15rem, 78vw, 20rem); padding: 1.4rem 1.3rem 1.2rem; }
-      .rv-text { font-size: .88rem; }
-      .reviews-track { animation-duration: 28s; }
-
+      /* ── OTHER SECTIONS ── */
       .story-tabs {
         display: flex; gap: .75rem;
         margin-inline: -1rem; padding-inline: 1rem;
@@ -1130,12 +1108,16 @@
       .story-info h3 { font-size: clamp(1.7rem,10vw,3rem); }
       .use-steps { grid-template-columns: 1fr; }
       .use-visual img { min-height: 14rem; }
-
       .banner-window { aspect-ratio: 4/3; }
       .main-frame { min-height: 22rem; }
       .specs { grid-template-columns: 1fr; }
 
-      /* footer bar full-width pill on mobile */
+      /* reviews */
+      .rv-card { width: clamp(15rem, 78vw, 20rem); padding: 1.4rem 1.3rem 1.2rem; }
+      .rv-text { font-size: .88rem; }
+      .reviews-track { animation-duration: 28s; }
+
+      /* footer bar */
       .footer-buy {
         width: calc(100vw - 1.5rem);
         padding: .65rem .65rem .65rem 1.1rem;
