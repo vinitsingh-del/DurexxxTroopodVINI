@@ -183,77 +183,73 @@
       margin-top: 1.2rem; max-width: 36rem;
       color: rgba(255,255,255,.82); font-size: clamp(.95rem,1.5vw,1.15rem); line-height: 1.65;
     }
-    .hero-controls { display: flex; flex-direction: column; gap: .85rem; margin-top: 1.6rem; }
-    .hero-cta-row { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
+    .hero-controls { display: flex; flex-direction: column; gap: .75rem; margin-top: 1.5rem; }
+    .hero-cta-row { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
 
-    /* ── PRICE CARD ── */
+    /* ── PRICE CARD — clean symmetric pill ── */
     .price-card {
-      display: inline-flex; flex-direction: column; gap: .7rem;
-      padding: .9rem 1.1rem 1rem;
-      border: 1px solid rgba(255,255,255,.18); border-radius: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .75rem 1.25rem;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;           /* full pill */
       background: rgba(255,255,255,.08);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 .5rem 2rem rgba(0,0,0,.22);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 .4rem 1.8rem rgba(0,0,0,.22);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
-
-    /* Price row */
     .price-row {
-      display: flex; align-items: baseline; gap: .65rem; flex-wrap: wrap;
+      display: flex; align-items: baseline; gap: .6rem;
     }
-    .price-now { color: #fff; font-size: 1.65rem; font-weight: 950; line-height: 1; }
-    .price-was { color: rgba(255,255,255,.38); font-weight: 700; font-size: 1rem; text-decoration: line-through; }
+    .price-now { color: #fff; font-size: 1.6rem; font-weight: 950; line-height: 1; white-space: nowrap; }
+    .price-was { color: rgba(255,255,255,.38); font-weight: 700; font-size: .95rem; text-decoration: line-through; white-space: nowrap; }
     .price-save {
       display: inline-flex; align-items: center;
-      padding: .18rem .55rem; border-radius: 999px;
+      padding: .22rem .6rem; border-radius: 999px;
       background: var(--coral); color: #fff;
-      font-size: .72rem; font-weight: 900; letter-spacing: .04em;
+      font-size: .7rem; font-weight: 900; letter-spacing: .05em; white-space: nowrap;
     }
 
-    /* Sticker row */
-    .price-stickers {
-      display: flex; gap: .5rem; flex-wrap: wrap; align-items: center;
+    /* ── HERO STICKERS — inside video, bottom-left ── */
+    .hero-stickers {
+      position: absolute;
+      bottom: 3.2rem;   /* above scroll-pulse */
+      left: .75rem;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .38rem;
     }
+
+    /* Sticker base */
     .sticker {
       display: inline-flex; flex-direction: column; align-items: center;
-      padding: .35rem .65rem;
-      border-radius: .55rem;
+      padding: .28rem .55rem;
+      border-radius: .45rem;
       border: 1.5px solid rgba(255,255,255,.15);
-      /* slight skew for that sticker look */
-      transform: rotate(-1.5deg);
-      line-height: 1;
-      user-select: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.2);
-      transition: transform 200ms ease, box-shadow 200ms ease;
+      line-height: 1; user-select: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.22);
+      transition: transform 200ms ease;
     }
-    .sticker:nth-child(2) { transform: rotate(1deg); }
-    .sticker:nth-child(3) { transform: rotate(-0.8deg); }
-    .sticker:hover { transform: rotate(0deg) scale(1.06); box-shadow: 0 4px 16px rgba(0,0,0,.35); }
+    .sticker:nth-child(1) { transform: rotate(-2deg); }
+    .sticker:nth-child(2) { transform: rotate(1.2deg); }
+    .sticker:nth-child(3) { transform: rotate(-1deg); }
+    .sticker:hover { transform: rotate(0deg) scale(1.08) !important; }
 
-    .sticker--acid {
-      background: var(--acid); border-color: rgba(0,0,0,.12);
-    }
-    .sticker--acid .sticker-num  { color: #07101d; }
-    .sticker--acid .sticker-label { color: rgba(0,0,0,.65); }
+    .sticker--acid  { background: var(--acid); }
+    .sticker--coral { background: var(--coral); }
+    .sticker--mint  { background: var(--mint); }
 
-    .sticker--coral {
-      background: var(--coral); border-color: rgba(255,255,255,.2);
-    }
+    .sticker--acid  .sticker-num  { color: #07101d; }
+    .sticker--acid  .sticker-label { color: rgba(0,0,0,.62); }
     .sticker--coral .sticker-num  { color: #fff; }
     .sticker--coral .sticker-label { color: rgba(255,255,255,.82); }
+    .sticker--mint  .sticker-num  { color: #07101d; }
+    .sticker--mint  .sticker-label { color: rgba(0,0,0,.6); }
 
-    .sticker--mint {
-      background: var(--mint); border-color: rgba(0,0,0,.1);
-    }
-    .sticker--mint .sticker-num  { color: #07101d; }
-    .sticker--mint .sticker-label { color: rgba(0,0,0,.6); }
-
-    .sticker-num {
-      font-size: 1rem; font-weight: 950; letter-spacing: -.01em; line-height: 1;
-    }
-    .sticker-label {
-      font-size: .55rem; font-weight: 850; letter-spacing: .1em;
-      text-transform: uppercase; margin-top: .12rem;
-    }
+    .sticker-num   { font-size: .88rem; font-weight: 950; letter-spacing: -.01em; line-height: 1; }
+    .sticker-label { font-size: .48rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; margin-top: .1rem; }
 
     /* RIGHT stage */
     .hero-stage {
@@ -811,15 +807,28 @@
         display: flex; flex-direction: column;
         gap: .55rem; margin-top: .9rem; width: 100%;
       }
+      /* Price card — full-width pill on mobile */
       .price-card {
-        width: 100%; padding: .75rem .9rem .85rem;
-        border-radius: 1rem; gap: .55rem;
+        width: 100%;
+        padding: .65rem 1.1rem;
+        border-radius: 999px;          /* keep pill shape */
+        display: flex; align-items: center;
+        justify-content: flex-start;
       }
-      .price-now { font-size: clamp(1.25rem,6.5vw,1.6rem); }
-      .price-was { font-size: clamp(.82rem,3.8vw,.98rem); }
-      .sticker { padding: .3rem .55rem; border-radius: .45rem; }
-      .sticker-num { font-size: .88rem; }
-      .sticker-label { font-size: .5rem; }
+      .price-now { font-size: clamp(1.2rem,6vw,1.5rem); }
+      .price-was { font-size: clamp(.78rem,3.6vw,.95rem); }
+      .price-save { font-size: .66rem; padding: .18rem .5rem; }
+
+      /* Stickers smaller inside video on mobile */
+      .hero-stickers {
+        bottom: 2.8rem;
+        left: .55rem;
+        gap: .28rem;
+      }
+      .sticker { padding: .22rem .42rem; border-radius: .38rem; }
+      .sticker-num { font-size: .72rem; }
+      .sticker-label { font-size: .38rem; }
+
       .hero-cta-row {
         display: grid; grid-template-columns: 1fr 1fr;
         gap: .5rem; width: 100%;
@@ -917,27 +926,11 @@
           <p class="hero-subtitle"><strong>3 tapping modes &middot; 7 vibration settings</strong><br>100% waterproof &middot; 45 min play &middot; Whisper-quiet</p>
           <p class="hero-text">The compact rechargeable wand built for external pleasure. Powerful enough to thrill, quiet enough to keep your business your own.</p>
           <div class="hero-controls">
-            <div class="price-card" aria-label="Price and product highlights">
-              <!-- Price row -->
+            <div class="price-card" aria-label="Price">
               <div class="price-row">
                 <strong class="price-now">Rs. 2,699</strong>
                 <s class="price-was">Rs. 4,686</s>
                 <span class="price-save">42% OFF</span>
-              </div>
-              <!-- Sticker badges -->
-              <div class="price-stickers">
-                <span class="sticker sticker--acid">
-                  <span class="sticker-num">7</span>
-                  <span class="sticker-label">VIBES</span>
-                </span>
-                <span class="sticker sticker--coral">
-                  <span class="sticker-num">100%</span>
-                  <span class="sticker-label">WET READY</span>
-                </span>
-                <span class="sticker sticker--mint">
-                  <span class="sticker-num">45</span>
-                  <span class="sticker-label">MIN PLAY</span>
-                </span>
               </div>
             </div>
             <div class="hero-cta-row">
@@ -952,6 +945,23 @@
             <source src="https://vinitsingh-del.github.io/DurexxxTroopodVINI/assets/hero-parallax.mp4" type="video/mp4">
           </video>
           <div class="hero-video-vignette" aria-hidden="true"></div>
+
+          <!-- Sticker badges — bottom-left of video -->
+          <div class="hero-stickers" aria-hidden="true">
+            <span class="sticker sticker--acid">
+              <span class="sticker-num">7</span>
+              <span class="sticker-label">VIBES</span>
+            </span>
+            <span class="sticker sticker--coral">
+              <span class="sticker-num">100%</span>
+              <span class="sticker-label">WET READY</span>
+            </span>
+            <span class="sticker sticker--mint">
+              <span class="sticker-num">45</span>
+              <span class="sticker-label">MIN PLAY</span>
+            </span>
+          </div>
+
           <a class="scroll-pulse" href="#how-it-works" aria-label="Scroll down"></a>
         </div>
       </section>
